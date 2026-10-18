@@ -1,0 +1,14 @@
+{
+  "output": "dist",
+  "public": "public",
+  "schemaVersion": "1.0.0",
+  "siteConfig": "src/config",
+  "components": "src/components",
+  "layouts": "src/layouts",
+  "content": "src/content",
+  "pages": "src/pages",
+  "globalStyles": "src/styles/global.css",
+  "designSystem": ".astrofy/design/design-system.json",
+  "designSystemCss": "designsystem.css",
+  "checklist": "astrofy.checklist.json"
+}

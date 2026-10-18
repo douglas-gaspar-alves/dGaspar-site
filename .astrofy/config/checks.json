@@ -1,0 +1,9 @@
+{
+  "schemaVersion": "1.0.0",
+  "exclude": [],
+  "baseUrl": null,
+  "timeoutMs": 10000,
+  "maxPages": 200,
+  "retention": 30,
+  "trustedExecution": false
+}

@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "1.0.0",
+  "failOn": [
+    "critical",
+    "error"
+  ],
+  "requireManual": false,
+  "severities": {},
+  "strictCategories": [],
+  "tokenUsage": {
+    "allowedValues": [
+      "0",
+      "auto",
+      "inherit",
+      "transparent",
+      "currentColor"
+    ],
+    "allowedFiles": []
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "1.0.0",
+  "slug": "home",
+  "type": "homepage",
+  "status": "ready",
+  "createdAt": "2026-10-18T00:44:14.245Z",
+  "updatedAt": "2026-10-18T00:44:36.043Z",
+  "answers": {
+    "title": "Home dGaspar",
+    "route": "/",
+    "objective": "Gerar conversas sobre a consultoria individual de IA & Automação. Objetivo secundário: encaminhar pessoas interessadas em vibe coding e agentes de IA ao LAB dGaspar.",
+    "audience": "Principal: empreendedores e donos de negócios físicos ou digitais que avaliam como aplicar IA e automação. Secundário: pessoas interessadas em vibe coding e agentes de IA, público associado ao LAB dGaspar. Necessidades específicas permanecem hipóteses quando não validadas.",
+    "primaryActionLabel": "Converse comigo sobre seu caso.",
+    "primaryActionHref": "#contato",
+    "positioning": "Consultoria individual de IA & Automação, com n8n como foco amplo. Entender o contexto do negócio antes de recomendar ferramentas; qualquer execução mais ampla é contratada separadamente.",
+    "destinations": "Consultoria: seção/formulário #contato. Serviços de execução: seção #servicos. Projeto Auttus: https://auttus.com/. LAB dGaspar: https://lab.douglasgaspar.com. Blog fica fora da fase inicial. Instagram: https://www.instagram.com/doug.gaspar/. YouTube: https://www.youtube.com/@d-Gaspar.",
+    "proof": "Projeto Auttus: Douglas relata contribuição em automação e integração com IA, com autorização de exibição registrada em BRAND.md; link público https://auttus.com/. Não atribuir outras partes do projeto. Há relato de recomendação positiva em consultoria de CRM com n8n, mas sem depoimento publicável fornecido."
+  },
+  "rejected": [],
+  "missing": [],
+  "nextQuestions": []
+}

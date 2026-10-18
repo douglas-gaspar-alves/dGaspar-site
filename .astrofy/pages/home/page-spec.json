@@ -1,0 +1,277 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "home",
+  "type": "homepage",
+  "status": "ready",
+  "title": "Home dGaspar",
+  "route": "/",
+  "objective": "Gerar conversas sobre a consultoria individual de IA & Automação; encaminhar como prioridade secundária as pessoas interessadas em vibe coding e agentes de IA ao LAB dGaspar.",
+  "audience": {
+    "status": "approved",
+    "value": "Principal: empreendedores e donos de negócios físicos ou digitais que avaliam como IA e automação podem se encaixar no negócio. Necessidades específicas continuam hipóteses quando não validadas. Secundário: pessoas interessadas em vibe coding e agentes de IA, público associado ao LAB dGaspar."
+  },
+  "primaryAction": {
+    "status": "approved",
+    "label": "Converse comigo sobre seu caso.",
+    "href": "#contato"
+  },
+  "sections": [
+    {
+      "id": "hero",
+      "type": "hero",
+      "status": "approved",
+      "purpose": "Apresentar a consultoria como prioridade e levar ao formulário de contato.",
+      "content": {
+        "heading": "Entenda onde IA e automação podem fazer sentido no seu negócio.",
+        "body": "Eu começo pela realidade do seu negócio para conversar sobre processos, ferramentas e decisões. Se uma implementação fizer sentido, a execução é tratada separadamente."
+      },
+      "actions": [
+        {
+          "label": "Converse comigo sobre seu caso.",
+          "href": "#contato",
+          "kind": "link",
+          "status": "approved"
+        }
+      ],
+      "media": [
+        {
+          "id": "diagrama-contexto-decisao-teste",
+          "kind": "illustration",
+          "status": "approved",
+          "source": "../brand/templates/site-homepage.html (referência; compor ilustração final no site)",
+          "alt": "Diagrama das etapas contexto, decisão e teste",
+          "purpose": "Representar visualmente a sequência de entender o contexto antes de decidir e testar."
+        }
+      ],
+      "sourceNotes": [
+        "Copy aprovada pelo responsável nesta conversa em 2026-10-17.",
+        "Direção visual derivada de ../BRAND.md e ../brand/templates/site-homepage.html."
+      ]
+    },
+    {
+      "id": "consultoria",
+      "type": "service-summary",
+      "status": "approved",
+      "purpose": "Explicar o formato individual e separar orientação de execução.",
+      "content": {
+        "heading": "Uma conversa sobre o seu caso.",
+        "body": "Na consultoria online individual, eu conheço seu processo e o que você precisa decidir. Conversamos sobre IA, automação, ferramentas e caminhos possíveis, incluindo n8n. Se você quiser delegar a implementação, a execução é contratada separadamente."
+      },
+      "actions": [],
+      "media": [],
+      "sourceNotes": [
+        "Oferta e limites confirmados em ../BRAND.md e ../brand/strategy.md.",
+        "Copy aprovada pelo responsável nesta conversa em 2026-10-17."
+      ]
+    },
+    {
+      "id": "projetos",
+      "type": "project-proof",
+      "status": "approved",
+      "purpose": "Apresentar uma prova de trabalho sem atribuir resultados ou atividades não confirmadas.",
+      "content": {
+        "heading": "Auttus",
+        "body": "Atuei com automação e integração com IA em um projeto da Auttus."
+      },
+      "actions": [
+        {
+          "label": "Visitar o site da Auttus",
+          "href": "https://auttus.com/",
+          "kind": "link",
+          "status": "approved"
+        }
+      ],
+      "media": [],
+      "sourceNotes": [
+        "Autorização de exibição e escopo de atuação relatados em ../BRAND.md.",
+        "Não incluir métricas, depoimentos ou atribuição de outras partes do projeto."
+      ]
+    },
+    {
+      "id": "servicos",
+      "type": "service-categories",
+      "status": "approved",
+      "purpose": "Oferecer caminhos de execução sem misturá-los à consultoria.",
+      "content": {
+        "heading": "Serviços com escopo tratado por proposta.",
+        "headingStatus": "approved",
+        "body": "Também posso cuidar da criação de sites, da instalação de n8n e de outras implementações de IA e automação, com escopo tratado por proposta.",
+        "items": [
+          "Criação de sites",
+          "Instalação de n8n",
+          "Outras implementações de IA e automação, com escopo por proposta"
+        ]
+      },
+      "actions": [
+        {
+          "label": "Peça uma proposta para a execução.",
+          "href": "#contato",
+          "kind": "link",
+          "status": "approved"
+        }
+      ],
+      "media": [],
+      "sourceNotes": [
+        "Ofertas confirmadas em ../BRAND.md.",
+        "Copy e CTA aprovados pelo responsável nesta conversa em 2026-10-17."
+      ]
+    },
+    {
+      "id": "lab",
+      "type": "community-summary",
+      "status": "approved",
+      "purpose": "Encaminhar o público interessado em vibe coding e agentes de IA ao LAB dGaspar.",
+      "content": {
+        "heading": "LAB dGaspar",
+        "body": "O LAB dGaspar é uma comunidade com acesso por login para pessoas interessadas em vibe coding e agentes de IA."
+      },
+      "actions": [
+        {
+          "label": "Conheça o LAB",
+          "href": "https://lab.douglasgaspar.com",
+          "kind": "link",
+          "status": "approved"
+        }
+      ],
+      "media": [],
+      "sourceNotes": [
+        "Descrição e URL registradas em ../BRAND.md e ../.inboundfy/context/links.md.",
+        "Copy aprovada pelo responsável nesta conversa em 2026-10-17."
+      ]
+    },
+    {
+      "id": "contato",
+      "type": "contact-form",
+      "status": "approved",
+      "purpose": "Receber solicitações de consultoria e propostas de execução.",
+      "content": {
+        "heading": "Converse comigo sobre seu caso.",
+        "headingStatus": "approved",
+        "fields": [
+          {
+            "name": "name",
+            "label": "Nome",
+            "required": true
+          },
+          {
+            "name": "email",
+            "label": "E-mail",
+            "required": true
+          },
+          {
+            "name": "subject",
+            "label": "Assunto",
+            "required": false,
+            "options": [
+              "Consultoria",
+              "Serviço de execução",
+              "Outro"
+            ]
+          },
+          {
+            "name": "message",
+            "label": "Mensagem",
+            "required": true
+          }
+        ],
+        "submitLabel": "Enviar mensagem",
+        "submitLabelStatus": "approved",
+        "successMessage": "Mensagem enviada. Obrigado por compartilhar seu caso.",
+        "successMessageStatus": "approved",
+        "errorMessage": "Não foi possível enviar a mensagem. Tente novamente.",
+        "errorMessageStatus": "approved",
+        "privacyNotice": null
+      },
+      "actions": [
+        {
+          "label": "Enviar mensagem",
+          "href": null,
+          "kind": "submit",
+          "status": "approved"
+        }
+      ],
+      "media": [],
+      "sourceNotes": [
+        "Campos e estados básicos aprovados pelo responsável nesta conversa em 2026-10-17.",
+        "Destino de envio, política e texto de privacidade ainda não fornecidos."
+      ]
+    }
+  ],
+  "assets": [
+    {
+      "id": "logo-dgaspar",
+      "kind": "logo",
+      "status": "approved",
+      "source": "../brand/logo/svg/logo-fundo-claro.svg",
+      "alt": "dGaspar",
+      "purpose": "Identificação da marca no header; proporção horizontal aproximada 3,22:1. Copiar para site/public durante a implementação."
+    },
+    {
+      "id": "foto-hero",
+      "kind": "image",
+      "status": "approved",
+      "source": null,
+      "alt": null,
+      "purpose": "Retrato/foto ausente por escolha aprovada; não usar imagem de banco no hero."
+    }
+  ],
+  "behaviors": [
+    {
+      "id": "navegacao-global",
+      "status": "approved",
+      "description": "Header com links de âncora para Consultoria, Projetos, Serviços, LAB e Contato. Footer com Instagram e YouTube oficiais. Não criar rotas adicionais nesta fase.",
+      "states": [
+        "Links permanecem operáveis por teclado e em telas estreitas.",
+        "Links externos de Auttus, LAB, Instagram e YouTube apontam para os destinos registrados."
+      ]
+    },
+    {
+      "id": "formulario-de-contato",
+      "status": "approved",
+      "description": "Validar nome, e-mail e mensagem obrigatórios; assunto opcional. Enviar somente ao destino a ser confirmado.",
+      "states": [
+        "Estado inicial com campos vazios e instruções associadas.",
+        "Validação de campos obrigatórios e e-mail.",
+        "Estado de envio em andamento.",
+        "Sucesso exibido somente após confirmação do serviço de destino.",
+        "Erro preserva os valores e permite nova tentativa.",
+        "Destino de envio e consentimento/aviso de privacidade pendentes."
+      ]
+    }
+  ],
+  "openItems": [
+    "Definir o serviço ou endereço que receberá o formulário antes de implementar o envio.",
+    "Fornecer URL e texto de privacidade aprovados antes de publicar o formulário."
+  ],
+  "sources": [
+    "../BRAND.md",
+    "../brand/strategy.md",
+    "../brand/voice.md",
+    "../brand/templates/site-homepage.html",
+    "../.inboundfy/context/empresa.md",
+    "../.inboundfy/context/publico.md",
+    "../.inboundfy/context/links.md",
+    "Conversa com o responsável em 2026-10-17"
+  ],
+  "approvedAt": "2026-10-17T21:55:06-03:00",
+  "seo": {
+    "title": "dGaspar | Consultoria de IA e automação",
+    "description": "Conversas individuais sobre IA e automação no contexto do seu negócio, com n8n entre os focos e execução contratada separadamente.",
+    "canonical": "/",
+    "indexable": true
+  },
+  "integrations": [
+    "Destino do formulário de contato pendente; nenhum provedor configurado."
+  ],
+  "accessibility": {
+    "landmarks": true,
+    "keyboard": true,
+    "mediaAlternatives": true
+  },
+  "tests": [
+    "Renderizar a rota / e conferir a ordem das seções e links de âncora.",
+    "Validar nome, e-mail e mensagem obrigatórios; assunto opcional.",
+    "Confirmar que sucesso só é anunciado após envio aceito e que erro preserva os campos.",
+    "Conferir operação por teclado, foco e alternativa textual do diagrama."
+  ]
+}
