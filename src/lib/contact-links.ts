@@ -13,9 +13,7 @@ export const technicalContactHref = mailTo(
   "Olá, Douglas! Trabalho com vibe coding ou no-code e quero saber quando houver um espaço para profissionais da área.\n\nMeu contexto é:\n",
 );
 
-export const siteCreationProposalHref = mailTo(
-  "Criação de sites — quero uma proposta",
-);
+export const siteCreationProposalHref = firstConsultationHref;
 
 const whatsappNumber = "5511999999999";
 const whatsappMessage = "Olá, Douglas! Quero conversar sobre um projeto.";

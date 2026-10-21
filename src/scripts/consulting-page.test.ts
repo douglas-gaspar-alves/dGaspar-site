@@ -17,12 +17,12 @@ describe("página de consultorias", () => {
 		expect(page).not.toMatch(/duração|garantid[oa]|resultado garantido/i);
 	});
 
-	it("direciona os CTAs de consultoria ao agendamento e mantém e-mail como contato alternativo", () => {
+	it("direciona os CTAs de consultoria ao agendamento", () => {
 		expect(contactLinks).toContain("https://cal.com/douglasgaspar/consultorias-servicos");
 		expect(hero).toContain("primaryHref = firstConsultationHref");
 		expect(orientation).toContain("ctaHref = firstConsultationHref");
 		expect(consultingCta).toContain("ctaHref = firstConsultationHref");
-		expect(consultingCta).toContain("href={`mailto:${emailAddress}`}");
+		expect(consultingCta).not.toContain("mailto:");
 	});
 
 	it("dá um destino real para o público técnico sem anunciar uma página pronta", () => {
