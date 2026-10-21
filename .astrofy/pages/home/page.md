@@ -22,7 +22,7 @@
 
 - Consultoria: `mailto:contato@douglasgaspar.com?subject=Consultoria...`.
 - Serviços: “Quero colocar meu projeto em prática” → `/consultorias/`.
-- Contato geral: `https://wa.me/<número>?text=...`, aberto em nova aba; o número vive em `whatsappNumber`, no topo do frontmatter de `src/pages/index.astro`.
+- Contato geral: `https://wa.me/5522992591418?text=...` (+55 22 99259-1418), aberto em nova aba; o número vive em `whatsappNumber`, em `src/lib/contact-links.ts`.
 - Instalação de n8n e implementações de IA e automação: itens `(EM BREVE)`, sem link próprio.
 - Próxima aula: `http://lab.douglasgaspar.com/events`, nova aba. O DNS do host falhou durante a validação local; preservar a URL escolhida e revalidar antes de publicar.
 - Studio Alma não recebe link público nesta versão.
@@ -44,7 +44,7 @@
 - Studio Alma fica descrito como projeto em desenvolvimento.
 - Destino da próxima aula precisa de verificação DNS antes de publicação.
 - Instalação de n8n e implementações de IA e automação estão marcadas como `(EM BREVE)`: não descrever esses itens como contratação disponível.
-- O número do WhatsApp do CTA do rodapé ainda não foi confirmado; não publicar a Home com o placeholder.
+- O número do WhatsApp do CTA do rodapé foi confirmado em 2026-10-21 (+55 22 99259-1418); qualquer troca precisa passar por decisão registrada.
 
 ## Proveniência
 

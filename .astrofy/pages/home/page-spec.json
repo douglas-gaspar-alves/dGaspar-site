@@ -13,7 +13,7 @@
   "primaryAction": {
     "status": "approved",
     "label": "Falar no WhatsApp",
-    "href": "https://wa.me/5511999999999?text=Ol%C3%A1%2C%20Douglas!%20Quero%20conversar%20sobre%20um%20projeto."
+    "href": "https://wa.me/5522992591418?text=Ol%C3%A1%2C%20Douglas!%20Quero%20conversar%20sobre%20um%20projeto."
   },
   "sections": [
     {
@@ -234,7 +234,7 @@
       "actions": [
         {
           "label": "Falar no WhatsApp",
-          "href": "https://wa.me/5511999999999?text=Ol%C3%A1%2C%20Douglas!%20Quero%20conversar%20sobre%20um%20projeto.",
+          "href": "https://wa.me/5522992591418?text=Ol%C3%A1%2C%20Douglas!%20Quero%20conversar%20sobre%20um%20projeto.",
           "kind": "link",
           "status": "approved"
         }
@@ -345,7 +345,7 @@
   ],
   "openItems": [
     "O host lab.douglasgaspar.com/events não respondeu ao teste DNS; confirmar destino antes de publicar.",
-    "O número do WhatsApp do CTA do rodapé ainda não foi confirmado; hoje é um placeholder em whatsappNumber, em src/pages/index.astro."
+    "O número do WhatsApp do CTA do rodapé foi confirmado em 2026-10-21: +55 22 99259-1418, registrado em src/lib/contact-links.ts."
   ],
   "sources": [
     "Conversa com o responsável em 2026-10-20",
