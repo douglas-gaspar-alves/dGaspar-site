@@ -1,183 +1,37 @@
 ---
-import "../styles/global.css";
-
-const title = "dGaspar | Consultoria de IA e automação";
-const description =
-  "Conversas individuais sobre IA e automação no contexto do seu negócio, com n8n entre os focos e execução contratada separadamente.";
-const canonical = "https://douglasgaspar.com/";
-const socialImage = "https://douglasgaspar.com/images/og-home.png";
-
-const services = [
-  "Criação de sites",
-  "Instalação de n8n",
-  "Outras implementações de IA e automação, com escopo por proposta",
-];
-
-const subjectOptions = ["Consultoria", "Serviço de execução", "Outro"];
+import SiteLayout from "../layouts/SiteLayout.astro";
+import HomeHero from "../components/HomeHero.astro";
+import HomePaths from "../components/HomePaths.astro";
+import HomeAbout from "../components/HomeAbout.astro";
+import HomeProjects from "../components/HomeProjects.astro";
+import HomeToolkit from "../components/HomeToolkit.astro";
+import HomeConsulting from "../components/HomeConsulting.astro";
+import HomeServices from "../components/HomeServices.astro";
+import HomeFooter from "../components/HomeFooter.astro";
 ---
 
-<!doctype html>
-<html lang="pt-BR" data-theme="light">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<meta name="description" content={description} />
-		<meta name="theme-color" content="#F7FAFF" />
-		<link rel="canonical" href={canonical} />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
-		<meta property="og:locale" content="pt_BR" />
-		<meta property="og:type" content="website" />
-		<meta property="og:title" content={title} />
-		<meta property="og:description" content={description} />
-		<meta property="og:url" content={canonical} />
-		<meta property="og:site_name" content="dGaspar" />
-		<meta property="og:image" content={socialImage} />
-		<meta property="og:image:width" content="1200" />
-		<meta property="og:image:height" content="630" />
-		<meta property="og:image:alt" content="Marca dGaspar e diagrama das etapas contexto, decisão e teste" />
-		<meta name="twitter:card" content="summary_large_image" />
-		<title>{title}</title>
-	</head>
-	<body>
-		<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
-		<header class="site-header">
-			<div class="wrap header-inner">
-				<a class="brand" href="#inicio" aria-label="dGaspar, início">
-					<img src="/images/logo-dgaspar.svg" width="214" height="67" alt="dGaspar" />
-				</a>
-				<nav aria-label="Navegação principal">
-					<a href="#consultoria">Consultoria</a>
-					<a href="#projetos">Projetos</a>
-					<a href="#servicos">Serviços</a>
-					<a href="#lab">LAB</a>
-					<a href="#contato">Contato</a>
-				</nav>
-			</div>
-		</header>
-
-		<main id="conteudo">
-			<section class="hero wrap" id="inicio" aria-labelledby="hero-title">
-				<div class="hero-copy">
-					<p class="eyebrow">Consultoria individual de IA e automação</p>
-					<h1 id="hero-title">Entenda onde IA e automação podem fazer sentido no seu negócio.</h1>
-					<p class="hero-description">
-						Eu começo pela realidade do seu negócio para conversar sobre processos, ferramentas e decisões. Se uma implementação fizer sentido, a execução é tratada separadamente.
-					</p>
-					<a class="button button-primary" href="#contato">Converse comigo sobre seu caso.</a>
-				</div>
-				<figure class="diagram-card">
-					<svg class="diagram" viewBox="0 0 440 320" role="img" aria-labelledby="diagram-title diagram-description">
-						<title id="diagram-title">Contexto, decisão e teste</title>
-						<desc id="diagram-description">Diagrama das etapas contexto, decisão e teste</desc>
-						<defs>
-							<marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
-								<path d="M0,0 L8,4 L0,8 z" fill="#0D65FF" />
-							</marker>
-						</defs>
-						<path class="connector" d="M164 82 H274" marker-end="url(#arrow)" />
-						<path class="connector" d="M348 124 C348 178 267 195 244 220" marker-end="url(#arrow)" />
-						<rect class="node" x="18" y="38" width="146" height="88" rx="18" />
-						<rect class="node" x="274" y="38" width="146" height="88" rx="18" />
-						<rect class="node node-accent" x="148" y="218" width="146" height="78" rx="18" />
-						<text class="node-label" x="91" y="91" text-anchor="middle">Contexto</text>
-						<text class="node-label" x="347" y="91" text-anchor="middle">Decisão</text>
-						<text class="node-label node-label-accent" x="221" y="265" text-anchor="middle">Teste</text>
-					</svg>
-				</figure>
-			</section>
-
-			<section class="section wrap" id="consultoria" aria-labelledby="consultoria-title">
-				<div class="section-heading">
-					<p class="eyebrow">Consultoria</p>
-					<h2 id="consultoria-title">Uma conversa sobre o seu caso.</h2>
-				</div>
-				<div class="section-copy">
-					<p>Na consultoria online individual, eu conheço seu processo e o que você precisa decidir. Conversamos sobre IA, automação, ferramentas e caminhos possíveis, incluindo n8n. Se você quiser delegar a implementação, a execução é contratada separadamente.</p>
-					<a class="text-link" href="#contato">Converse comigo sobre seu caso <span aria-hidden="true">↗</span></a>
-				</div>
-			</section>
-
-			<section class="section section-tint" id="projetos" aria-labelledby="projetos-title">
-				<div class="wrap project-layout">
-					<div>
-						<p class="eyebrow">Projeto</p>
-						<h2 id="projetos-title">Auttus</h2>
-					</div>
-					<div>
-						<p>Atuei com automação e integração com IA em um projeto da Auttus.</p>
-						<a class="text-link" href="https://auttus.com/">Visitar o site da Auttus <span aria-hidden="true">↗</span></a>
-					</div>
-				</div>
-			</section>
-
-			<section class="section wrap" id="servicos" aria-labelledby="servicos-title">
-				<div class="section-heading section-heading-wide">
-					<p class="eyebrow">Execução</p>
-					<h2 id="servicos-title">Serviços com escopo tratado por proposta.</h2>
-				</div>
-				<p class="section-intro">Também posso cuidar da criação de sites, da instalação de n8n e de outras implementações de IA e automação, com escopo tratado por proposta.</p>
-				<ul class="service-list">
-					{services.map((service, index) => (
-						<li>
-							<span class="service-index" aria-hidden="true">0{index + 1}</span>
-							<span>{service}</span>
-						</li>
-					))}
-				</ul>
-				<a class="button button-secondary" href="#contato">Peça uma proposta para a execução.</a>
-			</section>
-
-			<section class="section lab-section" id="lab" aria-labelledby="lab-title">
-				<div class="wrap lab-layout">
-					<div class="lab-mark" aria-hidden="true">LAB</div>
-					<div>
-						<p class="eyebrow">Comunidade</p>
-						<h2 id="lab-title">LAB dGaspar</h2>
-						<p>O LAB dGaspar é uma comunidade com acesso por login para pessoas interessadas em vibe coding e agentes de IA.</p>
-						<a class="button button-light" href="https://lab.douglasgaspar.com">Conheça o LAB</a>
-					</div>
-				</div>
-			</section>
-
-			<section class="section wrap contact-section" id="contato" aria-labelledby="contato-title">
-				<div class="contact-intro">
-					<p class="eyebrow">Contato</p>
-					<h2 id="contato-title">Converse comigo sobre seu caso.</h2>
-					<p>O envio ainda não está disponível: faltam a definição do destino e do aviso de privacidade.</p>
-				</div>
-				<form class="contact-form" aria-describedby="contact-pending">
-					<fieldset disabled>
-						<legend class="sr-only">Formulário de contato</legend>
-						<label for="name">Nome</label>
-						<input id="name" name="name" autocomplete="name" required />
-						<label for="email">E-mail</label>
-						<input id="email" name="email" type="email" autocomplete="email" required />
-						<label for="subject">Assunto <span>(opcional)</span></label>
-						<select id="subject" name="subject">
-							<option value="">Selecione um assunto</option>
-							{subjectOptions.map((option) => <option value={option}>{option}</option>)}
-						</select>
-						<label for="message">Mensagem</label>
-						<textarea id="message" name="message" rows="5" required></textarea>
-						<button class="button button-primary" type="submit">Enviar mensagem</button>
-					</fieldset>
-					<p class="form-pending" id="contact-pending">O formulário será habilitado quando o destino e as informações de privacidade estiverem definidos.</p>
-				</form>
-			</section>
-		</main>
-
-		<footer class="site-footer">
-			<div class="wrap footer-inner">
-				<a class="footer-brand" href="#inicio">dGaspar</a>
-				<p>Consultoria individual de IA e automação.</p>
-				<nav aria-label="Redes sociais">
-					<a href="https://www.instagram.com/doug.gaspar/">Instagram</a>
-					<a href="https://www.youtube.com/@d-Gaspar">YouTube</a>
-				</nav>
-			</div>
-		</footer>
-	</body>
-</html>
+<SiteLayout
+  title="Douglas Gaspar — IA, automação e criação"
+  description="Eu sou Douglas Gaspar. Aprendo, crio e compartilho projetos com inteligência artificial, automação e tecnologia."
+  canonical="https://douglasgaspar.com/"
+  dataTheme="light"
+  colorScheme="light"
+  preloadImage="/images/douglas-portrait.webp"
+  ogImage="https://douglasgaspar.com/images/douglas-portrait.webp"
+  ogImageType="image/webp"
+  ogImageWidth="1084"
+  ogImageHeight="1451"
+  ogImageAlt="Retrato ilustrado de Douglas Gaspar"
+  twitterImage="https://douglasgaspar.com/images/douglas-portrait.webp"
+  twitterImageAlt="Retrato ilustrado de Douglas Gaspar"
+  schemaKind="person"
+>
+  <HomeHero />
+  <HomePaths />
+  <HomeAbout />
+  <HomeProjects />
+  <HomeToolkit />
+  <HomeConsulting />
+  <HomeServices />
+  <HomeFooter slot="footer" />
+</SiteLayout>

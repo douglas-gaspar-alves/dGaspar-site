@@ -1,0 +1,38 @@
+---
+import "../styles/service-page.css";
+import { siteCreationProposalHref } from "../lib/contact-links";
+
+interface Props {
+  eyebrow?: string;
+  titleLineOne?: string;
+  titleLineTwo?: string;
+  titleAccent?: string;
+  body?: string;
+  ctaLabel?: string;
+  note?: string;
+  proposalHref?: string;
+}
+
+const {
+  eyebrow = "Escopo próprio",
+  titleLineOne = "Uma proposta",
+  titleLineTwo = "por",
+  titleAccent = "projeto.",
+  body = "Cada site tem o escopo que o seu projeto pede. O que entra, o que não entra e o que depende de você ficam escritos antes de qualquer trabalho, e é aí que eu defino o preço e o prazo.",
+  ctaLabel = "Quero uma proposta para o meu site",
+  note = "Você escreve, eu leio e respondo com os próximos passos.",
+  proposalHref = siteCreationProposalHref,
+} = Astro.props;
+---
+
+<section class="service-scope" aria-labelledby="scope-title">
+				<div class="wrap service-scope-inner">
+					<p class="eyebrow">{eyebrow}</p>
+					<h2 id="scope-title">{titleLineOne}<br />{titleLineTwo} <em>{titleAccent}</em></h2>
+					<div class="service-scope-side">
+						<p>{body}</p>
+						<a class="button button-primary" href={proposalHref}>{ctaLabel} <span aria-hidden="true">↗</span></a>
+						<p class="service-scope-note">{note}</p>
+					</div>
+				</div>
+			</section>

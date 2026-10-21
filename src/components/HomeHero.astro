@@ -1,0 +1,217 @@
+---
+const heroTools = [
+	{ name: "n8n", image: "/images/icons/n8n.svg", w: 240, h: 96, depth: 1.1, lift: 4, tilt: -11, tone: "color", row: "front" },
+	{ name: "LAB dGaspar", image: "/images/icons/lab.svg", w: 300, h: 300, depth: 1.8, lift: 16, tilt: -4, tone: "color", row: "front" },
+	{ name: "ChatGPT", image: "/images/icons/chatgpt.svg", w: 41, h: 40, depth: 1.5, lift: 22, tilt: 3, tone: "light", row: "front" },
+	{ name: "dGaspar", image: "/images/icons/dgaspar.svg", w: 23, h: 23, depth: 1.2, lift: 14, tilt: 9, tone: "color", row: "front" },
+	{ name: "OpenCode", image: "/images/icons/opencode.svg", w: 240, h: 300, depth: 0.9, lift: 6, tilt: 14, tone: "color", row: "front" },
+	{ name: "YouTube", image: "/images/icons/youtube.svg", w: 54, h: 38, depth: 1.6, lift: 0, tilt: 20, tone: "color", row: "front" },
+	{ name: "Magnific", image: "/images/icons/magnific.svg", w: 220, h: 152, depth: 2, lift: 20, tilt: -16, tone: "light", row: "back" },
+	{ name: "Studio Alma", image: "/images/icons/alma.svg", w: 544, h: 544, depth: 1.3, lift: 30, tilt: -6, tone: "light", row: "back" },
+	{ name: "Hermes Agent", image: "/images/icons/hermes.svg", w: 200, h: 200, depth: 1.4, lift: 26, tilt: 4, tone: "light", row: "back" },
+	{ name: "Instagram", image: "/images/icons/instagram.svg", w: 300, h: 300, depth: 1.7, lift: 20, tilt: 11, tone: "color", row: "back" },
+	{ name: "LAB dGaspar", image: "/images/icons/orbit.svg", w: 234, h: 234, depth: 1.1, lift: 12, tilt: 18, tone: "color", row: "back" },
+];
+
+interface Props {
+	heading?: string;
+	portraitImage?: string;
+  portraitAlt?: string;
+  scrollLabel?: string;
+}
+
+const {
+	heading = "Douglas Gaspar",
+	portraitImage = "/images/douglas-portrait.webp",
+  portraitAlt = "Retrato ilustrado de Douglas Gaspar",
+  scrollLabel = "Conheça o que está em movimento",
+} = Astro.props;
+
+---
+
+<section class="hero" id="inicio" aria-labelledby="hero-title">
+				<h1 class="sr-only" id="hero-title">{heading}</h1>
+				<div class="hero-wordmark" aria-hidden="true">
+					<div class="hero-wordmark-track">
+						<img class="hero-wordmark-logo" src="/images/logo-dgaspar-hero.svg" width="91" height="23" alt="" fetchpriority="high" decoding="async" />
+					</div>
+				</div>
+				<div class="hero-scene">
+					<div class="hero-portrait-wrap">
+						<div class="hero-portrait-stage">
+							<img class="hero-portrait" src={portraitImage} alt={portraitAlt} width="1084" height="1451" fetchpriority="high" decoding="async" />
+							<div class="hero-tools">
+								<ul class="hero-tools-row hero-tools-row-back" aria-label="Marcas eorbitais do dGaspar">
+									{heroTools.filter((tool) => tool.row === "back").map((tool, index) => (
+										<li class:list={["hero-tool", `hero-tool-back-${index + 1}`, tool.tone === "light" && "hero-tool-light"]} data-depth={tool.depth} style={`--lift:${tool.lift}px;--tilt:${tool.tilt}deg`}>
+											<span class="hero-tool-drift"><span class="hero-tool-float"><img src={tool.image} alt={tool.name} width={tool.w} height={tool.h} decoding="async" /></span></span>
+										</li>
+									))}
+								</ul>
+								<ul class="hero-tools-row hero-tools-row-front" aria-label="Ferramentas que fazem parte do processo de Douglas Gaspar">
+									{heroTools.filter((tool) => tool.row === "front").map((tool, index) => (
+										<li class:list={["hero-tool", `hero-tool-front-${index + 1}`, tool.tone === "light" && "hero-tool-light"]} data-depth={tool.depth} style={`--lift:${tool.lift}px;--tilt:${tool.tilt}deg`}>
+											<span class="hero-tool-drift"><span class="hero-tool-float"><img src={tool.image} alt={tool.name} width={tool.w} height={tool.h} decoding="async" /></span></span>
+										</li>
+									))}
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="hero-edge">
+					<a class="hero-scroll" href="#sobre">{scrollLabel} <span aria-hidden="true">↓</span></a>
+					<nav class="hero-social" aria-label="Redes sociais"><a href="https://www.youtube.com/@d-Gaspar" target="_blank" rel="noreferrer" aria-label="Canal dGaspar no YouTube"><img src="/images/icons/youtube.svg" alt="" width="38" height="27" decoding="async" /></a><a href="https://www.instagram.com/doug.gaspar/" target="_blank" rel="noreferrer" aria-label="Perfil dGaspar no Instagram"><img src="/images/icons/instagram.svg" alt="" width="33" height="33" decoding="async" /></a></nav>
+				</div>
+			</section>
+
+<script>
+			// Menu fixo: nasce no fluxo logo abaixo da hero e gruda no topo.
+			const header = document.querySelector<HTMLElement>(".site-header");
+			const toggle = header?.querySelector<HTMLButtonElement>(".menu-toggle");
+			const panel = header?.querySelector<HTMLElement>(".menu-panel");
+			const toggleLabel = toggle?.querySelector<HTMLElement>(".sr-only");
+
+			if (header) {
+				let ticking = false;
+				const syncHeader = () => {
+					header.classList.toggle("is-stuck", header.getBoundingClientRect().top <= 0);
+					ticking = false;
+				};
+				window.addEventListener("scroll", () => {
+					if (!ticking) {
+						ticking = true;
+						requestAnimationFrame(syncHeader);
+					}
+				}, { passive: true });
+				syncHeader();
+			}
+
+			const setMenu = (open: boolean) => {
+				header?.classList.toggle("is-open", open);
+				toggle?.setAttribute("aria-expanded", String(open));
+				if (toggleLabel) toggleLabel.textContent = open ? "Fechar menu" : "Abrir menu";
+			};
+
+			toggle?.addEventListener("click", () => setMenu(!header?.classList.contains("is-open")));
+			panel?.addEventListener("click", (event) => {
+				const target = event.target as HTMLElement;
+				if (target.closest("a") || !target.closest(".menu-panel-inner")) setMenu(false);
+			});
+			document.addEventListener("keydown", (event) => {
+				if (event.key === "Escape" && header?.classList.contains("is-open")) {
+					setMenu(false);
+					toggle?.focus();
+				}
+			});
+
+			// Titulo do kit em maquina de escrever: comeca quando a secao entra na tela.
+			const typewriters = Array.from(document.querySelectorAll<HTMLElement>(".typewriter"));
+			const toolkitPortrait = document.querySelector<HTMLElement>(".toolkit-portrait");
+			const typeLines = async () => {
+				for (const line of typewriters) {
+					const text = line.dataset.type ?? line.textContent ?? "";
+					const target = line.hasAttribute("data-em")
+						? (line.innerHTML = "<em></em>", line.querySelector("em")!)
+						: line;
+					line.classList.remove("is-done");
+					for (let i = 0; i <= text.length; i++) {
+						target.textContent = text.slice(0, i);
+						await new Promise((resolve) => setTimeout(resolve, i === text.length ? 0 : 52 + Math.random() * 62));
+					}
+					line.classList.add("is-done");
+					await new Promise((resolve) => setTimeout(resolve, 260));
+				}
+			};
+
+			const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+			if (toolkitPortrait) {
+				let portraitLast = window.scrollY;
+				window.addEventListener("scroll", () => {
+					const current = window.scrollY;
+					const goingUp = current < portraitLast - 2;
+					portraitLast = current;
+					toolkitPortrait.classList.toggle("is-away", goingUp);
+				}, { passive: true });
+			}
+
+			if (typewriters.length) {
+				const toolkitSection = document.querySelector<HTMLElement>(".toolkit-section");
+				if (reduceMotion || !toolkitSection) {
+					typewriters.forEach((line) => { line.classList.add("is-done"); });
+				} else {
+					const observer = new IntersectionObserver((entries) => {
+						if (entries.some((entry) => entry.isIntersecting)) {
+							observer.disconnect();
+							toolkitPortrait?.classList.add("is-in");
+							void typeLines();
+						}
+					}, { threshold: 0.35 });
+					if (toolkitSection) observer.observe(toolkitSection);
+				}
+			}
+
+			if (!reduceMotion) {
+				const { gsap } = await import("gsap");
+				const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+				gsap.registerPlugin(ScrollTrigger);
+
+				const hero = document.querySelector<HTMLElement>(".hero");
+				const tools = Array.from(document.querySelectorAll<HTMLElement>(".hero-tool"));
+
+				gsap.timeline({ defaults: { ease: "expo.out" } })
+					.fromTo(".hero-wordmark-track", { clipPath: "inset(0% 100% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.5 }, 0.15)
+					.fromTo(".hero-portrait", { y: 54, scale: 0.93, opacity: 0 }, { y: 0, scale: 1, opacity: 1, duration: 1.3, ease: "power4.out" }, 0.4)
+					.fromTo(".hero-tool", { scale: 0.4, opacity: 0, y: 24 }, { scale: 1, opacity: 1, y: 0, duration: 0.9, stagger: { each: 0.09, from: "random" }, ease: "back.out(2)" }, 0.75)
+					.fromTo(".hero-edge > *", { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, stagger: 0.1 }, 1);
+
+				// O nome fica fixo: a foto e os icones deslizam por baixo dele.
+				gsap.to(".hero-wordmark", { opacity: 0, scale: 1.06, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "58% top", scrub: true } });
+				gsap.to(".hero-wordmark-track", { yPercent: -10, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+				gsap.to(".hero-portrait-wrap", { yPercent: -16, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+				tools.forEach((tool, index) => {
+					const direction = index % 2 === 0 ? 1 : -1;
+					gsap.to(tool, { xPercent: direction * (5 + index * 2), yPercent: (index % 3 === 0 ? 1 : -1) * (6 + index * 2), ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+				});
+
+				hero?.addEventListener("pointermove", (event) => {
+					const box = hero.getBoundingClientRect();
+					const x = (event.clientX - box.left - box.width / 2) / box.width;
+					const y = (event.clientY - box.top - box.height / 2) / box.height;
+					hero.style.setProperty("--px", `${(x * 20).toFixed(2)}px`);
+					hero.style.setProperty("--py", `${(y * 14).toFixed(2)}px`);
+					hero.style.setProperty("--mx", `${(x * -10).toFixed(2)}px`);
+					hero.style.setProperty("--my", `${(y * -6).toFixed(2)}px`);
+					tools.forEach((tool) => {
+						const depth = Number(tool.dataset.depth ?? 1);
+						tool.style.setProperty("--tx", `${(x * depth * 18).toFixed(2)}px`);
+						tool.style.setProperty("--ty", `${(y * depth * 14).toFixed(2)}px`);
+					});
+				}, { passive: true });
+
+				// Parallax da galeria: no sentido normal as pontas sobem e o meio desce; ao subir, inverte.
+				const galleryShots = gsap.utils.toArray<HTMLElement>(".intro-shot");
+				const galleryRates = [-1, 1, -1];
+				const gallerySetters = galleryShots.map((shot) => gsap.quickTo(shot, "y", { duration: 0.7, ease: "power3.out" }));
+				const gallerySection = document.querySelector<HTMLElement>(".intro-section");
+				let galleryDirection = 1;
+				let galleryLast = window.scrollY;
+				const syncGallery = () => {
+					if (!gallerySection) return;
+					const current = window.scrollY;
+					galleryDirection = current >= galleryLast ? 1 : -1;
+					galleryLast = current;
+					const box = gallerySection.getBoundingClientRect();
+					const travel = box.height + window.innerHeight;
+					const progress = Math.min(1, Math.max(0, (window.innerHeight - box.top) / travel));
+					galleryShots.forEach((_, index) => {
+						gallerySetters[index](galleryRates[index % galleryRates.length] * galleryDirection * progress * 74);
+					});
+				};
+				window.addEventListener("scroll", syncGallery, { passive: true });
+				syncGallery();
+
+				gsap.utils.toArray<HTMLElement>(".path-row, .project-card, .toolkit-heading, .consulting-copy, .services-heading").forEach((element) => gsap.from(element, { y: 24, opacity: 0, duration: 0.65, ease: "power2.out", scrollTrigger: { trigger: element, start: "top 88%", once: true } }));
+			}
+		</script>

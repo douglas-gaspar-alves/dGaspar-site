@@ -3,7 +3,7 @@ schemaVersion: "1.0.0"
 id: "0005"
 slug: home-contact-form
 title: Integrar o envio do formulário da Home
-summary: Integrar o formulário com validação e estados acessíveis após definir destino e privacidade.
+summary: Integração de formulário fora do escopo atual; manter CTA de e-mail escolhido pelo responsável.
 status: blocked
 createdAt: "2026-10-18T00:57:05Z"
 updatedAt: "2026-10-18T00:57:05Z"
@@ -19,12 +19,12 @@ task: contact-form
 source: Plano técnico derivado de .astrofy/pages$LOCAL_PATH e da aprovação da Home nesta conversa.
 dependsOn:
   - "0002"
-blockedReason: A pessoa responsável ainda precisa definir o serviço/endereço de recebimento e fornecer URL e texto de privacidade aprovados.
+blockedReason: O responsável decidiu usar CTAs mailto nesta versão da Home. Esta tarefa histórica não bloqueia a Home atual e só deve ser retomada se o formulário for solicitado novamente.
 ---
 
 ## Descrição
 
-O conteúdo visual do formulário pertence à tarefa de conteúdo da Home. Esta tarefa cobre a integração real do envio, que não deve ser implementada nem apresentar sucesso até que o destino esteja definido. Antes de ativar o formulário, obter o serviço/endereço de recebimento e os dados de privacidade aprovados. Então selecionar a execução compatível com o ambiente de deploy (provedor externo, endpoint próprio ou Astro Action), validar também no servidor e confirmar recebimento em destino de teste autorizado.
+O escopo atual da Home substituiu o formulário por CTAs `mailto:` para `contato@douglasgaspar.com`, conforme decisão explícita do responsável em 2026-10-20. Não há implementação ou promessa de formulário. Este registro fica bloqueado como histórico; só volte a planejar uma integração real se o responsável reabrir o formulário e fornecer destino e privacidade.
 
 ## Checklist
 
@@ -36,7 +36,6 @@ O conteúdo visual do formulário pertence à tarefa de conteúdo da Home. Esta 
 
 ## Notas
 
-- Pendente de informação do responsável: destino de envio, URL e texto de privacidade.
-- A tarefa fica bloqueada até as duas pendências serem resolvidas. Não substituir o endpoint por `mailto:` ou simular sucesso.
-- O estado aprovado prevê nome, e-mail e mensagem obrigatórios; assunto opcional; sucesso apenas após envio aceito; erro preserva valores e permite nova tentativa.
+- Fora do escopo atual por decisão do responsável; a Home concluída usa `mailto:` sem simular envio.
+- Se o formulário for reaberto, revisar requisitos e obter confirmação nova de destino e privacidade antes de implementar.
 - Validação prevista após a integração: `astrofy check --category forms` e percurso manual por teclado. Não enviar mensagens reais sem um destino de teste autorizado.

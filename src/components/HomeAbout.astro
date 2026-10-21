@@ -1,0 +1,45 @@
+---
+
+interface Props {
+  eyebrow?: string;
+  titleBefore?: string;
+  titleAccent?: string;
+  lead?: string;
+  body?: string;
+  linkText?: string;
+	smileImage?: string;
+	bustImage?: string;
+	bustAlt?: string;
+	laughImage?: string;
+}
+
+const {
+  eyebrow = "01 / Sobre · Douglas Gaspar",
+  titleBefore = "Prazer, eu sou o",
+  titleAccent = "Douglas :)",
+  lead = "Estudo, amo tecnologia, experimentar e criar.",
+  body = "Neste espaço reuno o que estudo, os projetos que crio e as conversas que tenho com pessoas que também querem tirar boas ideias do papel e aprender IA e automação.",
+  linkText = "Currículo",
+	smileImage = "/images/douglas-frame-smile.webp",
+	bustImage = "/images/douglas-bust.webp",
+	bustAlt = "Retrato ilustrado de Douglas Gaspar",
+	laughImage = "/images/douglas-frame-laugh.webp",
+} = Astro.props;
+---
+
+<section class="section intro-section" id="sobre" aria-labelledby="sobre-title">
+				<div class="wrap intro-grid">
+					<div class="intro-content">
+						<p class="eyebrow">{eyebrow}</p>
+						<h2 id="sobre-title">{titleBefore}<br /><em>{titleAccent}</em></h2>
+						<p class="intro-lead">{lead}</p>
+						<p class="intro-text">{body}</p>
+						<a class="text-link" href="#projetos">{linkText} <span aria-hidden="true">↗</span></a>
+					</div>
+					<div class="intro-gallery">
+						<span class="intro-shot intro-shot-smile"><img src={smileImage} alt="" width="732" height="1085" loading="lazy" decoding="async" /></span>
+						<span class="intro-shot intro-shot-bust"><img src={bustImage} alt={bustAlt} width="786" height="997" loading="lazy" decoding="async" /></span>
+						<span class="intro-shot intro-shot-laugh"><img src={laughImage} alt="" width="625" height="1149" loading="lazy" decoding="async" /></span>
+					</div>
+				</div>
+			</section>

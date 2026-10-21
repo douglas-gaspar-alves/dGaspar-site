@@ -1,6 +1,4 @@
-/* Web typography for dGaspar.
-   Space Grotesk is served by Google Fonts; Inter is self-hosted. */
-@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap");
+/* Self-hosted Inter keeps the first render independent of third-party fonts. */
 
 @font-face {
   font-family: "Inter";
@@ -11,7 +9,7 @@
 }
 
 :root {
-  --font-display: "Space Grotesk", "Inter", system-ui, sans-serif;
+  --font-display: "Inter", system-ui, sans-serif;
   --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
 }

@@ -1,0 +1,28 @@
+---
+import "../styles/service-page.css";
+
+interface Props {
+  eyebrow?: string;
+  titleLineOne?: string;
+  titleLineTwo?: string;
+  titleAccent?: string;
+  paragraphOne?: string;
+  paragraphTwo?: string;
+}
+
+const {
+  eyebrow = "Antes de abrir o editor",
+  titleLineOne = "Entender o negócio",
+  titleLineTwo = "antes de",
+  titleAccent = "desenhar.",
+  paragraphOne = "Para isso, eu preciso entender o seu negócio antes de pensar em telas, cores e botões. O desenho vem depois dessa conversa, não antes.",
+  paragraphTwo = "A conversa vira proposta de escopo, com o que entra no trabalho e o que fica de fora.",
+} = Astro.props;
+---
+
+<section class="service-intro" aria-labelledby="before-title">
+				<div class="wrap service-two-column">
+					<div><p class="eyebrow">{eyebrow}</p><h2 id="before-title">{titleLineOne}<br />{titleLineTwo} <em>{titleAccent}</em></h2></div>
+					<div class="service-copy"><p>{paragraphOne}</p><p>{paragraphTwo}</p></div>
+				</div>
+			</section>

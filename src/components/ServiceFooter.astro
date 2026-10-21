@@ -1,0 +1,24 @@
+---
+import "../styles/service-page.css";
+import { contactEmail, siteCreationProposalHref } from "../lib/contact-links";
+
+interface Props {
+	tagline?: string;
+	emailAddress?: string;
+	proposalHref?: string;
+}
+
+const {
+	tagline = "Por Feito para glória de Deus",
+	emailAddress = contactEmail,
+	proposalHref = siteCreationProposalHref,
+} = Astro.props;
+---
+
+<footer class="service-footer">
+			<div class="wrap">
+				<a class="service-footer-brand" href="/"><img src="/images/logo-dgaspar.svg" alt="dGaspar" width="142" height="44" /></a>
+				<p>{tagline}</p>
+				<a href={proposalHref}>{emailAddress} ↗</a>
+			</div>
+		</footer>

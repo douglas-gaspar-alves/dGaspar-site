@@ -1,0 +1,34 @@
+---
+import "../styles/service-page.css";
+import { siteCreationProposalHref } from "../lib/contact-links";
+
+interface Props {
+  eyebrow?: string;
+  titleLineOne?: string;
+  titleLineTwo?: string;
+  titleAccent?: string;
+  lead?: string;
+  ctaLabel?: string;
+  proposalHref?: string;
+}
+
+const {
+  eyebrow = "Criação de sites",
+  titleLineOne = "Sites inteligentes",
+  titleLineTwo = "feitos para sua",
+  titleAccent = "meta.",
+  lead = "Construímos sites que fazem sentido no seu contexto e se integram à sua IA favorita. Mais do que páginas: dados a serviço das suas metas.",
+  ctaLabel = "Quero ter um site inteligente",
+  proposalHref = siteCreationProposalHref,
+} = Astro.props;
+---
+
+<section class="service-hero" aria-labelledby="service-title">
+				<div class="service-orbit" aria-hidden="true"><span>estratégia</span><span>design</span><span>tecnologia</span><i>✦</i></div>
+				<div class="wrap service-hero-inner">
+					<p class="eyebrow">{eyebrow}</p>
+					<h1 id="service-title">{titleLineOne}<br />{titleLineTwo}<br /><em>{titleAccent}</em></h1>
+					<p class="service-lead">{lead}</p>
+					<a class="button button-light" href={proposalHref}>{ctaLabel} <span aria-hidden="true">↗</span></a>
+				</div>
+			</section>

@@ -1,111 +1,51 @@
-# Home dGaspar — revisão de conteúdo
+# Home pessoal dGaspar
 
-- **Estado:** `ready` para planejamento técnico; destino do formulário e privacidade seguem pendentes antes de habilitar/publicar o envio.
-- **Tipo:** `homepage`
-- **Rota:** `/`
-- **Objetivo:** gerar conversas sobre a consultoria individual de IA & Automação; encaminhar como prioridade secundária as pessoas interessadas em vibe coding e agentes de IA ao LAB dGaspar.
-- **Público principal:** empreendedores e donos de negócios físicos ou digitais que avaliam como IA e automação podem se encaixar no negócio. Necessidades específicas continuam hipóteses quando não validadas.
-- **Público secundário:** pessoas interessadas em vibe coding e agentes de IA, público associado ao LAB dGaspar.
-- **Ação principal aprovada:** “Converse comigo sobre seu caso.”, com destino ao formulário na própria página (`#contato`).
-- **Arquitetura aprovada:** consultoria em primeiro plano; Auttus como prova limitada; serviços e LAB como caminhos de apoio.
+- **Estado:** implementada localmente; publicação não autorizada nem realizada.
+- **Tipo:** homepage editorial e portfólio pessoal.
+- **Rota:** `/`.
+- **Objetivo:** apresentar Douglas Gaspar e orientar visitantes a aprendizado, projetos, consultoria e serviços.
+- **Ação de contato:** “Falar no WhatsApp” → link `wa.me` com mensagem pré-preenchida (rodapé). O e-mail `contato@douglasgaspar.com` continua disponível nos demais CTAs e no rodapé.
+- **Arquitetura:** apresentação pessoal em fundo azul, cinco caminhos, projetos, toolkit, consultoria e serviços.
 
-## Página na ordem de leitura
+## Estrutura de leitura
 
-### 1. Hero — copy aprovada
+1. **Hero:** abertura em tela inteira e sem menu. O wordmark dGaspar ocupa a largura da tela atrás do retrato central; as ferramentas aparecem em camadas independentes, com movimento. A borda inferior traz a foto do método A.C.R.E. à esquerda e YouTube/Instagram à direita.
+2. **Caminhos:** Quem eu sou, Vamos aprender fazendo, O que estou fazendo, Consultorias, Serviços. Traz o menu fixo do site, que nasce transparente sobre o azul do mapa e vira vidro ao grudar no topo.
+3. **Sobre:** fundo azul `#1952c6`, texto em coluna única e os quatro retratos ilustrados alinhados numa faixa com sobreposição leve, com parallax de scroll. Convite ao currículo.
+4. **Projetos:** LAB dGaspar, Studio Alma (em desenvolvimento) e o Método A.C.R.E., que saiu da borda da hero para o seu próprio cartão.
+5. **Kit de ferramentas:** composição visual rotulada “Meu kit de ferramentas para 2027”, sem catálogo.
+6. **Consultoria:** orientação individual; qualquer execução é definida e proposta separadamente.
+7. **Serviços:** criação de sites disponível; instalação de n8n e implementações de IA e automação marcados como `(EM BREVE)`. O CTA “Quero colocar meu projeto em prática” leva para `/consultorias/`.
+8. **Rodapé:** WhatsApp, e-mail e redes confirmadas.
 
-**Título:** Entenda onde IA e automação podem fazer sentido no seu negócio.
+## Navegação e destinos
 
-**Texto:** Eu começo pela realidade do seu negócio para conversar sobre processos, ferramentas e decisões. Se uma implementação fizer sentido, a execução é tratada separadamente.
+- Consultoria: `mailto:contato@douglasgaspar.com?subject=Consultoria...`.
+- Serviços: “Quero colocar meu projeto em prática” → `/consultorias/`.
+- Contato geral: `https://wa.me/<número>?text=...`, aberto em nova aba; o número vive em `whatsappNumber`, no topo do frontmatter de `src/pages/index.astro`.
+- Instalação de n8n e implementações de IA e automação: itens `(EM BREVE)`, sem link próprio.
+- Próxima aula: `http://lab.douglasgaspar.com/events`, nova aba. O DNS do host falhou durante a validação local; preservar a URL escolhida e revalidar antes de publicar.
+- Studio Alma não recebe link público nesta versão.
+- O caminho "Vamos aprender fazendo" aponta para `https://lab.douglasgaspar.com`, já que o bloco do LAB saiu do site.
+- O convite "Currículo" aponta para `#projetos` até existir um documento de currículo próprio.
 
-**Ação:** Converse comigo sobre seu caso. → `#contato`
+## Interface, mídia e validação
 
-**Mídia:** logo dGaspar horizontal para fundo claro e um diagrama simples com as etapas contexto → decisão → teste. Não usar foto no hero. O diagrama deve ter alternativa acessível: “Diagrama das etapas contexto, decisão e teste”.
+- Astro + CSS local, Inter local e GSAP/ScrollTrigger. Respeita `prefers-reduced-motion`.
+- Assets selecionados das referências do projeto, copiados para `public/images/`; retrato, foto A.C.R.E. e os quatro retratos ilustrados do bloco Sobre (`eu-bust`, `eu-head`, `eu-frame-smile`, `eu-frame-laugh`) foram reencodados para WebP com alfa. O bloco do LAB saiu do site e a imagem do LAB foi removida.
+- A primeira dobra tem teste de contrato em Vitest; os comandos de validação devem ser executados após cada alteração.
+- A auditoria automática do Astrofy não está inicializada neste projeto (checklist ausente); a revisão visual foi feita manualmente no navegador local.
+- Sem formulário, backend ou deploy. O WhatsApp entra apenas como link `wa.me`; não há automação de mensagem nem integração com a API do WhatsApp.
 
-### 2. Consultoria — copy aprovada
+## Limites factuais
 
-**Título:** Uma conversa sobre o seu caso.
+- Não alegar resultados, depoimentos, métricas ou disponibilidade.
+- Não apresentar consultoria como execução.
+- Studio Alma fica descrito como projeto em desenvolvimento.
+- Destino da próxima aula precisa de verificação DNS antes de publicação.
+- Instalação de n8n e implementações de IA e automação estão marcadas como `(EM BREVE)`: não descrever esses itens como contratação disponível.
+- O número do WhatsApp do CTA do rodapé ainda não foi confirmado; não publicar a Home com o placeholder.
 
-**Texto:** Na consultoria online individual, eu conheço seu processo e o que você precisa decidir. Conversamos sobre IA, automação, ferramentas e caminhos possíveis, incluindo n8n. Se você quiser delegar a implementação, a execução é contratada separadamente.
+## Proveniência
 
-### 3. Projeto Auttus — copy aprovada
-
-**Título:** Auttus
-
-**Texto:** Atuei com automação e integração com IA em um projeto da Auttus.
-
-**Ação:** Visitar o site da Auttus → <https://auttus.com/>.
-
-**Limite factual:** não atribuir outras partes do projeto nem incluir resultados, métricas ou depoimentos sem fonte.
-
-### 4. Serviços de execução — copy aprovada
-
-**Título:** Serviços com escopo tratado por proposta.
-
-O título, o texto e a ação abaixo foram aprovados.
-
-**Texto:** Também posso cuidar da criação de sites, da instalação de n8n e de outras implementações de IA e automação, com escopo tratado por proposta.
-
-**Ação:** Peça uma proposta para a execução. → `#contato`
-
-### 5. LAB dGaspar — copy aprovada
-
-**Título:** LAB dGaspar
-
-**Texto:** O LAB dGaspar é uma comunidade com acesso por login para pessoas interessadas em vibe coding e agentes de IA.
-
-**Ação:** Conheça o LAB → <https://lab.douglasgaspar.com>.
-
-### 6. Formulário de contato — conteúdo aprovado, integração pendente
-
-**Título:** Converse comigo sobre seu caso.
-
-**Campos aprovados:** nome, e-mail e mensagem obrigatórios; assunto opcional com as opções “Consultoria”, “Serviço de execução” e “Outro”.
-
-**Botão:** Enviar mensagem.
-
-**Sucesso:** “Mensagem enviada. Obrigado por compartilhar seu caso.” Exibir somente após confirmação de envio pelo serviço de destino.
-
-**Erro:** “Não foi possível enviar a mensagem. Tente novamente.” Preservar os valores e permitir uma nova tentativa.
-
-**Pendências antes de implementar/publicar o envio:** definir o destino das mensagens e fornecer URL e texto de privacidade aprovados. Os textos de formulário foram aprovados. Não prometer prazo de resposta.
-
-## Navegação
-
-- **Header:** Consultoria (`#consultoria`), Projetos (`#projetos`), Serviços (`#servicos`), LAB (`#lab`) e Contato (`#contato`).
-- **Footer:** Instagram → <https://www.instagram.com/doug.gaspar/>; YouTube → <https://www.youtube.com/@d-Gaspar>.
-- Todos os destinos principais permanecem nesta Home, exceto links externos de Auttus e LAB. Blog e feed social ficam fora da primeira fase.
-
-## Voz e redação
-
-- **Referência aprovada:** `../brand/voice.md` e `../BRAND.md`.
-- **Tom:** primeira pessoa, especialista acessível, prática, clara e próxima.
-- **Preservar:** a frase aprovada “Converse comigo sobre seu caso.”; explicar o contexto antes de falar de ferramentas; separar consultoria de execução.
-- **Evitar:** promessas de vendas, economia, velocidade ou automação completa; urgência artificial; transformar hipótese de público em fato; usar elogios ou resultados sem fonte.
-- A copy completa, incluindo título dos serviços, textos do formulário e metadados de SEO, foi aprovada pelo responsável em 2026-10-17. Destino do formulário e privacidade permanecem pendentes.
-
-## SEO — metadados aprovados
-
-- **Título:** dGaspar | Consultoria de IA e automação.
-- **Descrição:** Conversas individuais sobre IA e automação no contexto do seu negócio, com n8n entre os focos e execução contratada separadamente.
-- **Canônica:** <https://douglasgaspar.com/> (URL principal registrada no contexto do projeto)..
-
-## Mídia e acessibilidade
-
-- Logo: `../brand/logo/svg/logo-fundo-claro.svg`; proporção horizontal aproximada 3,22:1; texto alternativo “dGaspar”. Copiar para dentro de `site/public/` durante implementação.
-- Diagrama: referência visual em `../brand/templates/site-homepage.html`; não é arquivo final. Pode ser composto como ilustração vetorial/CSS, com a descrição acessível indicada acima.
-- Foto de retrato: ausente por escolha aprovada; não usar banco de imagens.
-- A página deve manter landmarks semânticos, operação por teclado e alternativas textuais para mídia não decorativa.
-
-## Itens em aberto
-
-1. Definir o serviço ou endereço que receberá o formulário antes de implementar o envio.
-2. Fornecer URL e texto de privacidade aprovados antes de publicar o formulário.
-
-## Fontes
-
-- `../BRAND.md` — identidade, ofertas, limites de comunicação e prova Auttus.
-- `../brand/strategy.md` — públicos e posicionamento.
-- `../brand/voice.md` — tom, mensagem e CTA.
-- `../brand/templates/site-homepage.html` — referência visual do diagrama e da hierarquia.
-- `../.inboundfy/context/empresa.md`, `../.inboundfy/context/publico.md` e `../.inboundfy/context/links.md` — fatos institucionais, públicos e destinos.
-- Decisões confirmadas nesta conversa em 2026-10-17 — arquitetura, cópia completa, mídia, campos, navegação, estados do formulário e SEO.
+Plano e decisões aprovados nesta conversa em 2026-10-20; desenho de navegação enviado pelo responsável; marca e links registrados em `BRAND.md` e `.inboundfy/context/links.md`. Ajustes de 2026-10-21: rótulos `(EM BREVE)`, destino do CTA de serviços e CTA do rodapé pelo WhatsApp.

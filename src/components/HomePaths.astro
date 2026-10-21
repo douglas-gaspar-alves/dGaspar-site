@@ -1,0 +1,113 @@
+---
+import { contactEmail } from "../lib/contact-links";
+
+interface Props {
+  menuPrompt?: string;
+	emailAddress?: string;
+  eyebrow?: string;
+  titleBefore?: string;
+  titleAfter?: string;
+  titleAccent?: string;
+  sectionIndex?: string;
+	path01Title?: string;
+	path01Text?: string;
+	path01Href?: string;
+	path01Label?: string;
+	path02Title?: string;
+	path02Text?: string;
+	path02Href?: string;
+	path02Label?: string;
+	path03Title?: string;
+	path03Text?: string;
+	path03Href?: string;
+	path03Label?: string;
+	path04Title?: string;
+	path04Text?: string;
+	path04Href?: string;
+	path04Label?: string;
+	path05Title?: string;
+	path05Text?: string;
+	path05Href?: string;
+	path05Label?: string;
+}
+
+const {
+  menuPrompt = "Por onde você quer começar?",
+	emailAddress = contactEmail,
+  eyebrow = "Um mapa do que faço",
+  titleBefore = "Por onde você",
+  titleAfter = "quer",
+  titleAccent = "começar?",
+  sectionIndex = "ESCOLHA SEU CAMINHO ↘",
+	path01Title = "Quem eu sou",
+	path01Text = "Minha trajetória, ideias e o que estou construindo.",
+	path01Href = "#sobre",
+	path01Label = "Conheça o Douglas",
+	path02Title = "Vamos aprender fazendo",
+	path02Text = "Experimentos, ferramentas e aprendizado compartilhado no LAB.",
+	path02Href = "https://lab.douglasgaspar.com",
+	path02Label = "Aprenda na comunidade",
+	path03Title = "O que estou fazendo",
+	path03Text = "Projetos em andamento, criações e coisas que saíram do papel.",
+	path03Href = "#projetos",
+	path03Label = "Explore os projetos",
+	path04Title = "Consultorias",
+	path04Text = "Uma conversa individual para pensar caminhos de IA e automação para o seu contexto.",
+	path04Href = "/consultorias/",
+	path04Label = "Conhecer as consultorias",
+	path05Title = "Serviços",
+	path05Text = "Criação de sites por proposta; instalação de n8n e implementações de IA em breve.",
+	path05Href = "#servicos",
+	path05Label = "Conheça os serviços",
+} = Astro.props;
+
+const paths = [
+	{ number: "01", title: path01Title, text: path01Text, href: path01Href, label: path01Label },
+	{ number: "02", title: path02Title, text: path02Text, href: path02Href, label: path02Label },
+	{ number: "03", title: path03Title, text: path03Text, href: path03Href, label: path03Label },
+	{ number: "04", title: path04Title, text: path04Text, href: path04Href, label: path04Label },
+	{ number: "05", title: path05Title, text: path05Text, href: path05Href, label: path05Label },
+];
+
+---
+
+<section class="section paths-section" id="caminhos" aria-labelledby="caminhos-title">
+				<header class="site-header" id="site-header">
+					<div class="header-inner">
+						<a class="header-brand" href="#inicio" aria-label="dGaspar, início">
+							<img class="header-logo header-logo-on-light" src="/images/logo-dgaspar.svg" alt="" width="107" height="33" />
+							<img class="header-logo header-logo-on-dark" src="/images/logo-dgaspar-hero.svg" alt="" width="91" height="23" />
+							<span class="sr-only">dGaspar</span>
+						</a>
+						<div class="header-actions">
+							<a class="button button-small button-light" href="http://lab.douglasgaspar.com/events" target="_blank" rel="noreferrer">Próxima aula</a>
+							<button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu">
+								<span class="menu-bar"></span>
+								<span class="menu-bar"></span>
+								<span class="menu-bar"></span>
+								<span class="sr-only">Abrir menu</span>
+							</button>
+						</div>
+					</div>
+					<div class="menu-panel" id="site-menu">
+						<div class="menu-panel-inner">
+							<p class="menu-panel-label">{menuPrompt}</p>
+							<ul class="menu-paths">
+								{paths.map((path) => (
+									<li><a class="menu-path" href={path.href}><span class="menu-path-number">{path.number}</span><span class="menu-path-main"><span class="menu-path-title">{path.title}</span></span><span class="menu-path-action">{path.label}<b aria-hidden="true">↗</b></span></a></li>
+								))}
+							</ul>
+							<div class="menu-panel-foot">
+							<a href={`mailto:${emailAddress}`}>{emailAddress}</a>
+								<nav aria-label="Redes sociais"><a href="https://www.instagram.com/doug.gaspar/" target="_blank" rel="noreferrer">Instagram ↗</a><a href="https://www.youtube.com/@d-Gaspar" target="_blank" rel="noreferrer">YouTube ↗</a></nav>
+							</div>
+						</div>
+					</div>
+				</header>
+				<div class="paths-surface">
+					<div class="wrap" role="region" aria-label="Mapa do que faço">
+						<div class="section-title-row"><div><p class="eyebrow">{eyebrow}</p><h2 id="caminhos-title">{titleBefore}<br />{titleAfter} <em>{titleAccent}</em></h2></div><span class="section-index">{sectionIndex}</span></div>
+						<div class="path-list">{paths.map((path) => <a class="path-row" href={path.href}><span class="path-number">{path.number}</span><span class="path-main"><span class="path-title">{path.title}</span><span class="path-text">{path.text}</span></span><span class="path-action">{path.label}<b aria-hidden="true">↗</b></span></a>)}</div>
+					</div>
+				</div>
+			</section>

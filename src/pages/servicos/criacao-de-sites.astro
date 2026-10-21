@@ -1,0 +1,29 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import ServiceHeader from "../../components/ServiceHeader.astro";
+import ServiceHero from "../../components/ServiceHero.astro";
+import ServiceIntro from "../../components/ServiceIntro.astro";
+import ServiceSteps from "../../components/ServiceSteps.astro";
+import ServiceAI from "../../components/ServiceAI.astro";
+import ServiceScope from "../../components/ServiceScope.astro";
+import ServiceFooter from "../../components/ServiceFooter.astro";
+---
+
+<SiteLayout
+  title="Sites inteligentes feitos para a sua meta | dGaspar"
+  description="Peça uma proposta para o seu site inteligente: páginas que se integram à sua IA favorita e dados para acompanhar as suas metas."
+  canonical="https://douglasgaspar.com/servicos/criacao-de-sites/"
+  bodyClass="service-page"
+>
+  <ServiceHeader slot="header" />
+  <div class="service-reading-progress" aria-hidden="true"><span></span></div>
+  <ServiceHero />
+  <ServiceIntro />
+  <ServiceSteps />
+  <ServiceAI />
+  <ServiceScope />
+  <script>
+    import "../../scripts/service-page.ts";
+  </script>
+  <ServiceFooter slot="footer" />
+</SiteLayout>

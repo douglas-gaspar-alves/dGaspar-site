@@ -1,0 +1,27 @@
+---
+import { contactEmail, firstConsultationHref } from "../lib/contact-links";
+
+interface Props {
+  eyebrow?: string;
+  titleBefore?: string;
+  titleAccent?: string;
+  body?: string;
+  ctaLabel?: string;
+  emailAddress?: string;
+  ctaHref?: string;
+}
+
+const {
+  eyebrow = "A primeira consultoria é gratuita",
+  titleBefore = "Traga sua dúvida. Vamos avaliar o que pode",
+  titleAccent = "melhorar.",
+  body = "Agende sua conversa pelo botão abaixo. Se preferir, escreva para",
+  ctaLabel = "Quero conversar sobre meu caso",
+  emailAddress = contactEmail,
+  ctaHref = firstConsultationHref,
+} = Astro.props;
+---
+
+<section class="consulting-page-cta" aria-labelledby="consulting-cta-title">
+				<div class="wrap consulting-page-cta-inner"><div><p class="eyebrow">{eyebrow}</p><h2 id="consulting-cta-title">{titleBefore} <em>{titleAccent}</em></h2><p>{body} <a href={`mailto:${emailAddress}`}>{emailAddress}</a>.</p></div><a class="button button-light" href={ctaHref}>{ctaLabel} <span aria-hidden="true">↗</span></a></div>
+			</section>

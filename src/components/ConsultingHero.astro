@@ -1,0 +1,32 @@
+---
+import { firstConsultationHref } from "../lib/contact-links";
+
+interface Props {
+  titleBefore?: string;
+  titleAccent?: string;
+  lead?: string;
+  primaryCta?: string;
+  primaryHref?: string;
+  secondaryCta?: string;
+  caption?: string;
+}
+
+const {
+  titleBefore = "Chegou a hora de transformar sua empresa",
+  titleAccent = "com IA.",
+  lead = "Da resposta repetida aos dados copiados entre ferramentas: eu ajudo você a entender onde IA e automação podem aliviar o trabalho da equipe e onde o olhar humano continua indispensável.",
+  primaryCta = "Quero minha primeira consultoria gratuita",
+  primaryHref = firstConsultationHref,
+  secondaryCta = "Entenda a conversa",
+  caption = "Consultoria individual · online",
+} = Astro.props;
+---
+
+<section class="consulting-page-hero" aria-labelledby="consulting-page-title">
+				<div class="wrap consulting-page-hero-content">
+					<h1 id="consulting-page-title">{titleBefore} <em>{titleAccent}</em></h1>
+					<p class="consulting-page-lead">{lead}</p>
+					<div class="consulting-page-actions"><a class="button button-primary" href={primaryHref}>{primaryCta} <span aria-hidden="true">↗</span></a><a class="text-link" href="#orientacao">{secondaryCta} <span aria-hidden="true">↓</span></a></div>
+				</div>
+				<p class="consulting-page-hero-caption">{caption}</p>
+			</section>

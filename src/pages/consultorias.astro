@@ -1,0 +1,30 @@
+---
+import SiteLayout from "../layouts/SiteLayout.astro";
+import ConsultingHero from "../components/ConsultingHero.astro";
+import ConsultingTopics from "../components/ConsultingTopics.astro";
+import ConsultingOrientation from "../components/ConsultingOrientation.astro";
+import ConsultingBoundary from "../components/ConsultingBoundary.astro";
+import ConsultingCTA from "../components/ConsultingCTA.astro";
+import ConsultingTechnicalCTA from "../components/ConsultingTechnicalCTA.astro";
+import ConsultingFooter from "../components/ConsultingFooter.astro";
+---
+
+<SiteLayout
+  title="Consultoria de IA e automação para o seu negócio | Douglas Gaspar"
+  description="Descubra onde IA e automação podem ajudar no trabalho do seu negócio. Conte seu caso ao Douglas Gaspar: a primeira consultoria é gratuita."
+  canonical="https://douglasgaspar.com/consultorias/"
+  dataTheme="light"
+  preloadDesktopImage="/images/consultorias-hero.webp"
+  preloadMobileImage="/images/consultorias-hero-mobile.webp"
+  ogImage="https://douglasgaspar.com/images/conversa.webp"
+  ogImageAlt="Ilustração de Douglas Gaspar em uma conversa por vídeo"
+  schemaKind="consultation"
+>
+  <ConsultingHero />
+  <ConsultingTopics />
+  <ConsultingOrientation />
+  <ConsultingBoundary />
+  <ConsultingCTA />
+  <ConsultingTechnicalCTA />
+  <ConsultingFooter slot="footer" />
+</SiteLayout>

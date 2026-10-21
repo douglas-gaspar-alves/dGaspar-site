@@ -1,0 +1,15 @@
+---
+import "../styles/service-page.css";
+
+interface Props {
+  backLabel?: string;
+}
+
+const { backLabel = "Voltar para o início" } = Astro.props;
+---
+
+<header class="service-header">
+	<a class="service-brand" href="/" aria-label="dGaspar, início"><img src="/images/logo-dgaspar-hero.svg" alt="dGaspar" width="91" height="23" /></a>
+	<a class="service-journey-link" href="#processo">Etapas <span aria-hidden="true">↓</span></a>
+	<a class="service-back" href="/">{backLabel} <span aria-hidden="true">↗</span></a>
+</header>

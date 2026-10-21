@@ -1,0 +1,24 @@
+---
+
+interface Props {
+  eyebrow?: string;
+  titleBefore?: string;
+  titleAccent?: string;
+  paragraphOne?: string;
+  paragraphTwo?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+}
+
+const {
+  eyebrow = "Consultoria individual",
+  titleBefore = "Uma boa conversa",
+  titleAccent = "muda o ponto de partida.",
+  paragraphOne = "Conversamos sobre o contexto do seu negócio, os processos e as decisões que você está considerando. IA e automação entram na conversa quando fizerem sentido para o seu caso.",
+  paragraphTwo = "A consultoria é orientação individual. Se você quiser que eu cuide da implementação, alinhamos o escopo e a proposta separadamente.",
+  ctaLabel = "Conheça as consultorias",
+  ctaHref = "/consultorias/",
+} = Astro.props;
+---
+
+<section class="section consulting-section wrap" id="consultoria" aria-labelledby="consultoria-title"><div class="consulting-copy"><p class="eyebrow">{eyebrow}</p><h2 id="consultoria-title">{titleBefore}<br />muda o <em>{titleAccent}</em></h2><p>{paragraphOne}</p><p>{paragraphTwo}</p><a class="button button-primary" href={ctaHref}>{ctaLabel} <span aria-hidden="true">↗</span></a></div><div class="consulting-visual"><img src="/images/conversa.webp" alt="Ilustração de Douglas Gaspar em uma conversa por vídeo" width="760" height="570" loading="lazy" decoding="async" /></div></section>

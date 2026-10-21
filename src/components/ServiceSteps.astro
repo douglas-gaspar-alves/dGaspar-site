@@ -1,0 +1,64 @@
+---
+import "../styles/service-page.css";
+
+interface Props {
+  eyebrow?: string;
+  titleLineOne?: string;
+  titleLineTwo?: string;
+  titleAccent?: string;
+  step01Title?: string;
+  step01Text?: string;
+  step02Title?: string;
+  step02Text?: string;
+  step03Title?: string;
+  step03Text?: string;
+  step04Title?: string;
+  step04Text?: string;
+  step05Title?: string;
+  step05Text?: string;
+  step06Title?: string;
+  step06Text?: string;
+}
+
+const {
+  eyebrow = "Etapas do projeto",
+  titleLineOne = "Do contexto",
+  titleLineTwo = "ao site no",
+  titleAccent = "ar.",
+  step01Title = "Contexto",
+  step01Text = "Antes de qualquer tela, eu entendo o que a sua empresa faz, para quem o site fala e o que ele precisa resolver. É essa leitura que define o resto.",
+  step02Title = "Conteúdo",
+  step02Text = "Os textos e as imagens do negócio, escritos a partir do que a empresa já diz e do que ainda precisa ser dito.",
+  step03Title = "Integrações & Dados",
+  step03Text = "O que o site conversa: a sua IA, formulários, e-mail, CRM. E o que ele registra para acompanhar as suas metas.",
+  step04Title = "Produção",
+  step04Text = "O site em si: layout, código, velocidade de carregamento e acessibilidade, testados no celular, no tablet e no monitor.",
+  step05Title = "Revisão",
+  step05Text = "Você abre as páginas, aponta o que está errado e o que falta. Eu ajusto e volto com a versão revisada para aprovar.",
+  step06Title = "Publicação",
+  step06Text = "O site entra no ar no endereço combinado, com o conteúdo aprovado. Você fica com o acesso aos arquivos e às contas usadas.",
+} = Astro.props;
+
+const projectSteps = [
+	{ number: "01", title: step01Title, text: step01Text },
+	{ number: "02", title: step02Title, text: step02Text },
+	{ number: "03", title: step03Title, text: step03Text },
+	{ number: "04", title: step04Title, text: step04Text },
+	{ number: "05", title: step05Title, text: step05Text },
+	{ number: "06", title: step06Title, text: step06Text },
+];
+---
+
+<section class="service-detail" id="processo" aria-labelledby="detail-title">
+				<div class="wrap service-detail-grid">
+					<div class="service-detail-head"><p class="eyebrow">{eyebrow}</p><h2 id="detail-title">{titleLineOne}<br />{titleLineTwo} <em>{titleAccent}</em></h2></div>
+					<ol class="detail-list">
+						{projectSteps.map((step) => (
+							<li aria-current={step.number === "01" ? "step" : undefined}>
+								<span aria-hidden="true">{step.number}</span>
+								<div><h3>{step.title}</h3><p>{step.text}</p></div>
+							</li>
+						))}
+					</ol>
+				</div>
+			</section>

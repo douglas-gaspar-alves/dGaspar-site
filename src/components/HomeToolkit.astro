@@ -1,0 +1,72 @@
+---
+interface Props {
+  titleFirst?: string;
+  titleSecond?: string;
+  titleYear?: string;
+  toolsLabel?: string;
+  ctaLabel?: string;
+	tool1Name?: string;
+	tool1Image?: string;
+	tool2Name?: string;
+	tool2Image?: string;
+	tool3Name?: string;
+	tool3Image?: string;
+	tool4Name?: string;
+	tool4Image?: string;
+	tool5Name?: string;
+	tool5Image?: string;
+	tool6Name?: string;
+	tool6Image?: string;
+}
+
+const {
+  titleFirst = "Meu KIT",
+  titleSecond = "Ferramentas",
+  titleYear = "2027",
+  toolsLabel = "A.C.R.E., n8n, Magnific, OpenCode, ChatGPT e Hermes Agent",
+  ctaLabel = "Aprenda usar IA",
+	tool1Name = "A.C.R.E.", tool1Image = "/images/icons/orbit.svg",
+	tool2Name = "n8n", tool2Image = "/images/icons/n8n.svg",
+	tool3Name = "Magnific", tool3Image = "/images/icons/magnific.svg",
+	tool4Name = "OpenCode", tool4Image = "/images/icons/opencode.svg",
+	tool5Name = "ChatGPT", tool5Image = "/images/icons/chatgpt.svg",
+	tool6Name = "Hermes Agent", tool6Image = "/images/icons/hermes.svg",
+} = Astro.props;
+
+const toolkit = [
+	{ name: tool1Name, image: tool1Image, w: 250, h: 255 },
+	{ name: tool2Name, image: tool2Image, w: 240, h: 96 },
+	{ name: tool3Name, image: tool3Image, w: 220, h: 152 },
+	{ name: tool4Name, image: tool4Image, w: 240, h: 300 },
+	{ name: tool5Name, image: tool5Image, w: 41, h: 40 },
+	{ name: tool6Name, image: tool6Image, w: 200, h: 200 },
+];
+---
+
+<section class="toolkit-section" aria-labelledby="toolkit-title">
+				<div class="wrap toolkit-inner">
+					<div class="toolkit-heading">
+						<img class="toolkit-portrait" src="/images/douglas-head.webp" alt="" width="620" height="743" loading="lazy" decoding="async" />
+						<h2 id="toolkit-title" class="toolkit-title" aria-label={`${titleFirst} ${titleSecond} ${titleYear}`}>
+							<span class="typewriter" aria-hidden="true" data-type={titleFirst}>{titleFirst}</span><br />
+							<span class="typewriter" aria-hidden="true" data-type={titleSecond}>{titleSecond}</span><br />
+							<span class="typewriter" aria-hidden="true" data-type={titleYear} data-em>{titleYear}</span>
+						</h2>
+					</div>
+					<div class="toolkit-marquee">
+						<div class="toolkit-track" aria-label={toolsLabel}>
+							<ul class="toolkit-set">
+								{toolkit.map((tool) => (
+									<li class="toolkit-tile"><img src={tool.image} alt="" width={tool.w} height={tool.h} loading="lazy" decoding="async" /><span>{tool.name}</span></li>
+								))}
+							</ul>
+							<ul class="toolkit-set" aria-hidden="true">
+								{toolkit.map((tool) => (
+									<li class="toolkit-tile"><img src={tool.image} alt="" width={tool.w} height={tool.h} loading="lazy" decoding="async" /><span>{tool.name}</span></li>
+								))}
+							</ul>
+						</div>
+					</div>
+					<a class="button toolkit-cta" href="https://lab.douglasgaspar.com" target="_blank" rel="noreferrer"><img src="/images/icons/lab.svg" alt="" width="300" height="300" />{ctaLabel} <span aria-hidden="true">↗</span></a>
+				</div>
+			</section>

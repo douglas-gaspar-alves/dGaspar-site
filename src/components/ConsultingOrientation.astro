@@ -1,0 +1,30 @@
+---
+import { firstConsultationHref } from "../lib/contact-links";
+
+interface Props {
+  eyebrow?: string;
+  titleBefore?: string;
+  titleAccent?: string;
+  paragraphOne?: string;
+  paragraphTwo?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+}
+
+const {
+  eyebrow = "Primeira consultoria gratuita",
+  titleBefore = "Traga um problema do dia a dia. Vamos entender o que pode",
+  titleAccent = "mudar.",
+  paragraphOne = "Conte qual tarefa toma tempo, como ela funciona hoje e o que você já tentou. Na conversa individual online, eu ajudo a distinguir o que uma ferramenta de IA poderia apoiar, onde uma automação faria sentido e quais decisões ainda dependem de você ou da equipe.",
+  paragraphTwo = "Não precisa chegar sabendo usar n8n nem ter a solução desenhada. Se uma ferramenta não for adequada ao seu caso, essa também é uma conclusão útil. Combinamos os detalhes da conversa por e-mail antes de começar.",
+  ctaLabel = "Me conte seu caso",
+  ctaHref = firstConsultationHref,
+} = Astro.props;
+---
+
+<section class="consulting-page-section consulting-page-orientation" id="orientacao" aria-labelledby="orientacao-title">
+				<div class="wrap consulting-page-orientation-grid">
+					<div class="consulting-page-heading"><p class="eyebrow">{eyebrow}</p><h2 id="orientacao-title">{titleBefore} <em>{titleAccent}</em></h2></div>
+					<div class="consulting-page-prose"><p>{paragraphOne}</p><p>{paragraphTwo}</p><a class="button button-light" href={ctaHref}>{ctaLabel} <span aria-hidden="true">↗</span></a></div>
+				</div>
+			</section>

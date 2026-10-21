@@ -1,0 +1,37 @@
+---
+
+interface Props {
+  eyebrow?: string;
+  titleBefore?: string;
+  titleAccent?: string;
+  intro?: string;
+  topic1Title?: string;
+  topic1Text?: string;
+  topic2Title?: string;
+  topic2Text?: string;
+  topic3Title?: string;
+  topic3Text?: string;
+}
+
+const {
+  eyebrow = "Aplicações possíveis",
+  titleBefore = "Menos tarefas repetidas. Mais tempo para o trabalho que exige",
+  titleAccent = "você.",
+  intro = "Não existe uma automação certa para toda empresa. Estes são exemplos do que podemos investigar juntos, conforme a sua rotina:",
+  topic1Title = "Atendimento",
+  topic1Text = "Reunir perguntas frequentes e informações para preparar respostas, com revisão humana antes de enviar quando necessário.",
+  topic2Title = "Informações entre sistemas",
+  topic2Text = "Avaliar se dados de formulários, planilhas ou CRM podem circular entre ferramentas sem precisar ser copiados manualmente.",
+  topic3Title = "Organização do trabalho",
+  topic3Text = "Examinar tarefas recorrentes, identificar onde há retrabalho e separar o que pode ser automatizado do que depende de julgamento.",
+} = Astro.props;
+---
+
+<section class="consulting-page-section wrap" aria-labelledby="situacoes-title">
+				<div class="consulting-page-heading"><p class="eyebrow">{eyebrow}</p><h2 id="situacoes-title">{titleBefore} <em>{titleAccent}</em></h2><p class="consulting-page-intro">{intro}</p></div>
+				<div class="consulting-topic-grid">
+					<article><span>01</span><h3>{topic1Title}</h3><p>{topic1Text}</p></article>
+					<article><span>02</span><h3>{topic2Title}</h3><p>{topic2Text}</p></article>
+					<article><span>03</span><h3>{topic3Title}</h3><p>{topic3Text}</p></article>
+				</div>
+			</section>

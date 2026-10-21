@@ -1,0 +1,35 @@
+---
+import "../styles/service-page.css";
+
+interface Props {
+  eyebrow?: string;
+  titleLineOne?: string;
+  titleLineTwo?: string;
+  titleAccent?: string;
+  card1Title?: string;
+  card1Text?: string;
+  card2Title?: string;
+  card2Text?: string;
+}
+
+const {
+  eyebrow = "Onde a IA entra",
+  titleLineOne = "IA no processo",
+  titleLineTwo = "e no",
+  titleAccent = "site.",
+  card1Title = "No processo de criação",
+  card1Text = "A IA pode apoiar a criação: organizar referências, comparar caminhos de conteúdo e adiantar partes do trabalho. Tudo o que vai para o site passa por revisão humana antes de ser publicado.",
+  card2Title = "Na experiência do site",
+  card2Text = "Quando o escopo pede, a IA pode fazer parte do site em uma funcionalidade específica, como um atendimento que responde às dúvidas mais comuns. Se o site funciona bem sem IA, ele fica sem IA.",
+} = Astro.props;
+---
+
+<section class="service-ai" aria-labelledby="ai-title">
+				<div class="wrap">
+					<p class="eyebrow">{eyebrow}</p><h2 id="ai-title">{titleLineOne}<br />{titleLineTwo} <em>{titleAccent}</em></h2>
+					<div class="ai-grid">
+						<article><span>01</span><h3>{card1Title}</h3><p>{card1Text}</p></article>
+						<article><span>02</span><h3>{card2Title}</h3><p>{card2Text}</p></article>
+					</div>
+				</div>
+			</section>

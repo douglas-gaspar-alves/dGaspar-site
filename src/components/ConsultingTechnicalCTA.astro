@@ -1,0 +1,21 @@
+---
+import { technicalContactHref } from "../lib/contact-links";
+
+interface Props {
+  eyebrow?: string;
+  heading?: string;
+  body?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+}
+
+const {
+  eyebrow = "Você já trabalha com tecnologia?",
+  heading = "Sou técnico: vibe coding ou no-code",
+  body = "Estou preparando um espaço próprio para quem cria com IA, vibe coding e ferramentas no-code. Ainda não há uma página para esse público; se quiser conversar agora, me conte seu contexto por e-mail.",
+  ctaLabel = "Sou técnico",
+  ctaHref = technicalContactHref,
+} = Astro.props;
+---
+
+<div class="consulting-technical-cta wrap"><div><p class="eyebrow">{eyebrow}</p><h2>{heading}</h2><p>{body}</p></div><a class="button button-dark" href={ctaHref}>{ctaLabel} <span aria-hidden="true">↗</span></a></div>
