@@ -20,6 +20,7 @@ interface Props {
   twitterImage?: string;
   twitterImageAlt?: string;
   schemaKind?: string;
+  noindex?: boolean;
 }
 
 const {
@@ -41,6 +42,7 @@ const {
   twitterImage,
   twitterImageAlt,
   schemaKind,
+  noindex = false,
 } = Astro.props;
 
 const schemaData = schemaKind === "person"
@@ -69,7 +71,21 @@ const schemaData = schemaKind === "person"
           availableLanguage: "pt-BR",
         },
       }
-    : undefined;
+    : schemaKind === "agent-consultation"
+      ? {
+          "@context": "https://schema.org",
+          "@type": "Service",
+          name: "Consultoria para criar seu agente de IA pessoal",
+          description,
+          provider: { "@type": "Person", name: "Douglas Gaspar", url: "https://douglasgaspar.com/" },
+          areaServed: "BR",
+          availableChannel: {
+            "@type": "ServiceChannel",
+            serviceUrl: canonical,
+            availableLanguage: "pt-BR",
+          },
+        }
+      : undefined;
 ---
 
 <!doctype html>
@@ -82,6 +98,7 @@ const schemaData = schemaKind === "person"
     <meta name="theme-color" content={themeColor} />
     {colorScheme && <meta name="color-scheme" content={colorScheme} />}
     <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     {preloadImage && <link rel="preload" as="image" href={preloadImage} type="image/webp" fetchpriority="high" />}
     {preloadDesktopImage && <link rel="preload" as="image" href={preloadDesktopImage} type="image/webp" fetchpriority="high" media="(min-width: 641px)" />}

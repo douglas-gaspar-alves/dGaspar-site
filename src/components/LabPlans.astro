@@ -1,0 +1,95 @@
+---
+const registerUrl = "https://lab.douglasgaspar.com/?fcom_action=auth&form=register";
+const communityUrl = "https://lab.douglasgaspar.com/";
+
+const plans = [
+  {
+    name: "Curioso",
+    tag: "Entrada gratuita",
+    audience: "Para conhecer o LAB.",
+    monthly: "Grátis",
+    yearly: "Acesso contínuo",
+    features: [
+      "Conteúdos gratuitos",
+      "superAgents limitado",
+      "Espaços públicos",
+      "Perfil",
+      "Chat Limitado",
+    ],
+    action: "Começar grátis",
+    href: registerUrl,
+    featured: false,
+  },
+  {
+    name: "Empreendedor",
+    tag: "Aplicação no negócio",
+    audience: "Para quem quer aplicar agentes na própria rotina.",
+    monthly: "R$ 29,90 / mês",
+    yearly: "Ou R$ 299 / ano",
+    features: [
+      "Trilha superAgents completa",
+      "Desafios com encontro ao vivo",
+      "Todas as Aulas ao Vivo do superAgents",
+      "Bônus ",
+    ],
+    action: "Conhecer o LAB",
+    href: communityUrl,
+    featured: true,
+  },
+  {
+    name: "IA Coder",
+    tag: "Prática técnica",
+    audience: "Para quem constrói com IA e quer ir mais fundo.",
+    monthly: "R$ 47 / mês",
+    yearly: "Ou R$ 470 / ano",
+    features: [
+      "Tudo do Empreendedor",
+      "Espaço superTools ",
+      "Correção técnica no ao vivo (Todo dia 18 do mês)",
+    ],
+    action: "Conhecer o LAB",
+    href: communityUrl,
+    featured: false,
+  },
+  {
+    name: "PRO Plus",
+    tag: "Técnico + criativo",
+    audience: "Para quem quer as duas trilhas e IA criativa.",
+    monthly: "R$ 59,90 / mês",
+    yearly: "Ou R$ 539 / ano",
+    features: [
+      "Conteúdos dos planos Empreendedor e IA Coder",
+      "IArte: 1 aula ao vivo por mês de IA criativa",
+      "Chat Ilimitado",
+      "Selo Studio Alma",
+    ],
+    action: "Conhecer o LAB",
+    href: communityUrl,
+    featured: false,
+  },
+];
+---
+
+<section class="lab-section lab-plans" id="planos" aria-labelledby="lab-plans-title">
+  <div class="lab-wrap">
+    <div class="lab-section-intro lab-plans-intro">
+      <p class="lab-kicker">02 / PLANOS</p>
+      <h2 id="lab-plans-title">Escolha como quer<br /><em>participar.</em></h2>
+      <p>A versão gratuita é uma porta de entrada. Os planos pagos acrescentam acessos a espaços exclusivos, os desafios e os encontros; as trilhas avançadas variam conforme o plano.</p>
+    </div>
+    <div class="lab-plan-grid">
+      {plans.map((plan) => (
+        <article class:list={["lab-plan", { "lab-plan-featured": plan.featured }]}>
+          <div class="lab-plan-top"><span>{plan.tag}</span>{plan.featured && <span class="lab-plan-badge">Para começar a aplicar</span>}</div>
+          <h3>{plan.name}</h3>
+          <p class="lab-plan-audience">{plan.audience}</p>
+          <p class="lab-plan-price">{plan.monthly}</p>
+          <p class="lab-plan-yearly">{plan.yearly}</p>
+          <ul>{plan.features.map((feature) => <li>{feature}</li>)}</ul>
+          <a class:list={["lab-button", { "lab-button-accent": plan.featured, "lab-button-outline": !plan.featured }]} href={plan.href}>{plan.action} <span aria-hidden="true">↗</span></a>
+        </article>
+      ))}
+    </div>
+    <p class="lab-plans-note">Os valores anuais e mensais são alternativas de cobrança; os descontos dos anuais já estão refletidos no preço. A contratação paga não acontece nesta página: consulte as condições de acesso na comunidade antes de efetuar qualquer pagamento.</p>
+  </div>
+</section>

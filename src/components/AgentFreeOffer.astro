@@ -1,0 +1,53 @@
+---
+interface Props {
+  eyebrow?: string;
+  titleBefore?: string;
+  titleAccent?: string;
+  lead?: string;
+}
+
+const {
+  eyebrow = "O que acontece de graça",
+  titleBefore = "Um roteiro de diagnóstico",
+  titleAccent = "passo a passo",
+  lead = "A primeira consulta é para entender o seu caso e mostrar um caminho possível. Ela não é uma sessão de configuração nem a entrega de um agente pronto.",
+} = Astro.props;
+---
+
+<section class="agent-section agent-section--white" id="oferta-gratuita" aria-labelledby="oferta-title">
+  <div class="agent-wrap">
+    <div class="agent-section-head">
+      <p class="agent-eyebrow">{eyebrow}</p>
+      <h2 id="oferta-title">{titleBefore} <em>{titleAccent}</em></h2>
+      <p class="agent-lead">{lead}</p>
+    </div>
+
+    <div class="agent-offer-grid">
+      <article class="agent-offer-card">
+        <span>01</span>
+        <h3>Conversa sobre a tarefa e o contexto</h3>
+        <p>Você conta o que quer apoiar, como faz hoje e quais informações e ferramentas estão envolvidas.</p>
+      </article>
+      <article class="agent-offer-card">
+        <span>02</span>
+        <h3>Demonstração breve com dados de exemplo</h3>
+        <p>Eu mostro como um agente poderia se comportar naquele tipo de tarefa, sem acessar a sua conta.</p>
+      </article>
+      <article class="agent-offer-card">
+        <span>03</span>
+        <h3>Diagnóstico passo a passo pré-montado</h3>
+        <p>Um roteiro para organizar o que observar, o que testar e o que decidir antes de criar o agente.</p>
+      </article>
+    </div>
+
+    <div class="agent-exclusions">
+      <h3>O que não está incluído</h3>
+      <ul>
+        <li>Configuração do agente na sua conta</li>
+        <li>Agente operacional pronto</li>
+        <li>Integrações e acessos</li>
+        <li>Horas adicionais ou suporte contínuo</li>
+      </ul>
+    </div>
+  </div>
+</section>

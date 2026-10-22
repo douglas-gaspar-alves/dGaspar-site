@@ -6,13 +6,11 @@ interface Props {
   titleAccent?: string;
   intro?: string;
   siteLabel?: string;
-  n8nLabel?: string;
-  aiLabel?: string;
-  ctaLabel?: string;
-  n8nStatus?: string;
-  aiStatus?: string;
+  personalLabel?: string;
+  businessLabel?: string;
   siteHref?: string;
-  ctaHref?: string;
+  personalHref?: string;
+  businessHref?: string;
 }
 
 const {
@@ -21,14 +19,12 @@ const {
   titleAccent = "construir.",
   intro = "Também assumo projetos de execução com escopo definido em conjunto.",
   siteLabel = "Criação de sites",
-  n8nLabel = "Instalação de n8n",
-  aiLabel = "Implementações de IA e automação",
-  ctaLabel = "Quero colocar meu projeto em prática",
-  n8nStatus = "(EM BREVE)",
-  aiStatus = "(EM BREVE)",
+  personalLabel = "Consultoria pessoal",
+  businessLabel = "Consultoria empresarial",
   siteHref = "/servicos/criacao-de-sites/",
-  ctaHref = "/consultorias/",
+  personalHref = "/consultorias/agente-de-ia-pessoal/",
+  businessHref = "/consultorias/",
 } = Astro.props;
 ---
 
-<section class="services-section" id="servicos" aria-labelledby="servicos-title"><div class="wrap services-inner"><div class="services-heading"><p class="eyebrow">{eyebrow}</p><h2 id="servicos-title">{titleBefore}<br />de <em>{titleAccent}</em></h2><p>{intro}</p></div><div class="service-list"><a class="service-item" href={siteHref}><span>01</span><p>{siteLabel}</p><b aria-hidden="true">↗</b></a><div><span>02</span><p>{n8nLabel} <span class="service-badge">{n8nStatus}</span></p><b aria-hidden="true">↗</b></div><div><span>03</span><p>{aiLabel} <span class="service-badge">{aiStatus}</span></p><b aria-hidden="true">↗</b></div><a class="button button-light" href={ctaHref}>{ctaLabel} <span aria-hidden="true">↗</span></a></div></div></section>
+<section class="services-section" id="servicos" aria-labelledby="servicos-title"><div class="wrap services-inner"><div class="services-heading"><p class="eyebrow">{eyebrow}</p><h2 id="servicos-title">{titleBefore}<br />de <em>{titleAccent}</em></h2><p>{intro}</p></div><div class="service-list"><a class="service-item" href={siteHref}><span>01</span><p>{siteLabel}</p><b aria-hidden="true">↗</b></a><a class="service-item" href={personalHref}><span>02</span><p>{personalLabel}</p><b aria-hidden="true">↗</b></a><a class="service-item" href={businessHref}><span>03</span><p>{businessLabel}</p><b aria-hidden="true">↗</b></a></div></div></section>

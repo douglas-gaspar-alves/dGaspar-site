@@ -1,0 +1,27 @@
+---
+const questions = [
+  { question: "Preciso saber programar?", answer: "Não para entrar no LAB. A trilha parte dos conceitos e depois aprofunda ferramentas e prática técnica. Se você já constrói com IA, o plano IA Coder inclui conteúdo avançado." },
+  { question: "O que está disponível sem pagar?", answer: "O plano Curioso dá acesso a conteúdos gratuitos e a uma parte limitada da trilha superAgents. A turma do ano, os desafios com encontro ao vivo e a trilha completa são dos planos pagos." },
+  { question: "A assinatura inclui consultoria individual?", answer: "Não. O LAB é uma comunidade de aprendizagem. Consultorias e serviços de implementação do Douglas são ofertas separadas, com escopo próprio." },
+  { question: "E se eu cancelar?", answer: "O acesso pago é encerrado e você mantém o acesso gratuito. O histórico de participação fica registrado na comunidade. Antes de pagar, confirme na plataforma as condições aplicáveis ao seu plano." },
+  { question: "Como faço para contratar um plano pago?", answer: "Os valores estão nesta página, mas ainda não há checkout integrado aqui. Acesse a comunidade para verificar a forma de contratação e as condições atuais antes de efetuar um pagamento." },
+];
+---
+
+<section class="lab-section lab-questions" id="perguntas" aria-labelledby="lab-questions-title">
+  <div class="lab-wrap lab-questions-grid">
+    <div class="lab-section-intro">
+      <p class="lab-kicker">03 / PERGUNTAS FREQUENTES</p>
+      <h2 id="lab-questions-title">Antes de entrar,<br /><em>saiba o que esperar.</em></h2>
+      <p>O LAB é para aprender e testar com outras pessoas. Não inclui implementação feita para você nem promete resultados financeiros.</p>
+    </div>
+    <div class="lab-questions-list">
+      {questions.map(({ question, answer }) => (
+        <details>
+          <summary>{question}<span aria-hidden="true">+</span></summary>
+          <p>{answer}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

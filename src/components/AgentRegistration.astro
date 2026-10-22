@@ -1,0 +1,42 @@
+---
+import { firstConsultationHref } from "../lib/contact-links";
+
+interface Props {
+  ctaLabel?: string;
+  ctaHref?: string;
+}
+
+const {
+  ctaLabel = "Agendar minha consultoria gratuita",
+  ctaHref = firstConsultationHref,
+} = Astro.props;
+---
+
+<section class="agent-section agent-section--blue" id="cadastro" aria-labelledby="cadastro-title">
+  <div class="agent-wrap agent-registration-grid">
+    <div>
+      <p class="agent-eyebrow">Como participar</p>
+      <h2 id="cadastro-title">O agendamento é o <em>cadastro</em></h2>
+      <p class="agent-lead">Não há formulário neste site. O botão abre a agenda do Cal.com; escolher um horário e concluir o agendamento é a sua inscrição na primeira consultoria gratuita.</p>
+      <a class="agent-button agent-button-light" href={ctaHref}>{ctaLabel} <span aria-hidden="true">↗</span></a>
+    </div>
+
+    <div class="agent-registration-side">
+      <ol class="agent-step-list">
+        <li>
+          <span>01</span>
+          <div><h3>Abra a agenda</h3><p>O botão leva ao Cal.com, no mesmo evento usado para as consultorias.</p></div>
+        </li>
+        <li>
+          <span>02</span>
+          <div><h3>Escolha um horário</h3><p>Veja os horários disponíveis e selecione o que funciona para você.</p></div>
+        </li>
+        <li>
+          <span>03</span>
+          <div><h3>Conclua o agendamento</h3><p>O agendamento é o cadastro. Os detalhes do horário aparecem no fluxo do Cal.com.</p></div>
+        </li>
+      </ol>
+      <p class="agent-note">A agenda atual aparece como <strong>“Consultorias &amp; Serviços”</strong>, com duração de 45 minutos e uma descrição geral. O conteúdo específico desta página é explicado por mim na conversa.</p>
+    </div>
+  </div>
+</section>

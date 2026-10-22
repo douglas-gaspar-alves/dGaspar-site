@@ -1,0 +1,48 @@
+---
+interface Props {
+  eyebrow?: string;
+  titleBefore?: string;
+  titleAccent?: string;
+  lead?: string;
+}
+
+const {
+  eyebrow = "Perguntas frequentes",
+  titleBefore = "Antes de",
+  titleAccent = "agendar",
+  lead = "Se a sua dúvida não estiver aqui, ela pode ser tratada na conversa.",
+} = Astro.props;
+---
+
+<section class="agent-section agent-section--white" id="perguntas" aria-labelledby="perguntas-title">
+  <div class="agent-wrap agent-faq-grid">
+    <div class="agent-section-head">
+      <p class="agent-eyebrow">{eyebrow}</p>
+      <h2 id="perguntas-title">{titleBefore} <em>{titleAccent}</em></h2>
+      <p class="agent-lead">{lead}</p>
+    </div>
+
+    <div class="agent-faq-list">
+      <details>
+        <summary>Preciso saber programar?</summary>
+        <p>Não para começar. A conversa parte da tarefa que você quer apoiar e do que você já usa hoje. Se o caminho exigir configuração técnica, eu explico o que fazer e o que fica sob sua responsabilidade.</p>
+      </details>
+      <details>
+        <summary>O diagnóstico é personalizado?</summary>
+        <p>A conversa é sobre o seu caso. O roteiro de diagnóstico é um material passo a passo pré-montado, usado como base para organizar a conversa. Ele não é um projeto exclusivo nem um agente criado do zero.</p>
+      </details>
+      <details>
+        <summary>Quando recebo o material?</summary>
+        <p>O roteiro é apresentado durante a consulta gratuita. O formato de entrega e um eventual envio posterior ainda não estão definidos; se isso for decisivo, pergunte antes de agendar.</p>
+      </details>
+      <details>
+        <summary>A conversa gratuita já configura meu agente?</summary>
+        <p>Não. A consulta gratuita é de diagnóstico e demonstração com dados de exemplo. A configuração na sua conta acontece apenas se você contratar horas adicionais e fizer a prática guiada.</p>
+      </details>
+      <details>
+        <summary>E se eu quiser que Douglas crie o agente?</summary>
+        <p>A criação e a operação podem ser avaliadas em uma proposta separada, com documentação e suporte definidos. Isso não está incluído na consulta gratuita nem nas horas de orientação.</p>
+      </details>
+    </div>
+  </div>
+</section>

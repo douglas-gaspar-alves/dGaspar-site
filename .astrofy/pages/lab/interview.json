@@ -1,0 +1,47 @@
+{
+  "schemaVersion": "1.0.0",
+  "slug": "lab",
+  "type": "sales",
+  "status": "collecting",
+  "createdAt": "2026-10-22T15:24:28.092Z",
+  "updatedAt": "2026-10-22T15:24:28.092Z",
+  "answers": {
+    "title": null,
+    "route": null,
+    "objective": null,
+    "audience": null,
+    "primaryActionLabel": null,
+    "primaryActionHref": null,
+    "offer": null,
+    "price": null,
+    "proof": null,
+    "guarantee": null
+  },
+  "rejected": [],
+  "missing": [
+    "title",
+    "route",
+    "objective",
+    "audience",
+    "primaryActionLabel",
+    "primaryActionHref",
+    "offer",
+    "price",
+    "proof",
+    "guarantee"
+  ],
+  "nextQuestions": [
+    {
+      "field": "title",
+      "prompt": "Qual é o título de trabalho da página?"
+    },
+    {
+      "field": "route",
+      "prompt": "Qual rota a página deve usar?"
+    },
+    {
+      "field": "objective",
+      "prompt": "Qual resultado principal a página deve produzir?"
+    }
+  ]
+}

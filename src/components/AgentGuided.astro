@@ -1,0 +1,41 @@
+---
+interface Props {
+  eyebrow?: string;
+  titleBefore?: string;
+  titleAccent?: string;
+  lead?: string;
+}
+
+const {
+  eyebrow = "Depois da primeira conversa",
+  titleBefore = "Crie e teste com",
+  titleAccent = "orientação",
+  lead = "Se contratar mais horas depois da consulta gratuita, você configura e testa o agente na própria conta com a minha orientação e recebe um resumo escrito das decisões, limites e próximos passos.",
+} = Astro.props;
+---
+
+<section class="agent-section agent-section--white" id="horas-adicionais" aria-labelledby="horas-title">
+  <div class="agent-wrap agent-guided-grid">
+    <div>
+      <p class="agent-eyebrow">{eyebrow}</p>
+      <h2 id="horas-title">{titleBefore} <em>{titleAccent}</em></h2>
+      <p class="agent-lead">{lead}</p>
+      <p class="agent-small">A consulta gratuita não configura a sua conta. As condições das horas adicionais são apresentadas antes da contratação.</p>
+    </div>
+
+    <ul class="agent-feature-list">
+      <li>
+        <span>01</span>
+        <div><h3>Configuração acompanhada</h3><p>Você cria o agente na sua conta, com orientação sobre o que preparar e quais escolhas fazer.</p></div>
+      </li>
+      <li>
+        <span>02</span>
+        <div><h3>Testes com o seu contexto</h3><p>Testamos o comportamento com exemplos e situações que você pode usar, dentro do que for acordado.</p></div>
+      </li>
+      <li>
+        <span>03</span>
+        <div><h3>Resumo escrito</h3><p>Você recebe um registro das decisões, dos limites encontrados e dos próximos passos.</p></div>
+      </li>
+    </ul>
+  </div>
+</section>

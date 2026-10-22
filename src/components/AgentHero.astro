@@ -1,0 +1,60 @@
+---
+import { firstConsultationHref } from "../lib/contact-links";
+
+interface Props {
+  eyebrow?: string;
+  titleBefore?: string;
+  titleAccent?: string;
+  lead?: string;
+  primaryLabel?: string;
+  primaryHref?: string;
+  secondaryLabel?: string;
+  secondaryHref?: string;
+  finePrint?: string;
+}
+
+const {
+  eyebrow = "Consultoria individual · online",
+  titleBefore = "Consultoria para criar seu",
+  titleAccent = "agente de IA pessoal",
+  lead = "Traga uma tarefa do seu dia a dia. Na consulta gratuita, conversamos sobre ela, faço uma demonstração com dados de exemplo e entrego um roteiro de diagnóstico passo a passo.",
+  primaryLabel = "Agendar minha consultoria gratuita",
+  primaryHref = firstConsultationHref,
+  secondaryLabel = "Ver o que acontece",
+  secondaryHref = "#oferta-gratuita",
+  finePrint = "A primeira conversa é gratuita. O agendamento é feito no Cal.com e não há formulário neste site.",
+} = Astro.props;
+---
+
+<section class="agent-hero" aria-labelledby="agent-hero-title">
+  <div class="agent-wrap agent-hero-grid">
+    <div class="agent-hero-copy">
+      <p class="agent-kicker">{eyebrow}</p>
+      <h1 id="agent-hero-title">{titleBefore} <em>{titleAccent}</em></h1>
+      <p class="agent-hero-lead">{lead}</p>
+      <div class="agent-hero-actions">
+        <a class="agent-button agent-button-accent" href={primaryHref}>{primaryLabel} <span aria-hidden="true">↗</span></a>
+        <a class="agent-text-link" href={secondaryHref}>{secondaryLabel} <span aria-hidden="true">↓</span></a>
+      </div>
+      <p class="agent-fine-print">{finePrint}</p>
+    </div>
+    <aside class="agent-hero-card" aria-label="Resumo da primeira conversa">
+      <p class="agent-card-kicker">Na primeira conversa</p>
+      <ol class="agent-hero-steps">
+        <li>
+          <span>01</span>
+          <div><strong>Conversa sobre a tarefa</strong><p>Você traz o caso, o contexto e o que já tentou.</p></div>
+        </li>
+        <li>
+          <span>02</span>
+          <div><strong>Demonstração com dados de exemplo</strong><p>Sem usar a sua conta ou os seus dados reais.</p></div>
+        </li>
+        <li>
+          <span>03</span>
+          <div><strong>Roteiro de diagnóstico</strong><p>Um passo a passo pré-montado para organizar o caminho.</p></div>
+        </li>
+      </ol>
+      <p class="agent-card-note">A consulta gratuita não configura o seu agente.</p>
+    </aside>
+  </div>
+</section>

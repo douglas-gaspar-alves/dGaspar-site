@@ -15,13 +15,13 @@
 4. **Projetos:** LAB dGaspar, Studio Alma (em desenvolvimento) e o Método A.C.R.E., que saiu da borda da hero para o seu próprio cartão.
 5. **Kit de ferramentas:** composição visual rotulada “Meu kit de ferramentas para 2027”, sem catálogo.
 6. **Consultoria:** orientação individual; qualquer execução é definida e proposta separadamente.
-7. **Serviços:** criação de sites disponível; instalação de n8n e implementações de IA e automação marcados como `(EM BREVE)`. O CTA “Quero colocar meu projeto em prática” leva para `/consultorias/`.
+7. **Serviços:** criação de sites (01), consultoria pessoal (02) e consultoria empresarial (03), todas como âncoras clicáveis. Ajuste de 2026-10-22: os itens 02 e 03 saem de `(EM BREVE)` e o botão “Quero colocar meu projeto em prática” foi removido.
 8. **Rodapé:** WhatsApp, e-mail e redes confirmadas.
 
 ## Navegação e destinos
 
 - Consultoria: `mailto:contato@douglasgaspar.com?subject=Consultoria...`.
-- Serviços: “Quero colocar meu projeto em prática” → `/consultorias/`.
+- Serviços: item 01 → `/servicos/criacao-de-sites/`; item 02 “Consultoria pessoal” → `/consultorias/agente-de-ia-pessoal/`; item 03 “Consultoria empresarial” → `/consultorias/`. Ajuste de 2026-10-22.
 - Contato geral: `https://wa.me/5522992591418?text=...` (+55 22 99259-1418), aberto em nova aba; o número vive em `whatsappNumber`, em `src/lib/contact-links.ts`.
 - Instalação de n8n e implementações de IA e automação: itens `(EM BREVE)`, sem link próprio.
 - Próxima aula: `http://lab.douglasgaspar.com/events`, nova aba. O DNS do host falhou durante a validação local; preservar a URL escolhida e revalidar antes de publicar.
@@ -43,9 +43,9 @@
 - Não apresentar consultoria como execução.
 - Studio Alma fica descrito como projeto em desenvolvimento.
 - Destino da próxima aula precisa de verificação DNS antes de publicação.
-- Instalação de n8n e implementações de IA e automação estão marcadas como `(EM BREVE)`: não descrever esses itens como contratação disponível.
+- Itens 02 e 03 da Home deixaram de ser `(EM BREVE)` por decisão de 2026-10-22. A página de “Consultoria pessoal” segue sem aprovação de copy e com `noindex`; o item agora liga para ela por decisão do responsável, mas não reverter isso nem tornar a página indexável sem nova decisão.
 - O número do WhatsApp do CTA do rodapé foi confirmado em 2026-10-21 (+55 22 99259-1418); qualquer troca precisa passar por decisão registrada.
 
 ## Proveniência
 
-Plano e decisões aprovados nesta conversa em 2026-10-20; desenho de navegação enviado pelo responsável; marca e links registrados em `BRAND.md` e `.inboundfy/context/links.md`. Ajustes de 2026-10-21: rótulos `(EM BREVE)`, destino do CTA de serviços e CTA do rodapé pelo WhatsApp.
+Plano e decisões aprovados nesta conversa em 2026-10-20; desenho de navegação enviado pelo responsável; marca e links registrados em `BRAND.md` e `.inboundfy/context/links.md`. Ajustes de 2026-10-21: rótulos `(EM BREVE)`, destino do CTA de serviços e CTA do rodapé pelo WhatsApp. Ajustes de 2026-10-22: itens 02 e 03 viram consultorias clicíveis (pessoal → `/consultorias/agente-de-ia-pessoal/`, empresarial → `/consultorias/`), selos e botão de serviços removidos.

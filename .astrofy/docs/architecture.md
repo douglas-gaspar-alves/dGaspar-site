@@ -12,6 +12,8 @@ autofechadas.
 | `/` | `src/pages/index.astro` | `src/layouts/SiteLayout.astro` | `HomeHero`, `HomePaths`, `HomeAbout`, `HomeProjects`, `HomeToolkit`, `HomeConsulting`, `HomeServices`, `HomeFooter` |
 | `/consultorias/` | `src/pages/consultorias.astro` | `src/layouts/SiteLayout.astro` | `ConsultingHero`, `ConsultingTopics`, `ConsultingOrientation`, `ConsultingBoundary`, `ConsultingCTA`, `ConsultingTechnicalCTA`, `ConsultingFooter` |
 | `/servicos/criacao-de-sites/` | `src/pages/servicos/criacao-de-sites.astro` | `src/layouts/SiteLayout.astro` | `ServiceHeader`, `ServiceHero`, `ServiceIntro`, `ServiceSteps`, `ServiceAI`, `ServiceScope`, `ServiceFooter` |
+| `/consultorias/agente-de-ia-pessoal/` | `src/pages/consultorias/agente-de-ia-pessoal.astro` | `src/layouts/SiteLayout.astro` | `AgentHeader`, `AgentHero`, `AgentFreeOffer`, `AgentRegistration`, `AgentUseCases`, `AgentGuided`, `AgentScope`, `AgentExecution`, `AgentFaq`, `AgentClosingCTA`, `ConsultingFooter` |
+| `/lab/` | `src/pages/lab/index.astro` | `src/layouts/SiteLayout.astro` | `LabHeader`, `LabHero`, `LabJourney`, `LabPlans`, `LabQuestions`, `LabFooter` |
 
 As páginas preservam os caminhos públicos. Cada rota lista a ordem dos blocos
 como componentes Astro autocontidos. O layout concentra `<html>`, `<head>`,
@@ -32,7 +34,10 @@ metadados, link de acessibilidade, `main` e slots para cabeçalho e rodapé.
 - `src/lib/contact-links.ts` centraliza endereço de e-mail e destinos de
   contato reutilizados pelos componentes.
 - `src/styles/global.css` é carregado pelo layout. A página de criação de sites
-  também carrega `src/styles/service-page.css` por seus componentes.
+  também carrega `src/styles/service-page.css` por seus componentes; a página
+  `/consultorias/agente-de-ia-pessoal/` carrega `src/styles/agent-page.css` pelo
+  `AgentHeader` e usa `bodyClass="agent-page"`. A rota está `noindex, nofollow`
+  via prop `noindex` do layout até a copy ser aprovada.
 
 Não há ilhas React, Vue ou Svelte. A composição é HTML renderizado pelo Astro;
 apenas o script da Home acrescenta comportamento no navegador. Listas e

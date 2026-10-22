@@ -1,0 +1,32 @@
+---
+import { firstConsultationHref } from "../lib/contact-links";
+
+interface Props {
+  eyebrow?: string;
+  titleBefore?: string;
+  titleAccent?: string;
+  body?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+}
+
+const {
+  eyebrow = "Primeira consultoria gratuita",
+  titleBefore = "Traga uma tarefa. A conversa",
+  titleAccent = "começa por ela.",
+  body = "O agendamento no Cal.com é o cadastro. Não há formulário neste site. Se uma ferramenta não for adequada ao seu caso, essa também é uma conclusão útil.",
+  ctaLabel = "Agendar minha consultoria gratuita",
+  ctaHref = firstConsultationHref,
+} = Astro.props;
+---
+
+<section class="agent-closing" aria-labelledby="agent-closing-title">
+  <div class="agent-wrap agent-closing-inner">
+    <div>
+      <p class="agent-eyebrow">{eyebrow}</p>
+      <h2 id="agent-closing-title">{titleBefore} <em>{titleAccent}</em></h2>
+      <p>{body}</p>
+    </div>
+    <a class="agent-button agent-button-accent" href={ctaHref}>{ctaLabel} <span aria-hidden="true">↗</span></a>
+  </div>
+</section>

@@ -1,0 +1,27 @@
+---
+import "../styles/agent-page.css";
+
+interface Props {
+  backHref?: string;
+  backLabel?: string;
+}
+
+const {
+  backHref = "/consultorias/",
+  backLabel = "Voltar para consultorias",
+} = Astro.props;
+---
+
+<header class="agent-header">
+  <div class="agent-wrap agent-header-inner">
+    <a class="agent-brand" href="/" aria-label="dGaspar, início">
+      <img src="/images/logo-dgaspar-hero.svg" alt="dGaspar" width="110" height="28" />
+    </a>
+    <nav class="agent-header-nav" aria-label="Navegação da consultoria">
+      <a href="#oferta-gratuita">O que acontece</a>
+      <a href="#cadastro">Como agendar</a>
+      <a href="#perguntas">Dúvidas</a>
+    </nav>
+    <a class="agent-back" href={backHref}>{backLabel} <span aria-hidden="true">↗</span></a>
+  </div>
+</header>

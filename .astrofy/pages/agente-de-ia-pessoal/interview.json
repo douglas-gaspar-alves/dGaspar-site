@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "1.0.0",
+  "slug": "agente-de-ia-pessoal",
+  "type": "service",
+  "status": "collecting",
+  "createdAt": "2026-10-22T15:05:33.193Z",
+  "updatedAt": "2026-10-22T15:19:11.305Z",
+  "answers": {
+    "title": "Consultoria para criar seu agente de IA pessoal",
+    "route": "/consultorias/agente-de-ia-pessoal/",
+    "objective": "Fazer a pessoa se cadastrar para a primeira consultoria gratuita, com diagnóstico passo a passo pré-montado e demonstração breve usando dados de exemplo; horas adicionais e agente operacional são evoluções com escopo próprio.",
+    "audience": "Pessoas que desejam criar um agente de IA para uma tarefa pessoal ou profissional própria, inclusive fora do contexto de empresa; necessidades concretas serão qualificadas caso a caso.",
+    "primaryActionLabel": null,
+    "primaryActionHref": "https://cal.com/douglasgaspar/consultorias-servicos",
+    "scope": "Na primeira consultoria gratuita, Douglas entende a tarefa e o contexto, avalia se um agente faz sentido, apresenta demonstração breve com dados de exemplo e entrega um diagnóstico passo a passo pré-montado; não configura a conta da pessoa. Com horas adicionais contratadas, a pessoa configura e testa na própria conta com orientação, recebendo resumo escrito das decisões, limites e próximos passos. O serviço pode evoluir para agente operacional somente com escopo próprio de execução, documentação, aceite e suporte definidos.",
+    "deliverables": "Na primeira consultoria gratuita, entregar um diagnóstico passo a passo pré-montado; formato e grau de personalização ainda não definidos. Se a pessoa contratar mais horas, orientar configuração e testes na conta dela e entregar resumo escrito de decisões, limites e próximos passos. Se o caso evoluir para um agente operacional, documentar e definir suporte no escopo contratado para essa etapa, sem prometer essa entrega na consulta gratuita.",
+    "process": "A pessoa acessa /consultorias/agente-de-ia-pessoal/ e usa o botão da agenda Cal.com existente; concluir o agendamento é o cadastro para a primeira consultoria gratuita. Na conversa Douglas avalia a tarefa, faz demonstração breve com dados de exemplo e entrega diagnóstico passo a passo pré-montado, sem configurar a conta da pessoa. Se houver interesse, contrata horas adicionais para orientação, testes e resumo escrito; uma evolução para agente operacional exige novo escopo/proposta.",
+    "qualification": null
+  },
+  "rejected": [],
+  "missing": [
+    "primaryActionLabel",
+    "qualification"
+  ],
+  "nextQuestions": [
+    {
+      "field": "primaryActionLabel",
+      "prompt": "Qual texto identifica a ação principal?"
+    },
+    {
+      "field": "qualification",
+      "prompt": "Quem deve ou não contratar este serviço?"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+---
+interface Props {
+  eyebrow?: string;
+  titleBefore?: string;
+  titleAccent?: string;
+}
+
+const {
+  eyebrow = "Escopo e responsabilidades",
+  titleBefore = "O que combina com",
+  titleAccent = "cada parte",
+} = Astro.props;
+---
+
+<section class="agent-section agent-section--lime" id="escopo" aria-labelledby="escopo-title">
+  <div class="agent-wrap">
+    <div class="agent-scope-head">
+      <p class="agent-eyebrow">{eyebrow}</p>
+      <h2 id="escopo-title">{titleBefore} <em>{titleAccent}</em></h2>
+    </div>
+
+    <div class="agent-scope-grid">
+      <article>
+        <h3>Você</h3>
+        <p>Traz o contexto, usa as suas próprias contas e acessos e decide o que pode ser compartilhado. Dados sensíveis só entram com a sua autorização; na demonstração gratuita, usamos dados de exemplo.</p>
+      </article>
+      <article>
+        <h3>Eu</h3>
+        <p>Oriento as escolhas e os testes dentro do escopo contratado. Não tomo decisões sobre os seus dados nem assumo a operação contínua sem um novo acordo.</p>
+      </article>
+    </div>
+
+    <div class="agent-scope-not">
+      <h3>O que não está incluído</h3>
+      <ul>
+        <li>Agente pronto na primeira conversa</li>
+        <li>Integrações e acessos não acordados</li>
+        <li>Custos de ferramentas e APIs</li>
+        <li>Operação e suporte contínuos sem novo escopo</li>
+        <li>Garantia de resultado ou de ganho de tempo</li>
+      </ul>
+    </div>
+  </div>
+</section>

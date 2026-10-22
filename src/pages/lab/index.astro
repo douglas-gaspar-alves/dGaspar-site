@@ -1,0 +1,28 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import LabHeader from "../../components/LabHeader.astro";
+import LabHero from "../../components/LabHero.astro";
+import LabJourney from "../../components/LabJourney.astro";
+import LabPlans from "../../components/LabPlans.astro";
+import LabQuestions from "../../components/LabQuestions.astro";
+import LabFooter from "../../components/LabFooter.astro";
+---
+
+<SiteLayout
+  title="LAB dGaspar | Aprenda a criar e usar agentes de IA em grupo"
+  description="Conheça o LAB dGaspar: trilha superAgents, desafios com encontro ao vivo e uma comunidade para aprender a criar e usar agentes de IA. Veja os planos."
+  canonical="https://douglasgaspar.com/lab/"
+  themeColor="#0a0a14"
+  colorScheme="dark"
+  dataTheme="dark"
+  bodyClass="lab-page"
+  ogImage="https://douglasgaspar.com/images/icons/lab.svg"
+  ogImageAlt="Símbolo do LAB dGaspar"
+>
+  <LabHeader slot="header" />
+  <LabHero />
+  <LabJourney />
+  <LabPlans />
+  <LabQuestions />
+  <LabFooter slot="footer" />
+</SiteLayout>

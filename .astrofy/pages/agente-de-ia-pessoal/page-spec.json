@@ -1,0 +1,218 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "agente-de-ia-pessoal",
+  "type": "service",
+  "status": "content_pending",
+  "title": "Consultoria para criar seu agente de IA pessoal",
+  "route": "/consultorias/agente-de-ia-pessoal/",
+  "objective": "Levar a pessoa diretamente ao agendamento no Cal.com, que funciona como cadastro para a primeira consultoria gratuita com diagnóstico passo a passo pré-montado e demonstração breve.",
+  "audience": {
+    "status": "approved",
+    "value": "Pessoas que desejam criar um agente de IA para uma tarefa pessoal ou profissional própria, inclusive fora do contexto de empresa; necessidades concretas serão qualificadas caso a caso."
+  },
+  "primaryAction": {
+    "status": "content_pending",
+    "label": "Agendar minha consultoria gratuita",
+    "href": "https://cal.com/douglasgaspar/consultorias-servicos"
+  },
+  "sections": [
+    {
+      "id": "hero",
+      "type": "hero",
+      "status": "content_pending",
+      "purpose": "Nomear o serviço e apresentar a entrega gratuita para incentivar a inscrição, sem prometer o agente pronto.",
+      "content": {
+        "heading": "Consultoria para criar seu agente de IA pessoal",
+        "body": "Traga uma tarefa do seu dia a dia. Na consulta gratuita, conversamos sobre ela, faço uma demonstração com dados de exemplo e entrego um roteiro de diagnóstico passo a passo."
+      },
+      "actions": [
+        {
+          "label": "Agendar minha consultoria gratuita",
+          "href": "https://cal.com/douglasgaspar/consultorias-servicos",
+          "kind": "schedule",
+          "status": "content_pending"
+        }
+      ],
+      "media": [],
+      "sourceNotes": ["Nome, rota e diagnóstico passo a passo pré-montado confirmados. A copy sugere chamá-lo de roteiro, sem prometer personalização ainda não definida. Cadastro via agendamento direto no Cal.com decidido nesta conversa; rótulo e copy propostos para aprovação."]
+    },
+    {
+      "id": "oferta-gratuita",
+      "type": "service-deliverables",
+      "status": "content_pending",
+      "purpose": "Mostrar o que a pessoa recebe ao se inscrever na consulta gratuita antes de explicar as horas contratadas.",
+      "content": {
+        "heading": "Um roteiro de diagnóstico passo a passo",
+        "included": ["Conversa sobre a tarefa e o contexto", "Demonstração breve com dados de exemplo", "Diagnóstico passo a passo pré-montado"],
+        "excluded": ["Configuração do agente na conta da pessoa", "Agente operacional incluído"],
+        "deliveryFormat": null,
+        "personalization": null,
+        "deliveryTime": null
+      },
+      "actions": [],
+      "media": [],
+      "sourceNotes": ["Entregas confirmadas pelo responsável; formato, personalização, momento de entrega e prévia do material ainda pendentes."]
+    },
+    {
+      "id": "cadastro",
+      "type": "registration-steps",
+      "status": "content_pending",
+      "purpose": "Explicar como a pessoa se inscreve e o que acontece depois, sem criar fricção ou inventar coleta de dados.",
+      "content": {
+        "heading": "Como participar da primeira consulta",
+        "steps": ["Abrir a agenda Cal.com existente", "Escolher horário disponível", "Concluir o agendamento como inscrição na consulta gratuita"],
+        "registrationMethod": "Agendamento direto no Cal.com, sem formulário local",
+        "requestedFields": null
+      },
+      "actions": [],
+      "media": [],
+      "sourceNotes": ["O responsável confirmou novamente a URL exata https://cal.com/douglasgaspar/consultorias-servicos como destino do botão. Em 22/10/2026, a agenda exibia título genérico Consultorias & Serviços e 45 minutos; os campos, a confirmação e a adequação desse tempo à oferta ainda precisam de conferência. Não criar evento novo."]
+    },
+    {
+      "id": "situacoes",
+      "type": "use-cases",
+      "status": "proposed",
+      "purpose": "Mostrar tarefas concretas e a necessidade de conferência humana antes de falar em ferramentas.",
+      "content": {
+        "cases": [
+          {
+            "actor": "Pessoa com notas próprias de estudo (exemplo hipotético)",
+            "input": "Anotações e material que pode usar",
+            "agentAction": "Propor perguntas de revisão",
+            "observableResult": "A pessoa confere as respostas nas fontes antes de usá-las"
+          },
+          {
+            "actor": "Profissional com notas de reuniões (exemplo hipotético)",
+            "input": "Notas que a própria pessoa pode usar com autorização",
+            "agentAction": "Propor organização de pontos para revisão",
+            "observableResult": "A pessoa confere e decide o que aproveitar"
+          }
+        ]
+      },
+      "actions": [],
+      "media": [],
+      "sourceNotes": ["Exemplo ilustrativo a validar; não é um case entregue ou funcionalidade prometida."]
+    },
+    {
+      "id": "pratica-guiada",
+      "type": "guided-consultation",
+      "status": "content_pending",
+      "purpose": "Explicar as horas adicionais sem competir com a inscrição na consulta gratuita.",
+      "content": {
+        "heading": "Crie e teste com orientação",
+        "body": "Se contratar mais horas depois da consulta gratuita, a pessoa configura e testa o agente na própria conta com a orientação de Douglas e recebe um resumo escrito das decisões, limites e próximos passos. Preço, quantidade de horas e prazo do resumo estão pendentes."
+      },
+      "actions": [],
+      "media": [],
+      "sourceNotes": ["Horas adicionais, orientação, testes e resumo escrito confirmados pelo responsável nesta conversa; condições ainda não definidas."]
+    },
+    {
+      "id": "limites",
+      "type": "service-scope",
+      "status": "content_pending",
+      "purpose": "Separar orientação, participação do cliente e execução posterior.",
+      "content": {
+        "clientResponsibility": "Fornecer o contexto e usar suas próprias contas e acessos, conforme acordado.",
+        "providerResponsibility": "Orientar escolhas e testes dentro do escopo contratado.",
+        "notAssumed": ["Agente pronto na primeira conversa", "Integrações", "Custos de ferramenta incluídos", "Operação e suporte contínuos sem novo escopo"]
+      },
+      "actions": [],
+      "media": [],
+      "sourceNotes": ["Escopo proposto em comercial/estrategia-agentes-e-automacoes.md; fronteiras finais dependem de aprovação."]
+    },
+    {
+      "id": "delegar",
+      "type": "optional-execution",
+      "status": "content_pending",
+      "purpose": "Mostrar a possibilidade de evoluir a contratação para um agente operacional sem competir com a inscrição inicial.",
+      "content": {
+        "heading": "Se preferir, posso avaliar a criação para você",
+        "body": "Depois das horas adicionais, o trabalho pode evoluir para um agente operacional com documentação e suporte definidos por novo escopo/proposta. A pessoa também pode pedir execução por Douglas em vez de seguir criando com orientação."
+      },
+      "actions": [],
+      "media": [],
+      "sourceNotes": ["Decisão explícita do responsável: começar pela consultoria, contratar horas adicionais e, quando fizer sentido, evoluir para agente operacional com escopo próprio."]
+    },
+    {
+      "id": "faq",
+      "type": "faq",
+      "status": "content_pending",
+      "purpose": "Reduzir dúvidas que impedem a inscrição sem inventar condições da oferta.",
+      "content": {
+        "questions": ["Preciso saber programar?", "O diagnóstico é personalizado?", "Quando recebo o material?", "A conversa gratuita já configura meu agente?", "E se eu quiser que Douglas crie o agente?"],
+        "answers": null
+      },
+      "actions": [],
+      "media": [],
+      "sourceNotes": ["Perguntas propostas; respostas dependem de definições do serviço e revisão factual."]
+    },
+    {
+      "id": "contato",
+      "type": "service-cta",
+      "status": "content_pending",
+      "purpose": "Repetir a inscrição para a consulta gratuita e explicar o próximo passo, sem CTA concorrente para horas pagas.",
+      "content": {"heading": null, "body": null},
+      "actions": [
+        {
+          "label": "Agendar minha consultoria gratuita",
+          "href": "https://cal.com/douglasgaspar/consultorias-servicos",
+          "kind": "schedule",
+          "status": "content_pending"
+        }
+      ],
+      "media": [],
+      "sourceNotes": ["Agenda atual confirmada como cadastro nesta conversa. Rótulo proposto; campos e retorno do Cal.com a conferir."]
+    }
+  ],
+  "assets": [
+    {
+      "id": "conversa-existente",
+      "kind": "illustration",
+      "status": "proposed",
+      "source": "/images/conversa.webp",
+      "alt": "Ilustração de Douglas Gaspar em uma conversa por vídeo",
+      "purpose": "Possível apoio à explicação da consultoria; a página funciona sem a imagem."
+    }
+  ],
+  "behaviors": [
+    {
+      "id": "agendamento-externo",
+      "status": "content_pending",
+      "description": "O botão principal abre diretamente o Cal.com já usado na página geral; concluir o agendamento constitui o cadastro para a consulta gratuita, sem formulário próprio.",
+      "states": ["Ação principal acessível por teclado", "Título genérico e duração de 45 minutos observados; conferir adequação à oferta", "Disponibilidade, campos e confirmação verificados antes da publicação", "Nenhuma coleta de dados no site antes do destino externo"]
+    }
+  ],
+  "openItems": [
+    "Aprovar o texto do CTA e confirmar se os 45 minutos observados comportam diagnóstico, demonstração e entrega. Avisar que o link escolhido abre a agenda geral Consultorias & Serviços; verificar campos e confirmação antes de publicar, sem alterar a URL.",
+    "Definir conteúdo, formato, prazo e grau de personalização do diagnóstico passo a passo pré-montado, além da duração e exemplo da demonstração.",
+    "Definir duração, preço, número de horas, prazo do resumo escrito, pré-requisitos, reagendamento e limites da prática guiada.",
+    "Definir critérios e condições para evoluir a um agente operacional, com documentação, aceite e suporte próprios.",
+    "Aprovar copy, exemplos, FAQ, prévia do diagnóstico e uso da ilustração existente.",
+    "Decidir disponibilidade e retirar o selo (EM BREVE) somente após aprovação; não publicar nem indexar antes disso."
+  ],
+  "sources": [
+    "Conversa com Douglas em 2026-10-22: arquitetura 1+2, consulta gratuita com demonstração e diagnóstico pré-montado, horas adicionais com orientação e resumo escrito, possível evolução operacional, rota e público amplo confirmados; cadastro feito pelo agendamento direto na URL exata https://cal.com/douglasgaspar/consultorias-servicos reiterada pelo responsável.",
+    "https://cal.com/douglasgaspar/consultorias-servicos — consultado em 2026-10-22; título Consultorias & Serviços, duração de 45 minutos e descrição genérica observados.",
+    "../comercial/estrategia-agentes-e-automacoes.md",
+    "../BRAND.md",
+    "../brand/voice.md",
+    "src/pages/consultorias.astro",
+    "src/components/HomeServices.astro",
+    "src/lib/contact-links.ts",
+    "../.specsfy/RULES.md"
+  ],
+  "approvedAt": null,
+  "seo": {
+    "title": "Consultoria para criar seu agente de IA pessoal | Douglas Gaspar",
+    "description": null,
+    "canonical": "/consultorias/agente-de-ia-pessoal/",
+    "indexable": false
+  },
+  "integrations": ["Todos os CTAs principais abrem https://cal.com/douglasgaspar/consultorias-servicos para cadastro por agendamento; sem evento novo, formulário, conta ou integração no site."],
+  "accessibility": {"landmarks": true, "keyboard": true, "mediaAlternatives": true},
+  "tests": [
+    "Ao implementar, conferir leitura e foco em desktop e celular, inclusive sem imagem e com movimento reduzido.",
+    "Verificar o cadastro/agendamento e o retorno de confirmação antes de publicar.",
+    "Conferir que a consulta gratuita oferece o diagnóstico pré-montado e a demonstração com dados de exemplo sem prometer agente pronto ou horas adicionais incluídas."
+  ]
+}

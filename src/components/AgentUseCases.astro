@@ -1,0 +1,51 @@
+---
+interface Props {
+  eyebrow?: string;
+  titleBefore?: string;
+  titleAccent?: string;
+  lead?: string;
+}
+
+const {
+  eyebrow = "Situações para conversar",
+  titleBefore = "Uma tarefa concreta antes de",
+  titleAccent = "uma ferramenta",
+  lead = "Estes exemplos são hipotéticos. Eles servem para mostrar o tipo de pergunta que fazemos juntos, não para prometer um agente pronto.",
+} = Astro.props;
+---
+
+<section class="agent-section agent-section--paper" id="situacoes" aria-labelledby="situacoes-title">
+  <div class="agent-wrap">
+    <div class="agent-section-head">
+      <p class="agent-eyebrow">{eyebrow}</p>
+      <h2 id="situacoes-title">{titleBefore} <em>{titleAccent}</em></h2>
+      <p class="agent-lead">{lead}</p>
+    </div>
+
+    <div class="agent-case-grid">
+      <article class="agent-case">
+        <p class="agent-case-label">Exemplo hipotético 01</p>
+        <h3>Organizar notas de estudo</h3>
+        <dl>
+          <div><dt>Quem faz</dt><dd>Alguém que estuda e mantém as próprias anotações.</dd></div>
+          <div><dt>O que entra</dt><dd>Anotações e materiais que a pessoa pode usar.</dd></div>
+          <div><dt>O que um agente poderia fazer</dt><dd>Propor perguntas de revisão a partir do conteúdo.</dd></div>
+          <div><dt>Como conferir</dt><dd>A pessoa compara as respostas com as fontes antes de usá-las.</dd></div>
+        </dl>
+      </article>
+
+      <article class="agent-case">
+        <p class="agent-case-label">Exemplo hipotético 02</p>
+        <h3>Reunir pontos de uma reunião</h3>
+        <dl>
+          <div><dt>Quem faz</dt><dd>Um profissional que organiza as próprias notas de reuniões.</dd></div>
+          <div><dt>O que entra</dt><dd>Notas que a pessoa pode usar com autorização.</dd></div>
+          <div><dt>O que um agente poderia fazer</dt><dd>Propor uma organização dos pontos e dos próximos passos.</dd></div>
+          <div><dt>Como conferir</dt><dd>A pessoa revisa e decide o que aproveitar antes de compartilhar.</dd></div>
+        </dl>
+      </article>
+    </div>
+
+    <p class="agent-case-note">Não são cases entregues, provas de resultado ou funcionalidades incluídas na consultoria.</p>
+  </div>
+</section>

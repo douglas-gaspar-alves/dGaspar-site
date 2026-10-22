@@ -1,0 +1,56 @@
+---
+const steps = [
+  {
+    number: "01",
+    name: "Escolha um ponto de partida",
+    description:
+      "Entre gratuitamente e explore a parte aberta da trilha superAgents. Você não precisa conhecer todas as ferramentas para começar.",
+  },
+  {
+    number: "02",
+    name: "Construa com a comunidade",
+    description:
+      "Nos planos pagos, acompanhe a trilha completa e desafios. Cada desafio pede uma entrega concreta, não só mais uma aula assistida.",
+  },
+  {
+    number: "03",
+    name: "Traga o que aconteceu",
+    description:
+      "No encontro ao vivo, relate o teste, a falha e a correção. Os grupos por assunto ajudam a continuar a conversa entre os encontros.",
+  },
+];
+---
+
+<section class="lab-section lab-journey" id="como-funciona" aria-labelledby="lab-journey-title">
+  <div class="lab-wrap">
+    <div class="lab-section-intro">
+      <p class="lab-kicker">01 / COMO FUNCIONA</p>
+      <h2 id="lab-journey-title">A trilha não termina<br />na <em>última aula.</em></h2>
+      <p>Ela continua quando você testa uma ideia, mostra o que fez e usa a conversa para ajustar o próximo passo. Douglas documenta o processo; a turma participa dele.</p>
+    </div>
+    <ol class="lab-step-grid">
+      {steps.map((step) => (
+        <li class="lab-step">
+          <span class="lab-step-index">{step.number} / 03</span>
+          <div>
+            <h3>{step.name}</h3>
+          </div>
+          <p>{step.description}</p>
+        </li>
+      ))}
+    </ol>
+    <div class="lab-format">
+      <div>
+        <p class="lab-kicker">A BASE DA TRILHA</p>
+        <h3>superAgents</h3>
+        <p>Uma stack-base para estudar agentes de IA sem pular de ferramenta em ferramenta a cada novidade. A trilha começa no essencial e avança com prática.</p>
+      </div>
+      <div class="lab-format-list" aria-label="Formatos da comunidade">
+        <p><strong>Trilha por níveis</strong><span>Conteúdo aberto e conteúdos para assinantes.</span></p>
+        <p><strong>Desafios semanais</strong><span>Uma tarefa específica para sair da teoria.</span></p>
+        <p><strong>Aulas ao vivo</strong><span>Três por mês, com gravações organizadas.</span></p>
+        <p><strong>Comunidade</strong><span>Grupos por assunto e espaço para dúvidas e relatos.</span></p>
+      </div>
+    </div>
+  </div>
+</section>
