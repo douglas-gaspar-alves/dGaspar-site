@@ -1,0 +1,48 @@
+---
+import { CHECKOUT_LINKS } from "../lib/lab-checkout";
+
+interface Props {
+	plan?: "empreendedor" | "ia-coder" | "pro-plus";
+}
+
+const { plan = "empreendedor" } = Astro.props;
+const links = CHECKOUT_LINKS[plan];
+
+// Modal de assinatura paga do LAB, instanciado por plano (Empreendedor, IA
+// Coder e PRO Plus — Ato I reaberto de 2026-10-22 e reabertura de 2026-10-23).
+// Os dois botões levam ao checkout Cakto do plano que o abriu, com prefill por
+// query, e permanecem bloqueados (aria-disabled) até nome e e-mail válidos;
+// validação e montagem da URL ficam na lib src/lib/lab-checkout.ts. O telefone
+// é opcional, com máscara digitável no script, e nunca gera erro (FR-004).
+// Mesmo markup e estilos para os três planos.
+---
+
+<dialog class="lab-checkout-dialog" data-lab-checkout-modal={plan} aria-labelledby={`lab-checkout-title-${plan}`}>
+  <div class="lab-checkout-head">
+    <p class="lab-kicker">LAB DGASPAR / ASSINATURA</p>
+    <h2 id={`lab-checkout-title-${plan}`}>Assinar o <em>LAB</em>.</h2>
+    <p class="lab-checkout-lead">Escolha como quer assinar.</p>
+    <button type="button" class="lab-checkout-close" data-lab-checkout-close aria-label="Fechar formulário">×</button>
+  </div>
+  <form class="lab-checkout-form" data-lab-checkout-form novalidate>
+    <div class="lab-field">
+      <label for={`lab-checkout-nome-${plan}`}>Nome completo</label>
+      <input id={`lab-checkout-nome-${plan}`} name="nome" type="text" autocomplete="name" placeholder="Seu nome completo" />
+    </div>
+    <div class="lab-field">
+      <label for={`lab-checkout-email-${plan}`}>Email</label>
+      <input id={`lab-checkout-email-${plan}`} name="email" type="email" autocomplete="email" placeholder="voce@email.com" />
+    </div>
+    <div class="lab-field">
+      <label for={`lab-checkout-telefone-${plan}`}>Telefone (opcional)</label>
+      <input id={`lab-checkout-telefone-${plan}`} name="telefone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(22) 99999-9999" />
+    </div>
+    <div class="lab-checkout-actions">
+      <a class="lab-button lab-button-accent" href={links.mensal} aria-disabled="true" data-lab-checkout-monthly>Assinatura mensal</a>
+      <a class="lab-button lab-button-accent" href={links.anual} aria-disabled="true" data-lab-checkout-annual>Assinatura anual</a>
+    </div>
+    <p class="lab-checkout-note">Sua conta é liberada na comunidade depois do pagamento.</p>
+  </form>
+</dialog>
+
+<script src="../scripts/lab-checkout.ts"></script>

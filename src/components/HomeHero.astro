@@ -125,6 +125,8 @@ const {
 			};
 
 			const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+			const hero = document.querySelector<HTMLElement>(".hero");
+			if (reduceMotion) hero?.classList.add("hero-static-wordmark");
 
 			if (toolkitPortrait) {
 				let portraitLast = window.scrollY;
@@ -153,65 +155,89 @@ const {
 			}
 
 			if (!reduceMotion) {
-				const { gsap } = await import("gsap");
-				const { ScrollTrigger } = await import("gsap/ScrollTrigger");
-				gsap.registerPlugin(ScrollTrigger);
+				const gsapModule = await import("gsap").catch(() => null);
+				const scrollTriggerModule = await import("gsap/ScrollTrigger").catch(() => null);
 
-				const hero = document.querySelector<HTMLElement>(".hero");
-				const tools = Array.from(document.querySelectorAll<HTMLElement>(".hero-tool"));
+				if (!gsapModule || !scrollTriggerModule) {
+					const wordmark = hero?.querySelector<HTMLElement>(".hero-wordmark");
+					const wordmarkTrack = hero?.querySelector<HTMLElement>(".hero-wordmark-track");
+					if (hero && wordmark && wordmarkTrack) {
+						let scheduled = false;
+						const syncWordmark = () => {
+							if (scheduled) return;
+							scheduled = true;
+							requestAnimationFrame(() => {
+								const progress = Math.min(1, Math.max(0, -hero.getBoundingClientRect().top / (hero.clientHeight * 0.58)));
+								wordmark.style.opacity = String(1 - progress);
+								wordmark.style.transform = `scale(${1 + progress * 0.06})`;
+								wordmarkTrack.style.transform = `translateY(${-10 * progress}%)`;
+								scheduled = false;
+							});
+						};
+						window.addEventListener("scroll", syncWordmark, { passive: true });
+						syncWordmark();
+					}
+					console.warn("GSAP não carregou; usando o efeito de rolagem leve do wordmark.");
+				} else {
+					const { gsap } = gsapModule;
+					const { ScrollTrigger } = scrollTriggerModule;
+					gsap.registerPlugin(ScrollTrigger);
 
-				gsap.timeline({ defaults: { ease: "expo.out" } })
-					.fromTo(".hero-wordmark-track", { clipPath: "inset(0% 100% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.5 }, 0.15)
-					.fromTo(".hero-portrait", { y: 54, scale: 0.93, opacity: 0 }, { y: 0, scale: 1, opacity: 1, duration: 1.3, ease: "power4.out" }, 0.4)
-					.fromTo(".hero-tool", { scale: 0.4, opacity: 0, y: 24 }, { scale: 1, opacity: 1, y: 0, duration: 0.9, stagger: { each: 0.09, from: "random" }, ease: "back.out(2)" }, 0.75)
-					.fromTo(".hero-edge > *", { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, stagger: 0.1 }, 1);
+					const tools = Array.from(document.querySelectorAll<HTMLElement>(".hero-tool"));
 
-				// O nome fica fixo: a foto e os icones deslizam por baixo dele.
-				gsap.to(".hero-wordmark", { opacity: 0, scale: 1.06, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "58% top", scrub: true } });
-				gsap.to(".hero-wordmark-track", { yPercent: -10, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
-				gsap.to(".hero-portrait-wrap", { yPercent: -16, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
-				tools.forEach((tool, index) => {
-					const direction = index % 2 === 0 ? 1 : -1;
-					gsap.to(tool, { xPercent: direction * (5 + index * 2), yPercent: (index % 3 === 0 ? 1 : -1) * (6 + index * 2), ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
-				});
+					gsap.timeline({ defaults: { ease: "expo.out" } })
+						.fromTo(".hero-wordmark-track", { clipPath: "inset(0% 100% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.5 }, 0.15)
+						.fromTo(".hero-portrait", { y: 54, scale: 0.93, opacity: 0 }, { y: 0, scale: 1, opacity: 1, duration: 1.3, ease: "power4.out" }, 0.4)
+						.fromTo(".hero-tool", { scale: 0.4, opacity: 0, y: 24 }, { scale: 1, opacity: 1, y: 0, duration: 0.9, stagger: { each: 0.09, from: "random" }, ease: "back.out(2)" }, 0.75)
+						.fromTo(".hero-edge > *", { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, stagger: 0.1 }, 1);
 
-				hero?.addEventListener("pointermove", (event) => {
-					const box = hero.getBoundingClientRect();
-					const x = (event.clientX - box.left - box.width / 2) / box.width;
-					const y = (event.clientY - box.top - box.height / 2) / box.height;
-					hero.style.setProperty("--px", `${(x * 20).toFixed(2)}px`);
-					hero.style.setProperty("--py", `${(y * 14).toFixed(2)}px`);
-					hero.style.setProperty("--mx", `${(x * -10).toFixed(2)}px`);
-					hero.style.setProperty("--my", `${(y * -6).toFixed(2)}px`);
-					tools.forEach((tool) => {
-						const depth = Number(tool.dataset.depth ?? 1);
-						tool.style.setProperty("--tx", `${(x * depth * 18).toFixed(2)}px`);
-						tool.style.setProperty("--ty", `${(y * depth * 14).toFixed(2)}px`);
+					// O nome fica fixo: a foto e os icones deslizam por baixo dele.
+					gsap.to(".hero-wordmark", { opacity: 0, scale: 1.06, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "58% top", scrub: true } });
+					gsap.to(".hero-wordmark-track", { yPercent: -10, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+					gsap.to(".hero-portrait-wrap", { yPercent: -16, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+					tools.forEach((tool, index) => {
+						const direction = index % 2 === 0 ? 1 : -1;
+						gsap.to(tool, { xPercent: direction * (5 + index * 2), yPercent: (index % 3 === 0 ? 1 : -1) * (6 + index * 2), ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
 					});
-				}, { passive: true });
 
-				// Parallax da galeria: no sentido normal as pontas sobem e o meio desce; ao subir, inverte.
-				const galleryShots = gsap.utils.toArray<HTMLElement>(".intro-shot");
-				const galleryRates = [-1, 1, -1];
-				const gallerySetters = galleryShots.map((shot) => gsap.quickTo(shot, "y", { duration: 0.7, ease: "power3.out" }));
-				const gallerySection = document.querySelector<HTMLElement>(".intro-section");
-				let galleryDirection = 1;
-				let galleryLast = window.scrollY;
-				const syncGallery = () => {
-					if (!gallerySection) return;
-					const current = window.scrollY;
-					galleryDirection = current >= galleryLast ? 1 : -1;
-					galleryLast = current;
-					const box = gallerySection.getBoundingClientRect();
-					const travel = box.height + window.innerHeight;
-					const progress = Math.min(1, Math.max(0, (window.innerHeight - box.top) / travel));
-					galleryShots.forEach((_, index) => {
-						gallerySetters[index](galleryRates[index % galleryRates.length] * galleryDirection * progress * 74);
-					});
-				};
-				window.addEventListener("scroll", syncGallery, { passive: true });
-				syncGallery();
+					hero?.addEventListener("pointermove", (event) => {
+						const box = hero.getBoundingClientRect();
+						const x = (event.clientX - box.left - box.width / 2) / box.width;
+						const y = (event.clientY - box.top - box.height / 2) / box.height;
+						hero.style.setProperty("--px", `${(x * 20).toFixed(2)}px`);
+						hero.style.setProperty("--py", `${(y * 14).toFixed(2)}px`);
+						hero.style.setProperty("--mx", `${(x * -10).toFixed(2)}px`);
+						hero.style.setProperty("--my", `${(y * -6).toFixed(2)}px`);
+						tools.forEach((tool) => {
+							const depth = Number(tool.dataset.depth ?? 1);
+							tool.style.setProperty("--tx", `${(x * depth * 18).toFixed(2)}px`);
+							tool.style.setProperty("--ty", `${(y * depth * 14).toFixed(2)}px`);
+						});
+					}, { passive: true });
 
-				gsap.utils.toArray<HTMLElement>(".path-row, .project-card, .toolkit-heading, .consulting-copy, .services-heading").forEach((element) => gsap.from(element, { y: 24, opacity: 0, duration: 0.65, ease: "power2.out", scrollTrigger: { trigger: element, start: "top 88%", once: true } }));
+					// Parallax da galeria: no sentido normal as pontas sobem e o meio desce; ao subir, inverte.
+					const galleryShots = gsap.utils.toArray<HTMLElement>(".intro-shot");
+					const galleryRates = [-1, 1, -1];
+					const gallerySetters = galleryShots.map((shot) => gsap.quickTo(shot, "y", { duration: 0.7, ease: "power3.out" }));
+					const gallerySection = document.querySelector<HTMLElement>(".intro-section");
+					let galleryDirection = 1;
+					let galleryLast = window.scrollY;
+					const syncGallery = () => {
+						if (!gallerySection) return;
+						const current = window.scrollY;
+						galleryDirection = current >= galleryLast ? 1 : -1;
+						galleryLast = current;
+						const box = gallerySection.getBoundingClientRect();
+						const travel = box.height + window.innerHeight;
+						const progress = Math.min(1, Math.max(0, (window.innerHeight - box.top) / travel));
+						galleryShots.forEach((_, index) => {
+							gallerySetters[index](galleryRates[index % galleryRates.length] * galleryDirection * progress * 74);
+						});
+					};
+					window.addEventListener("scroll", syncGallery, { passive: true });
+					syncGallery();
+
+					gsap.utils.toArray<HTMLElement>(".path-row, .project-card, .toolkit-heading, .consulting-copy, .services-heading").forEach((element) => gsap.from(element, { y: 24, opacity: 0, duration: 0.65, ease: "power2.out", scrollTrigger: { trigger: element, start: "top 88%", once: true } }));
+				}
 			}
 		</script>

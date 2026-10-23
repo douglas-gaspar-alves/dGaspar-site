@@ -1,10 +1,12 @@
 ---
+import { CHECKOUT_CODER_MONTHLY_URL, CHECKOUT_MONTHLY_URL, CHECKOUT_PLUS_MONTHLY_URL } from "../lib/lab-checkout";
+
 const registerUrl = "https://lab.douglasgaspar.com/?fcom_action=auth&form=register";
-const communityUrl = "https://lab.douglasgaspar.com/";
 
 const plans = [
   {
     name: "Curioso",
+    key: "curioso",
     tag: "Entrada gratuita",
     audience: "Para conhecer o LAB.",
     monthly: "Grátis",
@@ -18,10 +20,12 @@ const plans = [
     ],
     action: "Começar grátis",
     href: registerUrl,
+    modal: "signup",
     featured: false,
   },
   {
     name: "Empreendedor",
+    key: "empreendedor",
     tag: "Aplicação no negócio",
     audience: "Para quem quer aplicar agentes na própria rotina.",
     monthly: "R$ 29,90 / mês",
@@ -33,11 +37,13 @@ const plans = [
       "Bônus ",
     ],
     action: "Conhecer o LAB",
-    href: communityUrl,
+    href: CHECKOUT_MONTHLY_URL,
+    modal: "checkout",
     featured: true,
   },
   {
     name: "IA Coder",
+    key: "ia-coder",
     tag: "Prática técnica",
     audience: "Para quem constrói com IA e quer ir mais fundo.",
     monthly: "R$ 47 / mês",
@@ -48,11 +54,13 @@ const plans = [
       "Correção técnica no ao vivo (Todo dia 18 do mês)",
     ],
     action: "Conhecer o LAB",
-    href: communityUrl,
+    href: CHECKOUT_CODER_MONTHLY_URL,
+    modal: "checkout",
     featured: false,
   },
   {
     name: "PRO Plus",
+    key: "pro-plus",
     tag: "Técnico + criativo",
     audience: "Para quem quer as duas trilhas e IA criativa.",
     monthly: "R$ 59,90 / mês",
@@ -64,7 +72,8 @@ const plans = [
       "Selo Studio Alma",
     ],
     action: "Conhecer o LAB",
-    href: communityUrl,
+    href: CHECKOUT_PLUS_MONTHLY_URL,
+    modal: "checkout",
     featured: false,
   },
 ];
@@ -86,10 +95,10 @@ const plans = [
           <p class="lab-plan-price">{plan.monthly}</p>
           <p class="lab-plan-yearly">{plan.yearly}</p>
           <ul>{plan.features.map((feature) => <li>{feature}</li>)}</ul>
-          <a class:list={["lab-button", { "lab-button-accent": plan.featured, "lab-button-outline": !plan.featured }]} href={plan.href}>{plan.action} <span aria-hidden="true">↗</span></a>
+          <a class:list={["lab-button", { "lab-button-accent": plan.featured, "lab-button-outline": !plan.featured }]} href={plan.href} data-lab-signup-open={plan.modal === "signup" ? "" : undefined} data-lab-checkout-open={plan.modal === "checkout" ? plan.key : undefined}>{plan.action} <span aria-hidden="true">↗</span></a>
         </article>
       ))}
     </div>
-    <p class="lab-plans-note">Os valores anuais e mensais são alternativas de cobrança; os descontos dos anuais já estão refletidos no preço. A contratação paga não acontece nesta página: consulte as condições de acesso na comunidade antes de efetuar qualquer pagamento.</p>
+    <p class="lab-plans-note">Os valores anuais e mensais são alternativas de cobrança; os descontos dos anuais já estão refletidos no preço. Nos três planos pagos — Empreendedor, IA Coder e PRO Plus — a assinatura é escolhida no pop-up e concluída no checkout seguro da Cakto.</p>
   </div>
 </section>

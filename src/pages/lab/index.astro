@@ -6,6 +6,8 @@ import LabJourney from "../../components/LabJourney.astro";
 import LabPlans from "../../components/LabPlans.astro";
 import LabQuestions from "../../components/LabQuestions.astro";
 import LabFooter from "../../components/LabFooter.astro";
+import LabSignupModal from "../../components/LabSignupModal.astro";
+import LabCheckoutModal from "../../components/LabCheckoutModal.astro";
 ---
 
 <SiteLayout
@@ -24,5 +26,9 @@ import LabFooter from "../../components/LabFooter.astro";
   <LabJourney />
   <LabPlans />
   <LabQuestions />
+  <LabSignupModal />
+  <LabCheckoutModal plan="empreendedor" />
+  <LabCheckoutModal plan="ia-coder" />
+  <LabCheckoutModal plan="pro-plus" />
   <LabFooter slot="footer" />
 </SiteLayout>

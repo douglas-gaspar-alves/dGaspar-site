@@ -1,0 +1,33 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import LabHeader from "../../components/LabHeader.astro";
+import LabFooter from "../../components/LabFooter.astro";
+import { SIGNUP_MEMBER_URL } from "../../lib/lab-signup";
+---
+
+<SiteLayout
+  title="Bem-vindo ao LAB dGaspar | Acesso liberado"
+  description="Seu acesso ao LAB dGaspar está liberado. Confira como entrar na comunidade, acompanhar a trilha e o que fazer primeiro."
+  canonical="https://douglasgaspar.com/lab-bem-vindo/"
+  themeColor="#0a0a14"
+  colorScheme="dark"
+  dataTheme="dark"
+  bodyClass="lab-page"
+  ogImage="https://douglasgaspar.com/images/icons/lab.svg"
+  ogImageAlt="Símbolo do LAB dGaspar"
+>
+  <LabHeader slot="header" />
+  <section class="lab-welcome" aria-labelledby="lab-welcome-title">
+    <div class="lab-wrap">
+      <p class="lab-kicker"><span class="lab-kicker-mark" aria-hidden="true"></span> LAB dGaspar / acesso liberado</p>
+      <h1 id="lab-welcome-title">Bem-vindo <em>ao LAB.</em></h1>
+      <p class="lab-hero-lead">Conta criada com sucesso. A liberação dos módulos acontece dentro da comunidade de aprendizagem: entre, apresente-se e comece pela trilha de nível inicial. Os planos continuam descritos na página de vendas do LAB.</p>
+      <div class="lab-hero-actions">
+        <a class="lab-button lab-button-accent" href={SIGNUP_MEMBER_URL}>Acessar o LAB <span aria-hidden="true">↗</span></a>
+        <a class="lab-inline-link" href={SIGNUP_MEMBER_URL}>Perdeu a senha?</a>
+      </div>
+      <p class="lab-fine-print">Cadastro gratuito com acesso limitado; planos pagos liberam a trilha completa dentro da comunidade.</p>
+    </div>
+  </section>
+  <LabFooter slot="footer" />
+</SiteLayout>

@@ -190,3 +190,53 @@
   .lab-page .lab-art-center,
   .lab-page .lab-art-label { animation: none; }
 }
+
+/* Formulário de cadastro gratuito (modal) */
+.lab-signup-dialog { position: fixed; inset: 0; margin: auto; width: min(92vw, 476px); height: fit-content; max-height: min(92vh, 780px); overflow: auto; padding: clamp(22px, 3vw, 30px); border: 1px solid var(--lab-line); border-radius: 7px; color: var(--lab-ink); background: linear-gradient(160deg, #121838, #0b0f26 72%); box-shadow: 0 42px 90px rgba(3, 7, 20, .65); }
+.lab-signup-dialog::backdrop { background: rgba(4, 6, 15, .78); backdrop-filter: blur(4px); }
+.lab-signup-head { position: relative; }
+.lab-signup-head h2 { margin: 15px 0 11px; font-size: clamp(27px, 4vw, 37px); line-height: 1.08; }
+.lab-signup-head h2 em { color: var(--lab-cyan); font-style: normal; }
+.lab-signup-lead { margin: 0; color: var(--lab-muted); font-size: 13.5px; line-height: 1.6; }
+.lab-signup-close { position: absolute; top: -6px; right: -6px; display: grid; width: 36px; height: 36px; place-items: center; border: 1px solid var(--lab-line); border-radius: 50%; background: rgba(10, 14, 32, .8); color: var(--lab-muted); font-size: 17px; line-height: 1; cursor: pointer; }
+.lab-signup-close:hover { color: #fff; border-color: var(--lab-cyan); }
+.lab-signup-form { display: grid; gap: 15px; margin-top: 22px; }
+.lab-field { display: grid; gap: 7px; position: relative; }
+.lab-field label { color: #cfe0f6; font-size: 12.5px; font-weight: 700; letter-spacing: .02em; }
+.lab-field input[type="text"],
+.lab-field input[type="tel"],
+.lab-field input[type="email"] { width: 100%; min-height: 47px; padding: 11px 14px; border: 1px solid var(--lab-line); border-radius: 4px; background: rgba(9, 12, 28, .75); color: var(--lab-ink); font-size: 14px; }
+.lab-field input::placeholder { color: rgba(184, 202, 229, .45); }
+.lab-field input:focus { border-color: var(--lab-cyan); outline: 2px solid rgba(0, 194, 255, .35); outline-offset: 1px; }
+.lab-signup-terms { display: flex; align-items: flex-start; gap: 10px; color: var(--lab-muted); font-size: 12.5px; line-height: 1.55; }
+.lab-signup-terms input { margin: 1px 0 0; width: 17px; height: 17px; accent-color: var(--lab-cyan); cursor: pointer; }
+.lab-signup-terms span { user-select: none; }
+.lab-signup-status { margin: 0; padding: 10px 13px; border: 1px solid rgba(255, 122, 141, .45); border-radius: 4px; background: rgba(255, 87, 111, .12); color: #ffb3bd; font-size: 12.5px; }
+.lab-signup-form .lab-button { min-height: 52px; width: 100%; justify-content: center; font-size: 15px; cursor: pointer; }
+.lab-signup-form .lab-button[data-sending="true"] { opacity: .65; cursor: progress; }
+.lab-signup-member { justify-self: center; color: var(--lab-cyan); font-size: 14px; font-weight: 650; text-decoration: none; }
+.lab-signup-member:hover { color: #fff; }
+.lab-signup-note { margin: -4px 0 0; color: var(--lab-muted); font-size: 11.5px; line-height: 1.6; text-align: center; }
+body:has(.lab-signup-dialog[open]) { overflow: hidden; }
+
+/* Formulário de assinatura paga (modal) — valores derivados do bloco de cadastro */
+.lab-checkout-dialog { position: fixed; inset: 0; margin: auto; width: min(92vw, 476px); height: fit-content; max-height: min(92vh, 780px); overflow: auto; padding: clamp(22px, 3vw, 30px); border: 1px solid var(--lab-line); border-radius: 7px; color: var(--lab-ink); background: linear-gradient(160deg, #121838, #0b0f26 72%); box-shadow: 0 42px 90px rgba(3, 7, 20, .65); }
+.lab-checkout-dialog::backdrop { background: rgba(4, 6, 15, .78); backdrop-filter: blur(4px); }
+.lab-checkout-head { position: relative; }
+.lab-checkout-head h2 { margin: 15px 0 11px; font-size: clamp(27px, 4vw, 37px); line-height: 1.08; }
+.lab-checkout-head h2 em { color: var(--lab-cyan); font-style: normal; }
+.lab-checkout-lead { margin: 0; color: var(--lab-muted); font-size: 13.5px; line-height: 1.6; }
+.lab-checkout-close { position: absolute; top: -6px; right: -6px; display: grid; width: 36px; height: 36px; place-items: center; border: 1px solid var(--lab-line); border-radius: 50%; background: rgba(10, 14, 32, .8); color: var(--lab-muted); font-size: 17px; line-height: 1; cursor: pointer; }
+.lab-checkout-close:hover { color: #fff; border-color: var(--lab-cyan); }
+.lab-checkout-form { display: grid; gap: 15px; margin-top: 22px; }
+.lab-checkout-actions { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+.lab-checkout-actions .lab-button { min-height: 52px; width: 100%; justify-content: center; font-size: 15px; cursor: pointer; }
+.lab-checkout-actions .lab-button[aria-disabled="true"] { opacity: .55; cursor: not-allowed; }
+.lab-checkout-actions .lab-button[aria-disabled="true"]:hover { transform: none; background: var(--lab-cyan); }
+.lab-checkout-note { margin: -4px 0 0; color: var(--lab-muted); font-size: 11.5px; line-height: 1.6; text-align: center; }
+body:has(.lab-checkout-dialog[open]) { overflow: hidden; }
+
+/* Página de boas-vindas (/lab-bem-vindo) — herda os mesmos tokens do LAB */
+.lab-welcome h1 { margin: 20px 0 18px; font-size: clamp(42px, 4.6vw, 68px); line-height: 1.02; }
+.lab-welcome .lab-hero-actions { margin-top: 30px; }
+

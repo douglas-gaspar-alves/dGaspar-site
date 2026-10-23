@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Redirecionando…</title>
+
+    <!-- Redireciona via JavaScript assim que a página carregar -->
+    <script>
+      window.addEventListener("load", () => {
+        window.location.replace("https://lab.douglasgaspar.com/bem-vindo/");
+      });
+    </script>
+  </head>
+  <body>
+    <!-- <noscript> cobre quem bloqueia JavaScript -->
+    <noscript>
+      <meta http-equiv="refresh" content="0; url=https://lab.douglasgaspar.com/bem-vindo/" />
+      <p>
+        Redirecionando para
+        <a href="https://lab.douglasgaspar.com/bem-vindo/">lab.douglasgaspar.com/bem-vindo/</a>…
+      </p>
+    </noscript>
+  </body>
+</html>

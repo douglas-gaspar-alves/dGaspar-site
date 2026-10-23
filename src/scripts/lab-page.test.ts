@@ -23,11 +23,16 @@ describe("página de vendas do LAB", () => {
     expect(plans).toContain("IArte");
   });
 
-  it("leva o cadastro gratuito à rota real e não finge ter checkout pago", () => {
+  it("leva o cadastro à rota real e a contratação paga ao checkout Cakto dos três planos", () => {
     expect(component("LabHero")).toContain("https://lab.douglasgaspar.com/?fcom_action=auth&form=register");
-    expect(component("LabPlans")).toContain('href: communityUrl');
-    expect(component("LabPlans")).toContain("A contratação paga não acontece nesta página");
-    expect(component("LabQuestions")).toContain("ainda não há checkout integrado aqui");
+    // Empreendedor, IA Coder e PRO Plus têm checkout real com destinos próprios;
+    // nenhum cartão de plano sai mais para a comunidade (reabertura de 2026-10-23)
+    expect(component("LabPlans")).toContain("href: CHECKOUT_MONTHLY_URL");
+    expect(component("LabPlans")).toContain("href: CHECKOUT_CODER_MONTHLY_URL");
+    expect(component("LabPlans")).toContain("href: CHECKOUT_PLUS_MONTHLY_URL");
+    expect(component("LabPlans")).not.toContain("href: communityUrl");
+    expect(component("LabPlans")).toContain("checkout seguro da Cakto");
+    expect(component("LabQuestions")).toContain("Assinatura mensal");
   });
 
   it("explicita o que o plano gratuito não inclui e separa comunidade de consultoria", () => {

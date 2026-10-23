@@ -1,0 +1,51 @@
+---
+import {
+	SIGNUP_MEMBER_URL,
+	SIGNUP_SUCCESS_URL,
+	SIGNUP_WEBHOOK_URL,
+} from "../lib/lab-signup";
+
+// Modal de cadastro gratuito do LAB, aberto pelos CTAs com data-lab-signup-open.
+// A rota de login "Já sou membro." vai direto ao FluentCommunity; o envio do
+// formulário passa pelo webhook do fluxo n8n "Novo usuario no lab" e conclui
+// redirecionando para a página de boas-vindas.
+---
+
+<dialog class="lab-signup-dialog" data-lab-signup-modal aria-labelledby="lab-signup-title">
+  <div class="lab-signup-head">
+    <p class="lab-kicker">LAB DGASPAR / CADASTRO</p>
+    <h2 id="lab-signup-title">Criar conta <em>gratuita</em></h2>
+    <p class="lab-signup-lead">Preencha os dados para entrar no LAB com acesso à parte aberta da trilha.</p>
+    <button type="button" class="lab-signup-close" data-lab-signup-close aria-label="Fechar formulário">×</button>
+  </div>
+  <form
+    class="lab-signup-form"
+    data-lab-signup-form
+    data-webhook-url={SIGNUP_WEBHOOK_URL}
+    data-success-url={SIGNUP_SUCCESS_URL}
+    novalidate
+  >
+    <div class="lab-field">
+      <label for="lab-signup-nome">Nome</label>
+      <input id="lab-signup-nome" name="nome" type="text" autocomplete="name" placeholder="Seu nome completo" />
+    </div>
+    <div class="lab-field">
+      <label for="lab-signup-whatsapp">WhatsApp</label>
+      <input id="lab-signup-whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="DDD + número" />
+    </div>
+    <div class="lab-field">
+      <label for="lab-signup-email">Email</label>
+      <input id="lab-signup-email" name="email" type="email" autocomplete="email" placeholder="voce@email.com" />
+    </div>
+    <label class="lab-signup-terms">
+      <input type="checkbox" name="aceite_termos" required />
+      <span>Aceito os termos de uso do LAB.</span>
+    </label>
+    <p class="lab-signup-status" data-lab-signup-status hidden></p>
+    <button type="submit" class="lab-button lab-button-accent" data-lab-signup-submit>Cadastrar <span aria-hidden="true">→</span></button>
+    <a class="lab-signup-member" href={SIGNUP_MEMBER_URL}>Já sou membro.</a>
+    <p class="lab-signup-note">Sem senha no cadastro: quando entrar no LAB pela primeira vez, use “Perdeu a senha?” com o seu e-mail para criar a sua.</p>
+  </form>
+</dialog>
+
+<script src="../scripts/lab-signup.ts"></script>
