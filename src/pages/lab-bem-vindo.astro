@@ -1,8 +1,8 @@
 ---
-import SiteLayout from "../../layouts/SiteLayout.astro";
-import LabHeader from "../../components/LabHeader.astro";
-import LabFooter from "../../components/LabFooter.astro";
-import { SIGNUP_MEMBER_URL } from "../../lib/lab-signup";
+import SiteLayout from "../layouts/SiteLayout.astro";
+import LabHeader from "../components/LabHeader.astro";
+import LabFooter from "../components/LabFooter.astro";
+import { SIGNUP_MEMBER_URL } from "../lib/lab-signup";
 ---
 
 <SiteLayout
@@ -13,6 +13,7 @@ import { SIGNUP_MEMBER_URL } from "../../lib/lab-signup";
   colorScheme="dark"
   dataTheme="dark"
   bodyClass="lab-page"
+  noindex
   ogImage="https://douglasgaspar.com/images/icons/lab.svg"
   ogImageAlt="Símbolo do LAB dGaspar"
 >

@@ -1,5 +1,6 @@
 ---
 import "../styles/lab-page.css";
+const onLabPage = Astro.url.pathname === "/lab/";
 ---
 
 <header class="lab-header">
@@ -8,9 +9,9 @@ import "../styles/lab-page.css";
       <img src="/images/logo-lab-escuro.svg" alt="LAB dGaspar" width="138" height="64" />
     </a>
     <div class="lab-nav-links">
-      <a href="#como-funciona">Como funciona</a>
-      <a href="#planos">Planos</a>
-      <a href="#perguntas">Dúvidas</a>
+      <a href={onLabPage ? "#como-funciona" : "/lab/#como-funciona"}>Como funciona</a>
+      <a href={onLabPage ? "#planos" : "/lab/#planos"}>Planos</a>
+      <a href={onLabPage ? "#perguntas" : "/lab/#perguntas"}>Dúvidas</a>
     </div>
     <a class="lab-nav-action" href="https://lab.douglasgaspar.com/?fcom_action=auth">Entrar grátis <span aria-hidden="true">↗</span></a>
   </nav>

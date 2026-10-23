@@ -45,47 +45,62 @@ const {
   noindex = false,
 } = Astro.props;
 
-const schemaData = schemaKind === "person"
-  ? {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      name: "Douglas Gaspar",
-      url: "https://douglasgaspar.com/",
-      description,
-      image: "https://douglasgaspar.com/images/douglas-portrait.webp",
-      jobTitle: ["Criador de conteúdo", "Consultor de IA e automação", "Desenvolvedor"],
-      sameAs: ["https://www.instagram.com/doug.gaspar/", "https://www.youtube.com/@d-Gaspar"],
-      knowsAbout: ["Inteligência artificial", "Automação", "n8n", "Vibe coding", "Criação de sites"],
-    }
-  : schemaKind === "consultation"
-    ? {
-        "@context": "https://schema.org",
-        "@type": "Service",
-        name: "Consultoria individual de IA e automação",
-        description,
-        provider: { "@type": "Person", name: "Douglas Gaspar", url: "https://douglasgaspar.com/" },
-        areaServed: "BR",
-        availableChannel: {
-          "@type": "ServiceChannel",
-          serviceUrl: "https://douglasgaspar.com/consultorias/",
-          availableLanguage: "pt-BR",
-        },
-      }
-    : schemaKind === "agent-consultation"
-      ? {
-          "@context": "https://schema.org",
-          "@type": "Service",
-          name: "Consultoria para criar seu agente de IA pessoal",
-          description,
-          provider: { "@type": "Person", name: "Douglas Gaspar", url: "https://douglasgaspar.com/" },
-          areaServed: "BR",
-          availableChannel: {
-            "@type": "ServiceChannel",
-            serviceUrl: canonical,
-            availableLanguage: "pt-BR",
-          },
-        }
+const siteUrl = "https://douglasgaspar.com/";
+const personId = `${siteUrl}#person`;
+const serviceName = schemaKind === "consultation"
+  ? "Consultoria individual de IA e automação"
+  : schemaKind === "agent-consultation"
+    ? "Consultoria para criar seu agente de IA pessoal"
+    : schemaKind === "site-creation"
+      ? "Criação de sites sob proposta"
       : undefined;
+
+// O mesmo identificador relaciona a pessoa, as páginas e os serviços sem
+// inventar avaliações, preços, datas ou disponibilidade.
+const schemaData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    { "@type": "WebSite", "@id": `${siteUrl}#website`, name: "dGaspar", url: siteUrl, inLanguage: "pt-BR" },
+    {
+      "@type": "Person",
+      "@id": personId,
+      name: "Douglas Gaspar",
+      url: siteUrl,
+      image: `${siteUrl}images/douglas-portrait.webp`,
+      sameAs: ["https://www.instagram.com/doug.gaspar/", "https://www.youtube.com/@d-Gaspar"],
+      ...(schemaKind === "person" ? {
+        description,
+        jobTitle: ["Criador de conteúdo", "Consultor de IA e automação", "Desenvolvedor"],
+        knowsAbout: ["Inteligência artificial", "Automação", "n8n", "Vibe coding", "Criação de sites"],
+      } : {}),
+    },
+    {
+      "@type": "WebPage",
+      "@id": `${canonical}#webpage`,
+      url: canonical,
+      name: title,
+      description,
+      inLanguage: "pt-BR",
+      isPartOf: { "@id": `${siteUrl}#website` },
+      author: { "@id": personId },
+      ...(serviceName ? { mainEntity: { "@id": `${canonical}#service` } } : {}),
+    },
+    ...(serviceName ? [{
+      "@type": "Service",
+      "@id": `${canonical}#service`,
+      name: serviceName,
+      description,
+      provider: { "@id": personId },
+      areaServed: "BR",
+      availableChannel: {
+        "@type": "ServiceChannel",
+        serviceUrl: canonical,
+        availableLanguage: "pt-BR",
+      },
+    }] : []),
+  ],
+};
+const schemaJson = JSON.stringify(schemaData).replace(/</g, "\\u003c");
 ---
 
 <!doctype html>
@@ -119,13 +134,13 @@ const schemaData = schemaKind === "person"
     <meta name="twitter:description" content={description} />
     {twitterImage && <meta name="twitter:image" content={twitterImage} />}
     {twitterImageAlt && <meta name="twitter:image:alt" content={twitterImageAlt} />}
-    {schemaData && <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />}
+    <script type="application/ld+json" set:html={schemaJson} />
     <title>{title}</title>
   </head>
   <body class={bodyClass}>
     <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
     <slot name="header" />
-    <main id="conteudo"><slot /></main>
+    <main id="conteudo" tabindex="-1"><slot /></main>
     <slot name="footer" />
   </body>
 </html>

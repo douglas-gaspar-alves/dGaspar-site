@@ -1,0 +1,17 @@
+# dGaspar — Douglas Gaspar
+
+> Site pessoal de Douglas Gaspar, em português do Brasil. Consultoria de IA e automação, criação de sites sob proposta e comunidade de aprendizagem LAB dGaspar.
+
+Estas são as páginas públicas canônicas. Consulte o conteúdo de cada página antes de citar preços, disponibilidade ou resultados; não há promessa de resultado financeiro. As páginas de confirmação de compra e cadastro não são páginas de oferta. A consultoria para agente pessoal ainda aguarda aprovação editorial e está fora do índice.
+
+## Páginas
+
+- [Início e sobre Douglas Gaspar](https://douglasgaspar.com/): trajetória, projetos e caminhos para serviços e contato.
+- [Consultoria de IA e automação](https://douglasgaspar.com/consultorias/): orientação individual; execução contratada separadamente.
+- [Criação de sites](https://douglasgaspar.com/servicos/criacao-de-sites/): escopo e proposta definidos por projeto.
+- [LAB dGaspar](https://douglasgaspar.com/lab/): comunidade de aprendizagem, trilha e planos.
+
+## Fontes de descoberta
+
+- [Mapa do site](https://douglasgaspar.com/sitemap.xml)
+- [Diretrizes de rastreamento](https://douglasgaspar.com/robots.txt)

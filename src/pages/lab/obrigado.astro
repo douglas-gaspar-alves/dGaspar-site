@@ -1,0 +1,39 @@
+---
+// Página de obrigado do LAB (fatia 0005) — destino do redirect pós-compra da
+// Cakto (URL `LAB_OBRIGADO_URL` em `src/lib/lab-obrigado.ts`). Página estática:
+// nada de query string nem JavaScript; a copy confirma a compra sem prometer
+// prazo ou acesso automático (FR-002/AC-002).
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import LabHeader from "../../components/LabHeader.astro";
+import LabFooter from "../../components/LabFooter.astro";
+import { SUPPORT_WHATSAPP_URL } from "../../lib/lab-obrigado";
+import { SIGNUP_MEMBER_URL } from "../../lib/lab-signup";
+---
+
+<SiteLayout
+  title="Compra confirmada | LAB dGaspar"
+  description="Compra confirmada no LAB dGaspar. A liberação do acesso é manual e feita pelo Douglas; fale com ele no WhatsApp ou entre na comunidade."
+  canonical="https://douglasgaspar.com/lab/obrigado/"
+  themeColor="#0a0a14"
+  colorScheme="dark"
+  dataTheme="dark"
+  bodyClass="lab-page"
+  noindex
+  ogImage="https://douglasgaspar.com/images/icons/lab.svg"
+  ogImageAlt="Símbolo do LAB dGaspar"
+>
+  <LabHeader slot="header" />
+  <section class="lab-welcome" aria-labelledby="lab-welcome-title">
+    <div class="lab-wrap">
+      <p class="lab-kicker"><span class="lab-kicker-mark" aria-hidden="true"></span> LAB dGaspar / compra confirmada</p>
+      <h1 id="lab-welcome-title">Compra confirmada. <em>Falta pouco.</em></h1>
+      <p class="lab-hero-lead">Recebemos o seu pagamento e a liberação manual do acesso acontece em seguida: o Douglas ativa pessoalmente cada novo membro dentro da comunidade — nada é liberado por robô aqui. A conta do portal ainda não existe neste momento; ela é criada quando o acesso é ativado.</p>
+      <div class="lab-hero-actions">
+        <a class="lab-button lab-button-accent" href={SUPPORT_WHATSAPP_URL}>Falar com o Douglas no WhatsApp <span aria-hidden="true">↗</span></a>
+        <a class="lab-inline-link" href={SIGNUP_MEMBER_URL}>Já é membro? Entrar na comunidade</a>
+      </div>
+      <p class="lab-fine-print">O WhatsApp é o caminho mais rápido para confirmar a liberação manual, tirar dúvidas do plano e ajustar dados da compra.</p>
+    </div>
+  </section>
+  <LabFooter slot="footer" />
+</SiteLayout>

@@ -40,15 +40,15 @@ const {
 					<div class="hero-portrait-wrap">
 						<div class="hero-portrait-stage">
 							<img class="hero-portrait" src={portraitImage} alt={portraitAlt} width="1084" height="1451" fetchpriority="high" decoding="async" />
-							<div class="hero-tools">
-								<ul class="hero-tools-row hero-tools-row-back" aria-label="Marcas eorbitais do dGaspar">
+							<div class="hero-tools" aria-hidden="true">
+								<ul class="hero-tools-row hero-tools-row-back">
 									{heroTools.filter((tool) => tool.row === "back").map((tool, index) => (
 										<li class:list={["hero-tool", `hero-tool-back-${index + 1}`, tool.tone === "light" && "hero-tool-light"]} data-depth={tool.depth} style={`--lift:${tool.lift}px;--tilt:${tool.tilt}deg`}>
 											<span class="hero-tool-drift"><span class="hero-tool-float"><img src={tool.image} alt={tool.name} width={tool.w} height={tool.h} decoding="async" /></span></span>
 										</li>
 									))}
 								</ul>
-								<ul class="hero-tools-row hero-tools-row-front" aria-label="Ferramentas que fazem parte do processo de Douglas Gaspar">
+								<ul class="hero-tools-row hero-tools-row-front">
 									{heroTools.filter((tool) => tool.row === "front").map((tool, index) => (
 										<li class:list={["hero-tool", `hero-tool-front-${index + 1}`, tool.tone === "light" && "hero-tool-light"]} data-depth={tool.depth} style={`--lift:${tool.lift}px;--tilt:${tool.tilt}deg`}>
 											<span class="hero-tool-drift"><span class="hero-tool-float"><img src={tool.image} alt={tool.name} width={tool.w} height={tool.h} decoding="async" /></span></span>

@@ -17,11 +17,11 @@ const links = CHECKOUT_LINKS[plan];
 // Mesmo markup e estilos para os três planos.
 ---
 
-<dialog class="lab-checkout-dialog" data-lab-checkout-modal={plan} aria-labelledby={`lab-checkout-title-${plan}`}>
+<dialog class="lab-checkout-dialog" data-lab-checkout-modal={plan} aria-labelledby={`lab-checkout-title-${plan}`} aria-describedby={`lab-checkout-lead-${plan}`}>
   <div class="lab-checkout-head">
     <p class="lab-kicker">LAB DGASPAR / ASSINATURA</p>
     <h2 id={`lab-checkout-title-${plan}`}>Assinar o <em>LAB</em>.</h2>
-    <p class="lab-checkout-lead">Escolha como quer assinar.</p>
+    <p class="lab-checkout-lead" id={`lab-checkout-lead-${plan}`}>Escolha como quer assinar.</p>
     <button type="button" class="lab-checkout-close" data-lab-checkout-close aria-label="Fechar formulário">×</button>
   </div>
   <form class="lab-checkout-form" data-lab-checkout-form novalidate>

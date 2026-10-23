@@ -10,7 +10,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "test": "vitest run",
+    "test": "npm run build && vitest run",
     "test:tdd": "vitest run",
     "check": "astro check"
   },

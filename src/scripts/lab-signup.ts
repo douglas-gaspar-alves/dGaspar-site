@@ -20,6 +20,7 @@ function showStatus(message: string, kind: "error" | "success" = "error") {
 	statusNode.hidden = false;
 	statusNode.dataset.kind = kind;
 	statusNode.textContent = message;
+	if (kind === "error") statusNode.focus();
 }
 
 function clearStatus() {

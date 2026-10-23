@@ -12,7 +12,7 @@ import {
 
 const component = (name: string) => readFileSync(fileURLToPath(new URL(`../components/${name}.astro`, import.meta.url)), "utf8");
 const script = readFileSync(fileURLToPath(new URL("./lab-signup.ts", import.meta.url)), "utf8");
-const welcome = readFileSync(fileURLToPath(new URL("../pages/lab/lab-bem-vindo.astro", import.meta.url)), "utf8");
+const welcome = readFileSync(fileURLToPath(new URL("../pages/lab-bem-vindo.astro", import.meta.url)), "utf8");
 
 const validInput = {
 	nome: "Douglas Gaspar Filho",
