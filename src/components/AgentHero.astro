@@ -22,7 +22,7 @@ const {
   primaryHref = firstConsultationHref,
   secondaryLabel = "Ver o que acontece",
   secondaryHref = "#oferta-gratuita",
-  finePrint = "A primeira conversa é gratuita. O agendamento é feito no Cal.com e não há formulário neste site.",
+  finePrint = "A primeira conversa é gratuita. O horário é escolhido na agenda.",
 } = Astro.props;
 ---
 
@@ -33,7 +33,7 @@ const {
       <h1 id="agent-hero-title">{titleBefore} <em>{titleAccent}</em></h1>
       <p class="agent-hero-lead">{lead}</p>
       <div class="agent-hero-actions">
-        <a class="agent-button agent-button-accent" href={primaryHref}>{primaryLabel} <span aria-hidden="true">↗</span></a>
+        <a class="agent-button agent-button-accent" href={primaryHref} data-booking-open>{primaryLabel} <span aria-hidden="true">↗</span></a>
         <a class="agent-text-link" href={secondaryHref}>{secondaryLabel} <span aria-hidden="true">↓</span></a>
       </div>
       <p class="agent-fine-print">{finePrint}</p>

@@ -17,13 +17,15 @@ interface Props {
 	tool5Image?: string;
 	tool6Name?: string;
 	tool6Image?: string;
+	tool7Name?: string;
+	tool7Image?: string;
 }
 
 const {
   titleFirst = "Meu KIT",
   titleSecond = "Ferramentas",
   titleYear = "2027",
-  toolsLabel = "A.C.R.E., n8n, Magnific, OpenCode, ChatGPT e Hermes Agent",
+  toolsLabel = "LAB, A.C.R.E., n8n, Magnific, OpenCode, ChatGPT e Hermes Agent",
   ctaLabel = "Aprenda usar IA",
 	tool1Name = "A.C.R.E.", tool1Image = "/images/icons/orbit.svg",
 	tool2Name = "n8n", tool2Image = "/images/icons/n8n.svg",
@@ -31,9 +33,11 @@ const {
 	tool4Name = "OpenCode", tool4Image = "/images/icons/opencode.svg",
 	tool5Name = "ChatGPT", tool5Image = "/images/icons/chatgpt.svg",
 	tool6Name = "Hermes Agent", tool6Image = "/images/icons/hermes.svg",
+	tool7Name = "LAB", tool7Image = "/images/icons/lab.svg",
 } = Astro.props;
 
 const toolkit = [
+	{ name: tool7Name, image: tool7Image, w: 300, h: 300 },
 	{ name: tool1Name, image: tool1Image, w: 250, h: 255 },
 	{ name: tool2Name, image: tool2Image, w: 240, h: 96 },
 	{ name: tool3Name, image: tool3Image, w: 220, h: 152 },

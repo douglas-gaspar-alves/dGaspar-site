@@ -1,0 +1,45 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import ConsultingFooter from "../../components/ConsultingFooter.astro";
+import AulaAgenteHeader from "../../components/AulaAgenteHeader.astro";
+import AulaAgenteHero from "../../components/AulaAgenteHero.astro";
+import AulaAgentePrograma from "../../components/AulaAgentePrograma.astro";
+import AulaAgentePecas from "../../components/AulaAgentePecas.astro";
+import AulaAgenteEntregavel from "../../components/AulaAgenteEntregavel.astro";
+import AulaAgenteAgenda from "../../components/AulaAgenteAgenda.astro";
+import AulaAgenteRequisitos from "../../components/AulaAgenteRequisitos.astro";
+import AulaAgentePublico from "../../components/AulaAgentePublico.astro";
+import AulaAgentePreco from "../../components/AulaAgentePreco.astro";
+import AulaAgenteFaq from "../../components/AulaAgenteFaq.astro";
+import AulaAgenteApresentador from "../../components/AulaAgenteApresentador.astro";
+import AulaAgenteClosing from "../../components/AulaAgenteClosing.astro";
+import { PUBLICADO } from "../../lib/aula-agente";
+import "../../styles/aula-agente.css";
+
+const title = "MasterClass: monte seu Agente de IA ao vivo | dGaspar";
+const description = "Aula ao vivo no sábado, 31 de outubro, 9h às 12h: crie seu agente de IA com personalidade, memória e execução de tarefas na sua VPS. R$ 29,99 — a VPS e o modelo continuam na sua conta.";
+const ogImage = new URL("/images/aula-agente-capa.png", Astro.site).href;
+---
+<SiteLayout title={title} description={description} canonical="https://douglasgaspar.com/lab/aula-agente/" bodyClass="aula-agente-page" colorScheme="dark" dataTheme="dark" themeColor="#101a33" ogImage={ogImage} ogImageAlt="Capa da MasterClass: seu agente de IA, ao vivo em 31 de outubro, no LAB dGaspar" ogImageWidth="1280" ogImageHeight="720" twitterImage={ogImage} twitterImageAlt="Capa da MasterClass: seu agente de IA, ao vivo em 31 de outubro, no LAB dGaspar" noindex={!PUBLICADO}>
+  <AulaAgenteHeader slot="header" />
+  <AulaAgenteHero />
+  <AulaAgentePrograma />
+  <AulaAgentePecas />
+  <AulaAgenteEntregavel />
+  <AulaAgenteAgenda />
+  <AulaAgenteRequisitos />
+  <AulaAgentePublico />
+  <AulaAgentePreco />
+  <AulaAgenteFaq />
+  <AulaAgenteApresentador />
+  <AulaAgenteClosing />
+  <div class="aula-float" data-aula-float hidden>
+    <a class="button aula-signup aula-signup--float" href="#preco">Garantir meu lugar — R$ 29,99<span aria-hidden="true">↓</span></a>
+  </div>
+  <ConsultingFooter slot="footer" logoSrc="/images/logo-dgaspar-hero.svg" />
+</SiteLayout>
+
+<script>
+  import { initAulaAgente } from "../../scripts/aula-agente";
+  initAulaAgente();
+</script>

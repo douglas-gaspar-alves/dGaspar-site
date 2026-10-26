@@ -24,10 +24,6 @@ const planBlock = (source: string, start: string, end: string) =>
 
 const MONTHLY = "https://pay.cakto.com.br/mtya7hj_1232361";
 const ANNUAL = "https://pay.cakto.com.br/e98y5m2_1232361";
-const CODER_MONTHLY = "https://pay.cakto.com.br/kuif3kg";
-const CODER_ANNUAL = "https://pay.cakto.com.br/thu2zrf";
-const PLUS_MONTHLY = "https://pay.cakto.com.br/o4gpj7n_1232361";
-const PLUS_ANNUAL = "https://pay.cakto.com.br/kq2kw8q_1232361";
 
 const happyInput = {
 	nome: "Douglas Gaspar Filho",
@@ -97,42 +93,25 @@ describe("lib do pop-up de assinatura do LAB", () => {
 	});
 
 	// SPECSFY: US-001 FR-003 FR-004 NFR-001 NFR-002 AC-006 AC-011
-	it("normaliza o telefone para dígitos e o PRO Plus tem destinos próprios no registro", async () => {
+	it("normaliza o telefone e limita o checkout ao único plano pago vigente", async () => {
 		const {
-			CHECKOUT_PLUS_MONTHLY_URL,
-			CHECKOUT_PLUS_ANNUAL_URL,
+			CHECKOUT_MONTHLY_URL,
 			CHECKOUT_LINKS,
 			normalizePhoneForCheckout,
 			buildCheckoutUrl,
 		} = await checkoutLib();
-		// destinos do PRO Plus (pedido do responsável, 2026-10-23 — AC-011)
-		expect(CHECKOUT_PLUS_MONTHLY_URL).toBe(PLUS_MONTHLY);
-		expect(CHECKOUT_PLUS_ANNUAL_URL).toBe(PLUS_ANNUAL);
-		expect(CHECKOUT_LINKS["pro-plus"]).toEqual({ mensal: PLUS_MONTHLY, anual: PLUS_ANNUAL });
+		expect(Object.keys(CHECKOUT_LINKS)).toEqual(["empreendedor"]);
 		// normalização (AC-006): máscara, +55/país e valor já em dígitos
 		expect(normalizePhoneForCheckout("(22) 99925-9141")).toBe("22999259141");
 		expect(normalizePhoneForCheckout("+55 22 99925-9141")).toBe("5522999259141");
 		expect(normalizePhoneForCheckout("22999259141")).toBe("22999259141");
-		// o envio usa o valor normalizado (mensal do PRO Plus)
-		expect(buildCheckoutUrl(CHECKOUT_PLUS_MONTHLY_URL, { ...happyInput, telefone: "(22) 99925-9141" })).toBe(
-			`${PLUS_MONTHLY}?name=Douglas%20Gaspar%20Filho&email=Douglas%40Example.com&phone=22999259141`,
+		// O envio mantém a normalização no Empreendedor.
+		expect(buildCheckoutUrl(CHECKOUT_MONTHLY_URL, { ...happyInput, telefone: "(22) 99925-9141" })).toBe(
+			`${MONTHLY}?name=Douglas%20Gaspar%20Filho&email=Douglas%40Example.com&phone=22999259141`,
 		);
 	});
 
-	// SPECSFY: US-001 FR-003 FR-005 NFR-002 AC-010
-	it("IA Coder tem destinos próprios e a mesma montagem de URL por plano", async () => {
-		const { CHECKOUT_CODER_MONTHLY_URL, CHECKOUT_CODER_ANNUAL_URL, CHECKOUT_LINKS, buildCheckoutUrl } =
-			await checkoutLib();
-		expect(CHECKOUT_CODER_MONTHLY_URL).toBe(CODER_MONTHLY);
-		expect(CHECKOUT_CODER_ANNUAL_URL).toBe(CODER_ANNUAL);
-		// registro por plano: o pop-up instancia os hrefs do plano que o abriu
-		expect(CHECKOUT_LINKS["ia-coder"]).toEqual({ mensal: CODER_MONTHLY, anual: CODER_ANNUAL });
-		expect(CHECKOUT_LINKS["empreendedor"]).toEqual({ mensal: MONTHLY, anual: ANNUAL });
-		// mesma lib plano-agnóstica: buildCheckoutUrl recebe o link da vez
-		expect(buildCheckoutUrl(CHECKOUT_CODER_MONTHLY_URL, happyInput)).toBe(
-			`${CODER_MONTHLY}?name=Douglas%20Gaspar%20Filho&email=Douglas%40Example.com`,
-		);
-	});
+
 });
 
 describe("pop-up de assinatura nos componentes do LAB", () => {
@@ -153,22 +132,13 @@ describe("pop-up de assinatura nos componentes do LAB", () => {
 	});
 
 	// SPECSFY: US-001 US-002 FR-001 FR-003 FR-005 NFR-003 AC-004 AC-010 AC-011
-	it("IA Coder e PRO Plus têm gatilho de checkout com destinos próprios, sem plano de comunidade", () => {
+	it("só o Empreendedor abre checkout e PRO Plus não tem gatilho", () => {
 		const plans = component("LabPlans");
-		const coder = planBlock(plans, 'name: "IA Coder"', 'name: "PRO Plus"');
-		const pro = planBlock(plans, 'name: "PRO Plus"', "];");
-		// IA Coder abre o pop-up com fallback mensal próprio (Ato I reaberto)
-		expect(coder).toContain('modal: "checkout"');
-		expect(coder).toContain("href: CHECKOUT_CODER_MONTHLY_URL");
-		// PRO Plus passa da comunidade ao checkout próprio (reabertura de 2026-10-23)
-		expect(pro).toContain('modal: "checkout"');
-		expect(pro).toContain("href: CHECKOUT_PLUS_MONTHLY_URL");
-		expect(pro).not.toContain("href: communityUrl");
-		// exatamente quatro planos declaram modal: signup (Curioso) + 3 checkout
+		expect(plans).not.toContain('name: "IA Coder"');
+		expect(plans).not.toContain("CHECKOUT_CODER");
+		expect(plans).not.toContain('name: "PRO Plus"');
 		expect(plans.match(/modal: "(signup|checkout)"/g) ?? []).toEqual([
 			'modal: "signup"',
-			'modal: "checkout"',
-			'modal: "checkout"',
 			'modal: "checkout"',
 		]);
 	});
@@ -202,11 +172,11 @@ describe("pop-up de assinatura nos componentes do LAB", () => {
 		expect(modal).toContain("data-lab-checkout-modal={plan}");
 		expect(modal).toContain("href={links.mensal}");
 		expect(modal).toContain("href={links.anual}");
-		// a página monta três diálogos de checkout (um por plano pago) + cadastro
+		// A página monta o diálogo do Empreendedor e o cadastro gratuito.
 		expect(page).toContain('<LabCheckoutModal plan="empreendedor" />');
-		expect(page).toContain('<LabCheckoutModal plan="ia-coder" />');
-		expect(page).toContain('<LabCheckoutModal plan="pro-plus" />');
-		// o script casa o gatilho (ex.: "ia-coder") com o diálogo do mesmo plano
+		expect(page).not.toContain('plan="ia-coder"');
+		expect(page).not.toContain('plan="pro-plus"');
+		// o script casa o gatilho com o diálogo do mesmo plano
 		expect(script).toContain("[data-lab-checkout-modal]");
 		expect(script).toContain("dialog.dataset.labCheckoutModal");
 	});
@@ -240,14 +210,11 @@ describe("pop-up de assinatura nos componentes do LAB", () => {
 	it("gatilhos pagos mantêm href mensal real como fallback por plano", () => {
 		const plans = component("LabPlans");
 		const page = checkoutPage();
-		// gatilhos mantêm href real por plano: mensal do Empreendedor, do IA Coder e do PRO Plus
-		expect(planBlock(plans, 'name: "Empreendedor"', 'name: "IA Coder"')).toContain(
+		expect(planBlock(plans, 'name: "Empreendedor"', "];")).toContain(
 			"href: CHECKOUT_MONTHLY_URL",
 		);
-		expect(planBlock(plans, 'name: "IA Coder"', 'name: "PRO Plus"')).toContain(
-			"href: CHECKOUT_CODER_MONTHLY_URL",
-		);
-		expect(planBlock(plans, 'name: "PRO Plus"', "];")).toContain("href: CHECKOUT_PLUS_MONTHLY_URL");
+		expect(plans).not.toContain("CHECKOUT_CODER");
+		expect(plans).not.toContain("CHECKOUT_PLUS");
 		expect(plans).toContain("CHECKOUT_MONTHLY_URL");
 		// o CTA continua <a> com href real e a página monta os pop-ups
 		expect(plans).toContain("href={plan.href}");

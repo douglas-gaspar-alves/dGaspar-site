@@ -1,5 +1,4 @@
-// Fio do pop-up de assinatura paga do LAB (planos Empreendedor, IA Coder e
-// PRO Plus). Padrão idêntico ao modal de cadastro gratuito: gatilhos <a> com
+// Fio do pop-up de assinatura paga do LAB (plano Empreendedor). Padrão idêntico ao modal de cadastro gratuito: gatilhos <a> com
 // data-lab-checkout-open (valor = plano) abrem o <dialog> nativo do próprio
 // plano; os dois botões de assinatura só navegam com nome e e-mail válidos,
 // compondo a URL de prefill pela lib src/lib/lab-checkout.ts (sem rede
@@ -54,7 +53,7 @@ function formatTelefone(valor: string): string {
 
 // Um binding completo por diálogo: cada plano tem os próprios campos, botões,
 // gatilho e fechamento. O script roda uma única vez mesmo com o componente
-// instanciado duas vezes na página (o Astro deduplica o <script>).
+// presente na página (o Astro deduplica o <script>).
 for (const dialog of dialogs) {
 	const dialogPlan = dialog.dataset.labCheckoutModal ?? "";
 	const form = dialog.querySelector<HTMLFormElement>("[data-lab-checkout-form]");

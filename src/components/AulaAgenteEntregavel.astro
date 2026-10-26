@@ -1,0 +1,45 @@
+---
+const kit = [
+  "Mapa de uma página: interface, VPS, modelo, memória.",
+  "Modelo de instruções pessoais, para não recomeçar do zero.",
+  "Arquivo fictício da prática, para comparar a sua entrega.",
+  "Checklist dos três testes.",
+  "Guia curto de reconexão: como voltar a usar sem refazer a instalação.",
+];
+---
+<section class="aula-section aula-entregavel" id="entregavel" aria-labelledby="entregavel-title">
+  <div class="wrap">
+    <div class="aula-section-heading" data-reveal>
+      <p class="aula-eyebrow">O ENTREGÁVEL</p>
+      <h2 id="entregavel-title">Não é certificado.<br /><em>É o agente funcionando.</em></h2>
+      <p class="aula-lead">Mais o que você precisa para usar na segunda sem reassistir a manhã inteira.</p>
+    </div>
+    <ol class="aula-entregas">
+      <li data-reveal>
+        <span class="aula-entrega-number" aria-hidden="true">01</span>
+        <div>
+          <h3>O agente, com nome seu</h3>
+          <p>Na aula você define nome, função inicial e jeito de responder. A turma faz a mesma tarefa-base: organizar um pequeno projeto de estudos e gerar o plano na pasta da prática. Depois você aponta a função para uma tarefa da sua rotina. O exercício de depois da aula já é esse.</p>
+        </div>
+      </li>
+      <li data-reveal>
+        <span class="aula-entrega-number" aria-hidden="true">02</span>
+        <div>
+          <h3>Kit do agente seu</h3>
+          <p>O que fica com você quando a call acaba:</p>
+          <ul class="aula-kit-list">
+            {kit.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
+      </li>
+      <li data-reveal>
+        <span class="aula-entrega-number" aria-hidden="true">03</span>
+        <div>
+          <h3>Gravação da manhã</h3>
+          <p>Para rever o comando que passou. A gravação não faz a instalação por você.</p>
+        </div>
+      </li>
+    </ol>
+    <p class="aula-entregavel-note" data-reveal>Dá para tentar isso sozinho, em documentação espalhada e em inglês. O que os <strong>R$ 29,99</strong> compram é o caminho recortado, com uma conferência em cada etapa, para você não confundir “o agente respondeu” com “a memória foi lida”.</p>
+  </div>
+</section>

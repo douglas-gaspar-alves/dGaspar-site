@@ -1,0 +1,36 @@
+---
+const paraQuem = [
+  "Você já usa IA no trabalho e cansou de reexplicar o contexto toda vez que abre um chat.",
+  "Você quer instruções suas, uma pasta sua e uma memória que você mandou gravar.",
+  "Você é empreendedor, autônomo ou constrói no computador e sente o teto do trabalho manual.",
+  "Você consegue ficar das 9h às 12h de sábado com o computador na frente.",
+];
+const paraQuemNao = [
+  "Quem quer só o conceito, sem instalar.",
+  "Quem espera o modelo rodando de graça dentro da VPS.",
+  "Quem quer, numa manhã, o agente completo do negócio. Você sai com a primeira versão pequena, testada, e o caminho para adaptar.",
+  "Quem procura aula de programação.",
+];
+---
+<section class="aula-section aula-publico" id="publico" aria-labelledby="publico-title">
+  <div class="wrap">
+    <div class="aula-section-heading" data-reveal>
+      <p class="aula-eyebrow">É PARA VOCÊ?</p>
+      <h2 id="publico-title">Para quem é, <em>e para quem não é.</em></h2>
+    </div>
+    <div class="aula-publico-grid">
+      <div class="aula-publico-col" data-reveal>
+        <h3>Para quem é</h3>
+        <ul class="aula-publico-sim">
+          {paraQuem.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+      <div class="aula-publico-col" data-reveal>
+        <h3>Para quem não é</h3>
+        <ul class="aula-publico-nao">
+          {paraQuemNao.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

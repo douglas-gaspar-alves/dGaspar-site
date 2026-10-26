@@ -1,0 +1,9 @@
+---
+import NextClassSignup from "./NextClassSignup.astro";
+import type { NextClass } from "../lib/next-class";
+interface Props { lesson: NextClass }
+const { lesson } = Astro.props;
+---
+<section class="next-closing next-section" aria-labelledby="closing-title">
+  <div class="wrap next-closing-inner"><p class="next-eyebrow">O PRÓXIMO PASSO</p><h2 id="closing-title">{lesson.chamadaFinal.titulo}</h2>{lesson.chamadaFinal.descricao && <p class="next-closing-description">{lesson.chamadaFinal.descricao}</p>}<NextClassSignup href={lesson.cadastroUrl} label={lesson.ctaTexto} /></div>
+</section>

@@ -1,0 +1,33 @@
+---
+import NextClassSignup from "./NextClassSignup.astro";
+import NextClassVideo from "./NextClassVideo.astro";
+import { formatClassSchedule, type NextClass } from "../lib/next-class";
+interface Props { lesson: NextClass }
+const { lesson } = Astro.props;
+const schedule = formatClassSchedule(lesson.inicio);
+---
+<section class="next-hero" aria-labelledby="next-title">
+  <div class="next-hero-orbit" aria-hidden="true"></div>
+  <div class="wrap next-hero-grid">
+    <div class="next-hero-heading">
+      <p class="next-eyebrow"><img src="/images/icons/lab.svg" width="24" height="24" alt="" /> LAB DGASPAR <span>/</span> PRÓXIMO ENCONTRO</p>
+      {!lesson.publicado && <p class="next-preview">Prévia <span>·</span> Conteúdo da aula a definir</p>}
+      <h1 id="next-title">{lesson.titulo}{lesson.destaque && <><span class="sr-only"> </span><em>{lesson.destaque}</em></>}</h1>
+    </div>
+    <p class="next-hero-summary">{lesson.resumo}</p>
+    <div class="next-schedule">
+      <svg width="21" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3" /><path d="M7 2v6m10-6v6M3 11h18" /></svg>
+      {lesson.inicio ? <time datetime={lesson.inicio}>{schedule.date}</time> : <span>{schedule.date}</span>}
+      {schedule.time && <span class="next-schedule-detail">{schedule.time}</span>}
+      {lesson.duracao && <span class="next-schedule-duration">{lesson.duracao}</span>}
+    </div>
+    <div class="next-hero-video">
+      <NextClassVideo youtubeId={lesson.youtubeId} poster={lesson.capa} posterAlt={lesson.capaAlt} title={`${lesson.titulo} ${lesson.destaque}`} />
+    </div>
+    <div class="next-hero-action">
+      <NextClassSignup href={lesson.cadastroUrl} label={lesson.ctaTexto} />
+      <p>Cadastro na página do LAB <span aria-hidden="true">↗</span></p>
+    </div>
+  </div>
+  <div class="wrap next-hero-foot" aria-hidden="true"><span>IDEIAS · EXPERIMENTOS · APRENDIZADO</span><span>CONTINUE EXPLORANDO ↓</span></div>
+</section>

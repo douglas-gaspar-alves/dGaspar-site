@@ -1,0 +1,29 @@
+{
+  "publicado": false,
+  "titulo": "A próxima aula",
+  "destaque": "começa aqui.",
+  "resumo": "Um espaço para explorar IA comigo, fazer perguntas e colocar ideias à prova. Os detalhes do próximo encontro serão apresentados nesta página.",
+  "inicio": null,
+  "duracao": "",
+  "youtubeId": null,
+  "capa": "/images/proxima-aula-capa.png",
+  "capaAlt": "Capa do próximo encontro do LAB dGaspar, com o símbolo do laboratório sobre um fundo azul",
+  "topicos": [],
+  "publico": [],
+  "preparacao": [],
+  "apresentador": {
+    "nome": "Douglas Gaspar",
+    "descricao": "Eu exploro IA e automação no meu trabalho e compartilho os experimentos no LAB. Este é o espaço para acompanhar o que estou criando e aprender comigo.",
+    "imagem": "/images/douglas-bust.webp",
+    "imagemAlt": "Douglas Gaspar",
+    "largura": 786,
+    "altura": 997
+  },
+  "duvidas": [],
+  "cadastroUrl": "https://lab.douglasgaspar.com/proxima-aula/",
+  "ctaTexto": "Fazer meu cadastro",
+  "chamadaFinal": {
+    "titulo": "Nos vemos no LAB.",
+    "descricao": "O cadastro acontece na página do LAB. Você pode abri-la sem sair daqui."
+  }
+}

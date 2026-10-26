@@ -22,10 +22,10 @@
 
 - Consultoria: `mailto:contato@douglasgaspar.com?subject=Consultoria...`.
 - Serviços: item 01 → `/servicos/criacao-de-sites/`; item 02 “Consultoria pessoal” → `/consultorias/agente-de-ia-pessoal/`; item 03 “Consultoria empresarial” → `/consultorias/`. Ajuste de 2026-10-22.
-- Contato geral: `https://wa.me/5522992591418?text=...` (+55 22 99259-1418), aberto em nova aba; o número vive em `whatsappNumber`, em `src/lib/contact-links.ts`.
+- Contato geral: `https://wa.me/5522992182524?text=...` (+55 22 99218-2524), aberto em nova aba; o número vive em `whatsappNumber`, em `src/lib/contact-links.ts`.
 - Instalação de n8n e implementações de IA e automação: itens `(EM BREVE)`, sem link próprio.
 - Próxima aula: `http://lab.douglasgaspar.com/events`, nova aba. O DNS do host falhou durante a validação local; preservar a URL escolhida e revalidar antes de publicar.
-- Studio Alma não recebe link público nesta versão.
+- Studio Alma aponta para `https://almastudios.org/`, aberto em nova aba; o card inteiro é clicável. Ajuste de 2026-10-26.
 - O caminho "Vamos aprender fazendo" aponta para `https://lab.douglasgaspar.com`, já que o bloco do LAB saiu do site.
 - O convite "Currículo" aponta para `#projetos` até existir um documento de currículo próprio.
 
@@ -44,7 +44,7 @@
 - Studio Alma fica descrito como projeto em desenvolvimento.
 - Destino da próxima aula precisa de verificação DNS antes de publicação.
 - Itens 02 e 03 da Home deixaram de ser `(EM BREVE)` por decisão de 2026-10-22. A página de “Consultoria pessoal” segue sem aprovação de copy e com `noindex`; o item agora liga para ela por decisão do responsável, mas não reverter isso nem tornar a página indexável sem nova decisão.
-- O número do WhatsApp do CTA do rodapé foi confirmado em 2026-10-21 (+55 22 99259-1418); qualquer troca precisa passar por decisão registrada.
+- O número do WhatsApp do CTA do rodapé foi trocado em 2026-10-26 para +55 22 99218-2524 (antes +55 22 99259-1418); qualquer nova troca precisa passar por decisão registrada.
 
 ## Proveniência
 

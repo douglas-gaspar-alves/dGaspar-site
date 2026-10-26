@@ -1,3 +1,5 @@
+import { bookingCalendarUrl } from "./booking-link";
+
 const email = "contato@douglasgaspar.com";
 
 export const contactEmail = email;
@@ -5,8 +7,7 @@ export const contactEmail = email;
 export const mailTo = (subject: string, body?: string) =>
   `mailto:${email}?subject=${encodeURIComponent(subject)}${body ? `&body=${encodeURIComponent(body)}` : ""}`;
 
-export const firstConsultationHref =
-  "https://cal.com/douglasgaspar/consultorias-servicos";
+export const firstConsultationHref = bookingCalendarUrl;
 
 export const technicalContactHref = mailTo(
   "Sou técnico — vibe coding e no-code",
@@ -15,6 +16,6 @@ export const technicalContactHref = mailTo(
 
 export const siteCreationProposalHref = firstConsultationHref;
 
-const whatsappNumber = "5522992591418";
+const whatsappNumber = "5522992182524";
 const whatsappMessage = "Olá, Douglas! Quero conversar sobre um projeto.";
 export const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;

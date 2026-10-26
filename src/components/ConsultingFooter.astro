@@ -5,13 +5,15 @@ interface Props {
 	tagline?: string;
 	copyrightYear?: string;
 	emailAddress?: string;
+	logoSrc?: string;
 }
 
 const {
 	tagline = "Feito para glória de Deus",
 	copyrightYear = "2026",
 	emailAddress = contactEmail,
+	logoSrc = "/images/logo-dgaspar.svg",
 } = Astro.props;
 ---
 
-<footer class="site-footer"><div class="wrap footer-bottom"><a class="brand" href="/"><img src="/images/logo-dgaspar.svg" width="142" height="44" alt="dGaspar" /></a><p>{tagline}</p><nav aria-label="Redes sociais"><a href="https://www.instagram.com/doug.gaspar/" target="_blank" rel="noreferrer">Instagram ↗</a><a href="https://www.youtube.com/@d-Gaspar" target="_blank" rel="noreferrer">YouTube ↗</a><a href={`mailto:${emailAddress}`}>{emailAddress}</a></nav><span class="copyright">© {copyrightYear} dGaspar</span></div></footer>
+<footer class="site-footer"><div class="wrap footer-bottom"><a class="brand" href="/"><img src={logoSrc} width="142" height="44" alt="dGaspar" /></a><p>{tagline}</p><nav aria-label="Redes sociais"><a href="https://www.instagram.com/doug.gaspar/" target="_blank" rel="noreferrer">Instagram ↗</a><a href="https://www.youtube.com/@d-Gaspar" target="_blank" rel="noreferrer">YouTube ↗</a><a href={`mailto:${emailAddress}`}>{emailAddress}</a></nav><span class="copyright">© {copyrightYear} dGaspar</span></div></footer>

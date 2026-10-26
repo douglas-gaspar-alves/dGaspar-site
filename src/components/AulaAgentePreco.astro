@@ -1,0 +1,59 @@
+---
+import AulaAgenteSignup from "./AulaAgenteSignup.astro";
+import { CHECKOUT_EMPREENDEDOR_ANUAL_URL, CHECKOUT_EMPREENDEDOR_URL } from "../lib/aula-agente";
+
+const recursos = [
+  "Trilha superAgents completa",
+  "Desafios com encontro ao vivo",
+  "Uma aula ao vivo por mês, no segundo sábado",
+  "Bônus",
+];
+
+const opcoes = [
+  {
+    preco: "R$ 29,99",
+    prazo: "30 dias de acesso",
+    cta: "Quero 30 dias de acesso",
+    href: CHECKOUT_EMPREENDEDOR_URL,
+    destaque: true,
+  },
+  {
+    preco: "R$ 299,99",
+    prazo: "12 meses de acesso",
+    cta: "Quero 12 meses de acesso",
+    href: CHECKOUT_EMPREENDEDOR_ANUAL_URL,
+    destaque: false,
+  },
+];
+---
+<section class="aula-section aula-preco" id="preco" aria-labelledby="preco-title">
+  <div class="wrap">
+    <div class="aula-preco-heading" data-reveal>
+      <p class="aula-eyebrow">INVESTIMENTO</p>
+      <h2 id="preco-title">Uma manhã. O agente conferido. O kit. <em>O plano Empreendedor.</em></h2>
+      <p class="aula-preco-assinatura">As duas opções são o mesmo plano. Muda só o tempo de acesso.</p>
+    </div>
+    <div class="aula-preco-grid">
+      {opcoes.map((opcao) => (
+        <article class:list={["aula-plano", { "aula-plano--destaque": opcao.destaque }]} data-reveal>
+          <div class="aula-plano-top">
+            <span>Plano Empreendedor</span>
+            {opcao.destaque && <span class="aula-plano-badge">Escolha da aula</span>}
+          </div>
+          <h3>Empreendedor</h3>
+          <p class="aula-plano-preco">{opcao.preco}</p>
+          <p class="aula-plano-prazo">{opcao.prazo}</p>
+          <div class="aula-plano-lista">
+            <p>Não é só pela aula. No período você também tem:</p>
+            <ul>{recursos.map((item) => <li>{item}</li>)}</ul>
+          </div>
+          <AulaAgenteSignup label={opcao.cta} big={opcao.destaque} href={opcao.href} />
+        </article>
+      ))}
+    </div>
+    <div class="aula-garantia" data-reveal>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.5 4 5.5v5c0 4.7 3.2 9 8 11 4.8-2 8-6.3 8-11v-5l-8-3Z"/><path d="m8.8 11.6 2.3 2.3 4.4-4.5"/></svg>
+      <p><strong>Garantia de satisfação.</strong> Você pode cancelar sua inscrição a qualquer momento antes da aula. Se mudar de ideia após a compra, cancelar sua assinatura sem burocracia.</p>
+    </div>
+  </div>
+</section>

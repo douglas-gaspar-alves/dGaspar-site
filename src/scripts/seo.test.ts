@@ -25,9 +25,9 @@ describe("descoberta das páginas públicas", () => {
   it("mantém a oferta pendente e as páginas pós-conversão fora do índice", () => {
     expect(source("pages/consultorias/agente-de-ia-pessoal.astro")).toMatch(/\snoindex\s/);
     expect(source("pages/lab/obrigado.astro")).toMatch(/\snoindex\s/);
-    expect(source("pages/lab-bem-vindo.astro")).toMatch(/\snoindex\s/);
-    expect(source("pages/lab-bem-vindo.astro")).toContain('canonical="https://douglasgaspar.com/lab-bem-vindo/"');
-    expect(source("lib/lab-signup.ts")).toContain('"https://douglasgaspar.com/lab-bem-vindo/"');
+    expect(source("pages/lab/bem-vindo.astro")).toMatch(/\snoindex\s/);
+    expect(source("pages/lab/bem-vindo.astro")).toContain('canonical="https://douglasgaspar.com/lab/bem-vindo/"');
+    expect(source("lib/lab-signup.ts")).toContain('"https://douglasgaspar.com/lab/bem-vindo/"');
   });
 
   it("gera um grafo legível por máquina com URLs canônicas e JSON seguro", () => {

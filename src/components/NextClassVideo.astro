@@ -1,0 +1,28 @@
+---
+import { youtubeWatchUrl } from "../lib/next-class";
+interface Props { youtubeId: string | null; poster: string; posterAlt: string; title: string }
+const { youtubeId, poster, posterAlt, title } = Astro.props;
+---
+<div class="next-video" data-lesson-video data-youtube-id={youtubeId ?? undefined} data-video-title={`Apresentação: ${title}`}>
+  <div class="next-video-frame" data-video-frame>
+    <img class="next-video-cover" src={poster} alt={posterAlt} width="1280" height="720" fetchpriority="high" decoding="async" />
+    {youtubeId ? (
+      <button class="next-play" type="button" data-video-play aria-label={`Reproduzir apresentação: ${title}`}>
+        <span class="next-play-circle"><svg width="23" height="26" viewBox="0 0 23 26" fill="currentColor" aria-hidden="true"><path d="M2 1.5a1.5 1.5 0 0 0-2 1.3v20.4a1.5 1.5 0 0 0 2 1.3l19-10.2a1.5 1.5 0 0 0 0-2.6z" /></svg></span>
+        <span>Conheça a próxima aula</span>
+      </button>
+    ) : (
+      <div class="next-video-pending"><span aria-hidden="true">↗</span><p>Apresentação em preparação</p></div>
+    )}
+  </div>
+  <div class="next-video-caption">
+    <span class="next-video-label"><span aria-hidden="true"></span> APRESENTAÇÃO DA AULA</span>
+    {youtubeId ? <a href={youtubeWatchUrl(youtubeId)} target="_blank" rel="noopener noreferrer">Assistir no YouTube <span aria-hidden="true">↗</span></a> : <span>Em breve</span>}
+  </div>
+  <p class="sr-only" data-video-status role="status" aria-live="polite"></p>
+</div>
+
+<script>
+  import { initLessonVideos } from "../scripts/next-class-video";
+  initLessonVideos();
+</script>

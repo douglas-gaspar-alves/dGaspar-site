@@ -1,0 +1,112 @@
+---
+import "../styles/booking-dialog.css";
+
+interface Props {
+	variant: "negocio" | "agente" | "sites";
+}
+
+const { variant } = Astro.props;
+
+const copy = {
+	negocio: {
+		title: "Consultoria para o negócio",
+		caseTitle: "Sobre o caso",
+		caseLead: "Uma situação e um contexto curto.",
+	},
+	agente: {
+		title: "Agente de IA pessoal",
+		caseTitle: "A tarefa",
+		caseLead: "Uma tarefa do dia a dia.",
+	},
+	sites: {
+		title: "Criação de sites",
+		caseTitle: "O site",
+		caseLead: "Site novo, troca ou uma ideia ainda aberta.",
+	},
+}[variant];
+---
+
+<dialog class="booking-dialog" data-booking-dialog aria-labelledby="booking-title">
+	<button type="button" class="booking-close" data-booking-close aria-label="Fechar formulário">×</button>
+	<p class="booking-kicker">{copy.title}</p>
+	<div class="booking-steps" aria-hidden="true">
+		<span data-step-label="1" class="is-on"><i>1</i> Seus dados</span>
+		<span data-step-label="2"><i>2</i> Seu caso</span>
+		<span data-step-label="3"><i>3</i> Agendamento</span>
+	</div>
+	<h2 id="booking-title" data-booking-heading data-case-title={copy.caseTitle}>Seus dados</h2>
+	<form data-booking-form data-variant={variant} novalidate>
+		<div data-booking-step="1">
+			<p class="booking-lead">Três campos. O caso fica no passo 2. O horário, no 3.</p>
+			<label for={`booking-nome-${variant}`}>Nome <span class="req">*</span></label>
+			<input id={`booking-nome-${variant}`} name="nome" type="text" autocomplete="name" placeholder="Seu nome completo" />
+			<label for={`booking-email-${variant}`}>E-mail <span class="req">*</span></label>
+			<input id={`booking-email-${variant}`} name="email" type="email" autocomplete="email" placeholder="voce@email.com" />
+			<label for={`booking-telefone-${variant}`}>WhatsApp <span class="req">*</span></label>
+			<input id={`booking-telefone-${variant}`} name="telefone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(22) 99999-9999" />
+			<div class="booking-actions">
+				<button class="booking-next" type="button" data-booking-next>Continuar</button>
+			</div>
+		</div>
+
+		<div data-booking-step="2" hidden>
+			<p class="booking-lead">{copy.caseLead}</p>
+			{variant === "negocio" && (
+				<>
+					<label for="booking-negocio">Nome do negócio <span class="opt">(opcional)</span></label>
+					<input id="booking-negocio" name="negocio" type="text" placeholder="Como o negócio se chama" />
+					<label for="booking-avaliar">O que você quer avaliar? <span class="req">*</span></label>
+					<select id="booking-avaliar" name="avaliar">
+						<option value="">Escolha uma situação</option>
+						<option>Atendimento e respostas repetidas</option>
+						<option>Dados entre ferramentas, planilhas ou CRM</option>
+						<option>Tarefas recorrentes e organização</option>
+						<option>Ainda não sei; quero entender o que faz sentido</option>
+					</select>
+					<label for="booking-hoje">Como isso acontece hoje? <span class="req">*</span></label>
+					<textarea id="booking-hoje" name="hoje" placeholder="A tarefa, quem faz e onde ela trava."></textarea>
+				</>
+			)}
+			{variant === "agente" && (
+				<>
+					<label for="booking-tarefa">Qual tarefa você quer trazer? <span class="req">*</span></label>
+					<textarea id="booking-tarefa" name="tarefa" placeholder="Uma tarefa, em poucas linhas."></textarea>
+					<label for="booking-onde">Onde ela acontece hoje? <span class="req">*</span></label>
+					<select id="booking-onde" name="onde">
+						<option value="">Escolha um lugar</option>
+						<option>Notas e estudo</option>
+						<option>Reuniões e próximos passos</option>
+						<option>E-mail e mensagens</option>
+						<option>Outra rotina pessoal</option>
+					</select>
+					<label class="booking-check" for="booking-confirma">
+						<input id="booking-confirma" name="confirma" type="checkbox" />
+						<span>Entendo que a consulta gratuita não configura o agente na minha conta.</span>
+					</label>
+				</>
+			)}
+			{variant === "sites" && (
+				<>
+					<label for="booking-negocio-site">Nome do negócio <span class="opt">(opcional)</span></label>
+					<input id="booking-negocio-site" name="negocio" type="text" placeholder="Como o negócio se chama" />
+					<label for="booking-precisa">O que você precisa? <span class="req">*</span></label>
+					<select id="booking-precisa" name="precisa">
+						<option value="">Escolha uma situação</option>
+						<option>Um site novo</option>
+						<option>Refazer o site que já tenho</option>
+						<option>Ainda estou decidindo se preciso de um site</option>
+					</select>
+					<label for="booking-resolver">O que esse site precisa resolver? <span class="req">*</span></label>
+					<textarea id="booking-resolver" name="resolver" placeholder="Para quem ele fala e qual meta ele precisa apoiar."></textarea>
+				</>
+			)}
+			<div class="booking-actions">
+				<button class="booking-back" type="button" data-booking-back>Voltar</button>
+				<button class="booking-submit" type="submit">Fazer o agendamento agora</button>
+			</div>
+		</div>
+		<p class="booking-status" data-booking-status role="alert" tabindex="-1" hidden></p>
+	</form>
+</dialog>
+
+<script src="../scripts/booking-dialog.ts"></script>

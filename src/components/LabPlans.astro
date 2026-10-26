@@ -1,5 +1,5 @@
 ---
-import { CHECKOUT_CODER_MONTHLY_URL, CHECKOUT_MONTHLY_URL, CHECKOUT_PLUS_MONTHLY_URL } from "../lib/lab-checkout";
+import { CHECKOUT_MONTHLY_URL } from "../lib/lab-checkout";
 
 const registerUrl = "https://lab.douglasgaspar.com/?fcom_action=auth&form=register";
 
@@ -28,53 +28,19 @@ const plans = [
     key: "empreendedor",
     tag: "Aplicação no negócio",
     audience: "Para quem quer aplicar agentes na própria rotina.",
-    monthly: "R$ 29,90 / mês",
+    monthly: "R$ 29,99 / mês",
     yearly: "Ou R$ 299 / ano",
     features: [
       "Trilha superAgents completa",
       "Desafios com encontro ao vivo",
-      "Todas as Aulas ao Vivo do superAgents",
+      "Uma aula ao vivo por mês, no segundo sábado",
       "Bônus ",
+      "Chat ilimitado",
     ],
     action: "Conhecer o LAB",
     href: CHECKOUT_MONTHLY_URL,
     modal: "checkout",
     featured: true,
-  },
-  {
-    name: "IA Coder",
-    key: "ia-coder",
-    tag: "Prática técnica",
-    audience: "Para quem constrói com IA e quer ir mais fundo.",
-    monthly: "R$ 47 / mês",
-    yearly: "Ou R$ 470 / ano",
-    features: [
-      "Tudo do Empreendedor",
-      "Espaço superTools ",
-      "Correção técnica no ao vivo (Todo dia 18 do mês)",
-    ],
-    action: "Conhecer o LAB",
-    href: CHECKOUT_CODER_MONTHLY_URL,
-    modal: "checkout",
-    featured: false,
-  },
-  {
-    name: "PRO Plus",
-    key: "pro-plus",
-    tag: "Técnico + criativo",
-    audience: "Para quem quer as duas trilhas e IA criativa.",
-    monthly: "R$ 59,90 / mês",
-    yearly: "Ou R$ 539 / ano",
-    features: [
-      "Conteúdos dos planos Empreendedor e IA Coder",
-      "IArte: 1 aula ao vivo por mês de IA criativa",
-      "Chat Ilimitado",
-      "Selo Studio Alma",
-    ],
-    action: "Conhecer o LAB",
-    href: CHECKOUT_PLUS_MONTHLY_URL,
-    modal: "checkout",
-    featured: false,
   },
 ];
 ---
@@ -84,7 +50,7 @@ const plans = [
     <div class="lab-section-intro lab-plans-intro">
       <p class="lab-kicker">02 / PLANOS</p>
       <h2 id="lab-plans-title">Escolha como quer<br /><em>participar.</em></h2>
-      <p>A versão gratuita é uma porta de entrada. Os planos pagos acrescentam acessos a espaços exclusivos, os desafios e os encontros; as trilhas avançadas variam conforme o plano.</p>
+      <p>A versão gratuita é uma porta de entrada. O plano Empreendedor acrescenta acessos a espaços exclusivos, os desafios, os encontros e o chat ilimitado.</p>
     </div>
     <div class="lab-plan-grid">
       {plans.map((plan) => (
@@ -99,6 +65,6 @@ const plans = [
         </article>
       ))}
     </div>
-    <p class="lab-plans-note">Os valores anuais e mensais são alternativas de cobrança; os descontos dos anuais já estão refletidos no preço. Nos três planos pagos — Empreendedor, IA Coder e PRO Plus — a assinatura é escolhida no pop-up e concluída no checkout seguro da Cakto.</p>
+    <p class="lab-plans-note">Os valores anuais e mensais são alternativas de cobrança; o desconto do anual já está refletido no preço. No plano Empreendedor, a assinatura é escolhida no pop-up e concluída no checkout seguro da Cakto.</p>
   </div>
 </section>

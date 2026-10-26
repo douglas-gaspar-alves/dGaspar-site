@@ -1,12 +1,13 @@
 ---
-import SiteLayout from "../layouts/SiteLayout.astro";
-import ConsultingHero from "../components/ConsultingHero.astro";
-import ConsultingTopics from "../components/ConsultingTopics.astro";
-import ConsultingOrientation from "../components/ConsultingOrientation.astro";
-import ConsultingBoundary from "../components/ConsultingBoundary.astro";
-import ConsultingCTA from "../components/ConsultingCTA.astro";
-import ConsultingTechnicalCTA from "../components/ConsultingTechnicalCTA.astro";
-import ConsultingFooter from "../components/ConsultingFooter.astro";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import ConsultingHero from "../../components/ConsultingHero.astro";
+import ConsultingTopics from "../../components/ConsultingTopics.astro";
+import ConsultingOrientation from "../../components/ConsultingOrientation.astro";
+import ConsultingBoundary from "../../components/ConsultingBoundary.astro";
+import ConsultingCTA from "../../components/ConsultingCTA.astro";
+import ConsultingTechnicalCTA from "../../components/ConsultingTechnicalCTA.astro";
+import ConsultingFooter from "../../components/ConsultingFooter.astro";
+import BookingDialog from "../../components/BookingDialog.astro";
 ---
 
 <SiteLayout
@@ -26,5 +27,6 @@ import ConsultingFooter from "../components/ConsultingFooter.astro";
   <ConsultingBoundary />
   <ConsultingCTA />
   <ConsultingTechnicalCTA />
+  <BookingDialog variant="negocio" />
   <ConsultingFooter slot="footer" />
 </SiteLayout>

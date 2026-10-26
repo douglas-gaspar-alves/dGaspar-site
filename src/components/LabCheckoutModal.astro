@@ -2,19 +2,18 @@
 import { CHECKOUT_LINKS } from "../lib/lab-checkout";
 
 interface Props {
-	plan?: "empreendedor" | "ia-coder" | "pro-plus";
+	plan?: "empreendedor";
 }
 
 const { plan = "empreendedor" } = Astro.props;
 const links = CHECKOUT_LINKS[plan];
 
-// Modal de assinatura paga do LAB, instanciado por plano (Empreendedor, IA
-// Coder e PRO Plus — Ato I reaberto de 2026-10-22 e reabertura de 2026-10-23).
+// Modal do único plano pago do LAB: Empreendedor (26/10/2026).
 // Os dois botões levam ao checkout Cakto do plano que o abriu, com prefill por
 // query, e permanecem bloqueados (aria-disabled) até nome e e-mail válidos;
 // validação e montagem da URL ficam na lib src/lib/lab-checkout.ts. O telefone
 // é opcional, com máscara digitável no script, e nunca gera erro (FR-004).
-// Mesmo markup e estilos para os três planos.
+// Mensal e anual são opções do mesmo plano.
 ---
 
 <dialog class="lab-checkout-dialog" data-lab-checkout-modal={plan} aria-labelledby={`lab-checkout-title-${plan}`} aria-describedby={`lab-checkout-lead-${plan}`}>

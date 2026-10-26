@@ -196,7 +196,7 @@
     "../comercial/estrategia-agentes-e-automacoes.md",
     "../BRAND.md",
     "../brand/voice.md",
-    "src/pages/consultorias.astro",
+    "src/pages/consultorias/index.astro",
     "src/components/HomeServices.astro",
     "src/lib/contact-links.ts",
     "../.specsfy/RULES.md"

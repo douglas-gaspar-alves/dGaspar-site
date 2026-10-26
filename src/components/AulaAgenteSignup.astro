@@ -1,0 +1,9 @@
+---
+interface Props { label: string; compact?: boolean; big?: boolean; href: string }
+const { label, compact = false, big = false, href } = Astro.props;
+/** Âncora interna (começa com "#") não abre em nova aba; a seta aponta para baixo. */
+const externo = !href.startsWith("#");
+---
+<a class:list={["button", "aula-signup", { "aula-signup--compact": compact, "aula-signup--big": big }]} href={href} target={externo ? "_blank" : undefined} rel={externo ? "noopener noreferrer" : undefined}>
+  {label}<span aria-hidden="true">{externo ? "↗" : "↓"}</span>{externo && <span class="sr-only"> (abre em nova aba)</span>}
+</a>

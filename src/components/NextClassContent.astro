@@ -1,0 +1,34 @@
+---
+import type { NextClass } from "../lib/next-class";
+interface Props { lesson: NextClass }
+const { lesson } = Astro.props;
+---
+{lesson.topicos.length > 0 && (
+  <section class="next-section next-program" id="programa" aria-labelledby="program-title">
+    <div class="wrap">
+      <div class="next-section-heading"><p class="next-eyebrow">O ENCONTRO</p><h2 id="program-title">O que vamos <em>explorar.</em></h2></div>
+      <ol class="next-topics">{lesson.topicos.map((topic, index) => (
+        <li><span class="next-topic-number" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span><div><h3>{topic.titulo}</h3>{topic.descricao && <p>{topic.descricao}</p>}</div><span class="next-topic-arrow" aria-hidden="true">↗</span></li>
+      ))}</ol>
+    </div>
+  </section>
+)}
+{(lesson.publico.length > 0 || lesson.preparacao.length > 0) && (
+  <section class="next-section next-context" aria-label="Informações para participar">
+    <div class="wrap next-context-grid">
+      {lesson.publico.length > 0 && <div id="para-quem"><p class="next-eyebrow">É PARA VOCÊ?</p><h2>Pra quem vem <em>comigo.</em></h2><ul>{lesson.publico.map((item) => <li>{item}</li>)}</ul></div>}
+      {lesson.preparacao.length > 0 && <div id="preparacao"><p class="next-eyebrow">ANTES DE COMEÇAR</p><h2>O que ter <em>por perto.</em></h2><ul>{lesson.preparacao.map((item) => <li>{item}</li>)}</ul></div>}
+    </div>
+  </section>
+)}
+<section class="next-section next-presenter" aria-labelledby="presenter-title">
+  <div class="wrap next-presenter-grid">
+    <div class="next-presenter-art"><span class="next-presenter-halo" aria-hidden="true"></span><img src={lesson.apresentador.imagem} alt={lesson.apresentador.imagemAlt} width={lesson.apresentador.largura} height={lesson.apresentador.altura} loading="lazy" decoding="async" /></div>
+    <div class="next-presenter-copy"><p class="next-eyebrow">QUEM ESTÁ DO OUTRO LADO</p><h2 id="presenter-title">Prazer,<br /><em>{lesson.apresentador.nome}.</em></h2><p>{lesson.apresentador.descricao}</p><a class="next-text-link" href="/#sobre">Um pouco mais sobre mim <span aria-hidden="true">↗</span></a></div>
+  </div>
+</section>
+{lesson.duvidas.length > 0 && (
+  <section class="next-section next-faq" id="duvidas" aria-labelledby="faq-title">
+    <div class="wrap next-faq-grid"><div><p class="next-eyebrow">ANTES DO ENCONTRO</p><h2 id="faq-title">Ficou alguma <em>dúvida?</em></h2></div><div>{lesson.duvidas.map((item) => <details><summary>{item.pergunta}<span aria-hidden="true">+</span></summary><p>{item.resposta}</p></details>)}</div></div>
+  </section>
+)}

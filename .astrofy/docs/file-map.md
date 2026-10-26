@@ -3,7 +3,7 @@
 ## Rotas e composição
 
 - `src/pages/index.astro` monta a Home para `/`.
-- `src/pages/consultorias.astro` monta a página `/consultorias/`.
+- `src/pages/consultorias/index.astro` monta a página `/consultorias/`.
 - `src/pages/servicos/criacao-de-sites.astro` monta a página
   `/servicos/criacao-de-sites/`.
 - `src/layouts/SiteLayout.astro` centraliza o documento HTML, metadados,

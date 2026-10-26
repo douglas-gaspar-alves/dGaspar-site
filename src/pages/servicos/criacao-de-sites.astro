@@ -7,6 +7,7 @@ import ServiceSteps from "../../components/ServiceSteps.astro";
 import ServiceAI from "../../components/ServiceAI.astro";
 import ServiceScope from "../../components/ServiceScope.astro";
 import ServiceFooter from "../../components/ServiceFooter.astro";
+import BookingDialog from "../../components/BookingDialog.astro";
 ---
 
 <SiteLayout
@@ -25,6 +26,7 @@ import ServiceFooter from "../../components/ServiceFooter.astro";
   <ServiceSteps />
   <ServiceAI />
   <ServiceScope />
+  <BookingDialog variant="sites" />
   <script>
     import "../../scripts/service-page.ts";
   </script>

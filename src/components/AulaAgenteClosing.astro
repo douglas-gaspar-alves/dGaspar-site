@@ -1,0 +1,14 @@
+---
+import AulaAgenteSignup from "./AulaAgenteSignup.astro";
+import { CHECKOUT_EMPREENDEDOR_URL } from "../lib/aula-agente";
+---
+<section class="aula-closing" aria-labelledby="closing-title">
+  <div class="wrap aula-closing-inner">
+    <p class="aula-eyebrow">O PRÓXIMO PASSO</p>
+    <h2 id="closing-title">Sábado, 14 de novembro, 9h às 12h.</h2>
+    <p class="aula-closing-description">Você sai com as três provas no seu ambiente, ou com o ponto exato em que travou. Não com a sensação de ter assistido um vídeo bom.</p>
+    <p class="aula-closing-price">R$ 29,99</p>
+    <AulaAgenteSignup label="Quero montar o meu — R$ 29,99" big href={CHECKOUT_EMPREENDEDOR_URL} />
+    <p class="aula-closing-sign">Douglas Gaspar conduz. A aula segue o que o Lab já definiu para este encontro: construção acompanhada, processo visível, entrega que dá para conferir.</p>
+  </div>
+</section>

@@ -11,7 +11,7 @@
 export const SIGNUP_WEBHOOK_URL = "https://acre.apps.n8nitro.com/webhook/new-user";
 
 /** Página de boas-vindas — redireciono para ela após OK do webhook. */
-export const SIGNUP_SUCCESS_URL = "https://douglasgaspar.com/lab-bem-vindo/";
+export const SIGNUP_SUCCESS_URL = "https://douglasgaspar.com/lab/bem-vindo/";
 
 /** Portal do FluentCommunity, tela de login/acesso de quem já é membro. */
 export const SIGNUP_MEMBER_URL = "https://lab.douglasgaspar.com/?fcom_action=auth";

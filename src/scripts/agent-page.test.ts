@@ -5,6 +5,7 @@ import { describe, expect, it } from "vitest";
 const component = (name: string) => readFileSync(fileURLToPath(new URL(`../components/${name}.astro`, import.meta.url)), "utf8");
 const page = readFileSync(fileURLToPath(new URL("../pages/consultorias/agente-de-ia-pessoal.astro", import.meta.url)), "utf8");
 const links = readFileSync(fileURLToPath(new URL("../lib/contact-links.ts", import.meta.url)), "utf8");
+const bookingLink = readFileSync(fileURLToPath(new URL("../lib/booking-link.ts", import.meta.url)), "utf8");
 
 describe("página da consultoria de agente de IA pessoal", () => {
   it("compõe a rota com os componentes da oferta e mantém a página fora do índice", () => {
@@ -27,13 +28,15 @@ describe("página da consultoria de agente de IA pessoal", () => {
     }
   });
 
-  it("usa a URL exata do Cal.com como cadastro, sem formulário local", () => {
-    expect(links).toContain('"https://cal.com/douglasgaspar/consultorias-servicos"');
-    expect(component("AgentHero")).toContain("firstConsultationHref");
-    expect(component("AgentRegistration")).toContain("firstConsultationHref");
-    expect(component("AgentClosingCTA")).toContain("firstConsultationHref");
-    expect(component("AgentHero")).not.toContain("<form");
-    expect(component("AgentRegistration")).not.toContain("<form");
+  it("abre o formulário local e agenda no Cal.com com overlayCalendar", () => {
+    expect(links).toContain("firstConsultationHref = bookingCalendarUrl");
+    expect(bookingLink).toContain("https://cal.com/douglasgaspar/consultorias-servicos?overlayCalendar=true");
+    expect(page).toContain('<BookingDialog variant="agente" />');
+    expect(component("AgentHero")).toContain("data-booking-open");
+    expect(component("AgentRegistration")).toContain("data-booking-open");
+    expect(component("AgentClosingCTA")).toContain("data-booking-open");
+    expect(component("BookingDialog")).toContain("Fazer o agendamento agora");
+    expect(component("BookingDialog")).toContain("Agendamento");
   });
 
   it("separa a oferta gratuita das horas adicionais e da execução", () => {

@@ -1,0 +1,30 @@
+---
+const blocos = [
+  { tempo: "15 MIN", titulo: "O que é um agente", texto: "Você vê o resultado antes de instalar e reconhece objetivo, modelo, ferramenta e conferência." },
+  { tempo: "15 MIN", titulo: "Diferença entre agentes", texto: "Critério para a próxima ferramenta: quem define a sequência, onde o trabalho executa, o que persiste." },
+  { tempo: "O MIOLO", titulo: "Um agente para chamar de seu", texto: "Instalar, personalizar, ligar a memória, conectar o desktop, provar a continuidade." },
+  { tempo: "NO FIM", titulo: "Dúvidas", texto: "Conferir os três testes e anotar o ponto em que você precisou de ajuda." },
+];
+---
+<section class="aula-section aula-agenda" id="agenda" aria-labelledby="agenda-title">
+  <div class="wrap">
+    <div class="aula-section-heading" data-reveal>
+      <p class="aula-eyebrow">O RELÓGIO</p>
+      <h2 id="agenda-title">Como as <em>3 horas</em> são usadas.</h2>
+      <p class="aula-lead">A maior parte do tempo é construção. Slide não é a entrega.</p>
+    </div>
+    <ol class="aula-agenda-track" data-aula-agenda>
+      {blocos.map((bloco) => (
+        <li data-reveal>
+          <span class="aula-agenda-time">{bloco.tempo}</span>
+          <h3>{bloco.titulo}</h3>
+          <p>{bloco.texto}</p>
+        </li>
+      ))}
+    </ol>
+    <div class="aula-agenda-notes" data-reveal>
+      <p><strong>O relógio se ajusta ao que travar ao vivo.</strong> O combinado não é o minuto. São as três provas.</p>
+      <p>Você acompanha comandos. Não escreve um agente do zero e não precisa programar. Cada etapa só continua depois da conferência. <strong>Se um comando falhar, o ponto fica registrado. A aula não finge que deu certo.</strong></p>
+    </div>
+  </div>
+</section>

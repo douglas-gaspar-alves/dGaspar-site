@@ -14,6 +14,7 @@ interface Props {
   almaTitle?: string;
   almaDescription?: string;
   almaLinkText?: string;
+  almaHref?: string;
   acreEyebrow?: string;
   acreTitle?: string;
   acreDescription?: string;
@@ -40,11 +41,12 @@ const {
   almaTitle = "Studio Alma",
   almaDescription = "Um laboratório criativo para histórias e curtas autorais, onde narrativa, arte e tecnologia se encontram. Projeto em desenvolvimento.",
   almaLinkText = "Conhecer histórias que tocam na alma",
+  almaHref = "https://almastudios.org/",
   acreEyebrow = "IA e automação para marketing",
   acreTitle = "A.C.R.E.",
   acreDescription = "Atrair, Converter, Relacionar e Estudar: um ecossistema inteligente para ajudar empresários a gerenciar o marketing e gerar vendas.",
-  acreCta = "Quero controlar o meumarketing",
-  acreHref = "mailto:contato@douglasgaspar.com?subject=A.C.R.E.%20%E2%80%94%20quero%20ter%20o%20controle%20do%20marketing%20da%20minha%20empresa",
+  acreCta = "Quero controlar o meu marketing",
+  acreHref = "https://metodoacre.com",
   labImage = "/images/icons/lab.svg",
   almaImage = "/images/icons/alma.svg",
   acreImage = "/images/acre-logo.webp",
@@ -55,7 +57,9 @@ const {
 <section class="section projects-section wrap" id="projetos" aria-labelledby="projetos-title">
 				<div class="section-title-row"><div><p class="eyebrow">{eyebrow}</p><h2 id="projetos-title">{titleBefore}<br /><em>{titleAccent}</em></h2></div><span class="section-index">{sectionIndex}</span></div>
 				<div class="project-grid"><article class="project-card project-lab"><div class="project-topline"><span>01 / COMUNIDADE</span><span>↗</span></div><div class="project-visual lab-visual"><img src={labImage} alt="" width="300" height="300" loading="lazy" decoding="async" /><span>LAB</span><span class="visual-orbit" aria-hidden="true">✳</span></div><div class="project-meta"><p class="eyebrow">{labEyebrow}</p><h3>{labTitle}</h3><p>{labDescription}</p><a class="text-link" href={labHref} target="_blank" rel="noreferrer">{labCta} <span aria-hidden="true">↗</span></a></div></article>
-					<article class="project-card project-alma"><div class="project-topline"><span>02 / ESTÚDIO CRIATIVO</span><span>↗</span></div><div class="project-visual alma-visual"><img src={almaImage} alt="" width="544" height="544" loading="lazy" decoding="async" /><span>histórias que<br />criam raízes</span></div><div class="project-meta"><p class="eyebrow">{almaEyebrow}</p><h3>{almaTitle}</h3><p>{almaDescription}</p><span class="text-link">{almaLinkText}</span></div></article>
-					<article class="project-card project-acre"><div class="project-topline"><span>03 / MARKETING</span><span>↗</span></div><div class="project-visual acre-visual"><img src={acreImage} alt={acreImageAlt} width="700" height="162" loading="lazy" decoding="async" /></div><div class="project-meta"><p class="eyebrow">{acreEyebrow}</p><h3>{acreTitle}</h3><p>{acreDescription}</p><a class="text-link" href={acreHref}>{acreCta} <span aria-hidden="true">↗</span></a></div></article></div>
+					<article class="project-card project-alma"><div class="project-topline"><span>02 / ESTÚDIO CRIATIVO</span><span>↗</span></div><div class="project-visual alma-visual"><img src={almaImage} alt="" width="544" height="544" loading="lazy" decoding="async" /><span>histórias que<br />criam raízes</span></div><div class="project-meta"><p class="eyebrow">{almaEyebrow}</p><h3>{almaTitle}</h3><p>{almaDescription}</p><a class="text-link project-link" href={almaHref} target="_blank" rel="noopener noreferrer">{almaLinkText} <span aria-hidden="true">↗</span></a></div></article>
+					<article class="project-card project-acre"><div class="project-topline"><span>03 / MARKETING</span><span>↗</span></div><div class="project-visual acre-visual"><img src={acreImage} alt={acreImageAlt} width="700" height="162" loading="lazy" decoding="async" /></div><div class="project-meta"><p class="eyebrow">{acreEyebrow}</p><h3>{acreTitle}</h3><p>{acreDescription}</p><div>
+					<a class="text-link" href={acreHref} target="_blank" rel="noopener noreferrer">{acreCta} <span aria-hidden="true">↗</span></a>
+					</div></div></article></div>
 				<p class="project-footnote">{footnote} <a href="/lab/">Conheça o LAB e compare os planos</a>.</p>
 			</section>

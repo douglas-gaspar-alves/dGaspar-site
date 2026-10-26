@@ -1,0 +1,45 @@
+---
+const pecas = [
+  { label: "INTERFACE", titulo: "Interface", texto: "O Hermes Desktop no seu computador. A porta, não o agente.", icone: "janela" },
+  { label: "EXECUÇÃO", titulo: "Execução", texto: "A VPS. É nela que a tarefa roda e o arquivo fica.", icone: "terminal" },
+  { label: "MODELO", titulo: "Modelo", texto: "Um provedor que você configura. Não mora dentro da VPS.", icone: "faísca" },
+  { label: "MEMÓRIA", titulo: "Memória", texto: "Uma gravação que você pede e uma sessão nova consegue ler.", icone: "banco" },
+] as const;
+---
+<section class="aula-section aula-pecas" id="pecas" aria-labelledby="pecas-title">
+  <div class="wrap">
+    <div class="aula-section-heading" data-reveal>
+      <p class="aula-eyebrow">A DIFERENÇA</p>
+      <h2 id="pecas-title">Isso não é <em>mais uma aba de chat.</em></h2>
+      <p class="aula-lead">Você já conversa com IA. A conversa acaba quando a aba fecha. O arquivo não está numa pasta sua. A sessão seguinte não lê, de propósito, o que você mandou gravar.</p>
+      <p class="aula-lead">Sábado separa quatro peças que costumam vir misturadas:</p>
+    </div>
+    <div class="aula-pecas-grid">
+      <aside class="aula-chat-ghost" data-reveal>
+        <h3>A conversa que você já tem</h3>
+        <ul>
+          <li>A conversa acaba quando a aba fecha.</li>
+          <li>O arquivo não está numa pasta sua.</li>
+          <li>A sessão seguinte não lê o que você mandou gravar.</li>
+        </ul>
+        <span class="aula-chat-ghost-tag">FICA PARA TRÁS</span>
+      </aside>
+      <ul class="aula-pecas-list">
+        {pecas.map((peca) => (
+          <li data-reveal>
+            <p class="aula-peca-label" aria-hidden="true">
+              {peca.icone === "janela" && <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="16" rx="2" /><path d="M3 9h18M6.5 6.5h.01M9.5 6.5h.01" stroke-linecap="round" /></svg>}
+              {peca.icone === "terminal" && <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="16" rx="2" /><path d="m7 9 3 3-3 3M13 15h4" stroke-linecap="round" /></svg>}
+              {peca.icone === "faísca" && <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3v4m0 10v4M3 12h4m10 0h4M5.6 5.6l2.8 2.8m7.2 7.2 2.8 2.8m0-12.8-2.8 2.8m-7.2 7.2-2.8 2.8" stroke-linecap="round" /></svg>}
+              {peca.icone === "banco" && <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="12" cy="5.5" rx="8" ry="2.8" /><path d="M4 5.5v13c0 1.55 3.58 2.8 8 2.8s8-1.25 8-2.8v-13M4 12c0 1.55 3.58 2.8 8 2.8s8-1.25 8-2.8" /></svg>}
+              PEÇA · {peca.label}
+            </p>
+            <h3>{peca.titulo}</h3>
+            <p>{peca.texto}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+    <p class="aula-pecas-note" data-reveal><strong>Instalar o agente na VPS não hospeda o modelo nela.</strong> Quem vende as duas coisas como se fossem uma está te deixando pagar pelo mal-entendido. Aqui as contas ficam separadas.</p>
+  </div>
+</section>

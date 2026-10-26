@@ -1,0 +1,23 @@
+---
+import { getEntry } from "astro:content";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import ConsultingFooter from "../../components/ConsultingFooter.astro";
+import NextClassHeader from "../../components/NextClassHeader.astro";
+import NextClassHero from "../../components/NextClassHero.astro";
+import NextClassContent from "../../components/NextClassContent.astro";
+import NextClassClosing from "../../components/NextClassClosing.astro";
+import "../../styles/next-class-page.css";
+
+const entry = await getEntry("aulas", "proxima-aula");
+if (!entry) throw new Error("Preencha src/data/proxima-aula.json para gerar a página da próxima aula.");
+const lesson = entry.data;
+const title = `${lesson.titulo} ${lesson.destaque}`.trim();
+const ogImage = new URL(lesson.capa, Astro.site).href;
+---
+<SiteLayout title={`${title} | Próxima aula · dGaspar`} description={lesson.resumo} canonical="https://douglasgaspar.com/lab/proxima-aula/" bodyClass="next-class-page" colorScheme="dark" dataTheme="dark" themeColor="#101a33" ogImage={ogImage} ogImageAlt={lesson.capaAlt} twitterImage={ogImage} twitterImageAlt={lesson.capaAlt} noindex={!lesson.publicado}>
+  <NextClassHeader lesson={lesson} slot="header" />
+  <NextClassHero lesson={lesson} />
+  <NextClassContent lesson={lesson} />
+  <NextClassClosing lesson={lesson} />
+  <ConsultingFooter slot="footer" logoSrc="/images/logo-dgaspar-hero.svg" />
+</SiteLayout>

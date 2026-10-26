@@ -1,0 +1,59 @@
+---
+import AulaAgenteSignup from "./AulaAgenteSignup.astro";
+import { INICIO_AO_VIVO, FIM_AO_VIVO } from "../lib/aula-agente";
+---
+<section class="aula-hero" aria-labelledby="aula-title" data-aula-hero>
+  <div class="aula-hero-orbit" aria-hidden="true"></div>
+  <div class="wrap aula-hero-grid">
+    <div class="aula-hero-heading">
+      <p class="aula-eyebrow"><img src="/images/icons/lab.svg" width="24" height="24" alt="" /> LAB DGASPAR <span>/</span> MASTERCLASS AO VIVO</p>
+      <h1 id="aula-title">Chega de apenas conversar com IA.<em>Faça ela trabalhar para você.</em></h1>
+    </div>
+    <p class="aula-hero-summary">Em uma manhã, crie seu próprio agente de inteligência artificial, com personalidade, memória e capacidade de executar tarefas no seu servidor.</p>
+    <div class="aula-schedule">
+      <svg width="21" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3" /><path d="M7 2v6m10-6v6M3 11h18" /></svg>
+      <time datetime={INICIO_AO_VIVO}>sábado, 14 de novembro</time>
+      <span class="aula-schedule-detail">9h às 12h · horário de Brasília</span>
+      <span class="aula-count" data-aula-count data-inicio={INICIO_AO_VIVO} data-fim={FIM_AO_VIVO} hidden></span>
+    </div>
+    <div class="aula-hero-action">
+      <AulaAgenteSignup label="Quero montar meu Agente de IA — R$ 29,99" href="#preco" />
+      <p><strong>Cancele sem burocracia.</strong></p>
+    </div>
+    <div class="aula-hero-terminal">
+      <div class="aula-terminal" role="img" aria-label="Simulação de uma sessão do agente: conectado ao Hermes Desktop, tarefa executada na VPS com o plano criado na pasta da prática e memória lida em uma sessão nova.">
+        <div class="aula-terminal-window">
+          <div class="aula-terminal-bar" aria-hidden="true">
+            <span class="aula-terminal-dot"></span><span class="aula-terminal-dot"></span><span class="aula-terminal-dot"></span>
+            <span class="aula-terminal-title">minha-sessão</span>
+            <span class="aula-terminal-live">AO VIVO NA AULA</span>
+          </div>
+          <div class="aula-terminal-body" aria-hidden="true" data-aula-terminal>
+            <p class="aula-term-line aula-term-meta">sessão iniciada · meu computador</p>
+            <p class="aula-term-line aula-term-cmd">conectar agente</p>
+            <p class="aula-term-line aula-term-out">Hermes Desktop ligado</p>
+            <p class="aula-term-line aula-term-cmd">executar tarefa</p>
+            <p class="aula-term-line aula-term-out">comando rodou na minha VPS</p>
+            <p class="aula-term-line aula-term-out">plano-estudos.md na minha pasta</p>
+            <p class="aula-term-line aula-term-cmd">abrir sessão nova</p>
+            <p class="aula-term-line aula-term-out">memória lida: o que mandei gravar está aqui</p>
+          </div>
+        </div>
+        <div class="aula-terminal-caption" aria-hidden="true">
+          <span class="aula-terminal-label"><span></span> SIMULAÇÃO</span>
+          <span>AS TRÊS PROVAS QUE CADA ETAPA CONFERE</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="wrap aula-hero-foot" aria-hidden="true"><span>CONSTRUÇÃO ACOMPANHADA · PROCESSO VISÍVEL · ENTREGA CONFERIDA</span><span>VEJA O RESULTADO ANTES DE INSTALAR ↓</span></div>
+</section>
+<div class="aula-strip" aria-hidden="true">
+  <div class="aula-strip-track">
+    {[0, 1].map(() => (
+      <ul class="aula-strip-set">
+        {Array.from({ length: 3 }).flatMap(() => ["INTERFACE", "EXECUÇÃO", "MODELO", "MEMÓRIA"]).map((word) => <li>{word}</li>)}
+      </ul>
+    ))}
+  </div>
+</div>

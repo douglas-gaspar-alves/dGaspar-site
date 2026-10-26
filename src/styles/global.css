@@ -167,6 +167,8 @@ img,svg{max-width:100%}
 .projects-section{padding-block:clamp(90px,12vw,160px)}
 .project-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
 .project-card{overflow:hidden;border:1px solid var(--line);border-radius:5px;background:#fff}
+.project-alma{position:relative}
+.project-alma .project-link::after{content:"";position:absolute;inset:0}
 .project-topline{display:flex;justify-content:space-between;padding:17px 20px;color:#697891;font:10px var(--font-mono);letter-spacing:.07em}
 .project-visual{height:290px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .lab-visual{gap:16px;background:#e9f1ff;color:var(--blue)}

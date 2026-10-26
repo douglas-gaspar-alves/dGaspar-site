@@ -1,5 +1,5 @@
-// Assinatura paga do LAB via checkout Cakto dos planos Empreendedor, IA Coder
-// e PRO Plus (destinos por plano no registro CHECKOUT_LINKS, FR-003). Site 100%
+// Assinatura paga do LAB via checkout Cakto do plano Empreendedor
+// (destinos por plano no registro CHECKOUT_LINKS, FR-003). Site 100%
 // estático: os dados do formulário existem apenas para compor a query de
 // prefill do checkout (R-001/R-002, research/cakto-prefill-checkout.md) e não
 // são enviados para backend do site. O telefone é normalizado para dígitos
@@ -12,18 +12,6 @@ export const CHECKOUT_MONTHLY_URL = "https://pay.cakto.com.br/mtya7hj_1232361";
 /** Checkout anual do plano Empreendedor na Cakto. */
 export const CHECKOUT_ANNUAL_URL = "https://pay.cakto.com.br/e98y5m2_1232361";
 
-/** Checkout mensal do plano IA Coder na Cakto (pedido do responsável, 2026-10-22). */
-export const CHECKOUT_CODER_MONTHLY_URL = "https://pay.cakto.com.br/kuif3kg";
-
-/** Checkout anual do plano IA Coder na Cakto (pedido do responsável, 2026-10-22). */
-export const CHECKOUT_CODER_ANNUAL_URL = "https://pay.cakto.com.br/thu2zrf";
-
-/** Checkout mensal do plano PRO Plus na Cakto (pedido do responsável, 2026-10-23). */
-export const CHECKOUT_PLUS_MONTHLY_URL = "https://pay.cakto.com.br/o4gpj7n_1232361";
-
-/** Checkout anual do plano PRO Plus na Cakto (pedido do responsável, 2026-10-23). */
-export const CHECKOUT_PLUS_ANNUAL_URL = "https://pay.cakto.com.br/kq2kw8q_1232361";
-
 /**
  * Destinos de assinatura por plano consumido no pop-up (seção 7, FR-003):
  * o modal instancia os hrefs do plano que o abriu; chaves casam com
@@ -32,8 +20,6 @@ export const CHECKOUT_PLUS_ANNUAL_URL = "https://pay.cakto.com.br/kq2kw8q_123236
  */
 export const CHECKOUT_LINKS = {
 	empreendedor: { mensal: CHECKOUT_MONTHLY_URL, anual: CHECKOUT_ANNUAL_URL },
-	"ia-coder": { mensal: CHECKOUT_CODER_MONTHLY_URL, anual: CHECKOUT_CODER_ANNUAL_URL },
-	"pro-plus": { mensal: CHECKOUT_PLUS_MONTHLY_URL, anual: CHECKOUT_PLUS_ANNUAL_URL },
 } as const;
 
 export type CheckoutInput = {

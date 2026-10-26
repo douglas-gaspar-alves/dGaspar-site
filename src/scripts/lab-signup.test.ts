@@ -12,7 +12,7 @@ import {
 
 const component = (name: string) => readFileSync(fileURLToPath(new URL(`../components/${name}.astro`, import.meta.url)), "utf8");
 const script = readFileSync(fileURLToPath(new URL("./lab-signup.ts", import.meta.url)), "utf8");
-const welcome = readFileSync(fileURLToPath(new URL("../pages/lab-bem-vindo.astro", import.meta.url)), "utf8");
+const welcome = readFileSync(fileURLToPath(new URL("../pages/lab/bem-vindo.astro", import.meta.url)), "utf8");
 
 const validInput = {
 	nome: "Douglas Gaspar Filho",
@@ -97,10 +97,10 @@ describe("modal de cadastro nos componentes do LAB", () => {
 		expect(modal).toContain('href={SIGNUP_MEMBER_URL}>Já sou membro.');
 	});
 
-	it("envia ao webhook do fluxo e redireciona para /lab-bem-vindo", () => {
+	it("envia ao webhook do fluxo e redireciona para /lab/bem-vindo/", () => {
 		const modal = component("LabSignupModal");
 		expect(SIGNUP_WEBHOOK_URL).toBe("https://acre.apps.n8nitro.com/webhook/new-user");
-		expect(SIGNUP_SUCCESS_URL).toBe("https://douglasgaspar.com/lab-bem-vindo/");
+		expect(SIGNUP_SUCCESS_URL).toBe("https://douglasgaspar.com/lab/bem-vindo/");
 		expect(modal).toContain('data-webhook-url={SIGNUP_WEBHOOK_URL}');
 		expect(modal).toContain('data-success-url={SIGNUP_SUCCESS_URL}');
 		expect(script).toContain("window.location.assign(successUrl)");
@@ -122,7 +122,7 @@ describe("modal de cadastro nos componentes do LAB", () => {
 
 describe("página de boas-vindas", () => {
 	it("existe na rota anunciada, orienta o primeiro acesso e mantém a identidade do LAB", () => {
-		expect(welcome).toContain('canonical="https://douglasgaspar.com/lab-bem-vindo/"');
+		expect(welcome).toContain('canonical="https://douglasgaspar.com/lab/bem-vindo/"');
 		expect(welcome).toContain("Bem-vindo <em>ao LAB.</em>");
 		expect(welcome).toContain('href={SIGNUP_MEMBER_URL}');
 		expect(welcome).toContain("Perdeu a senha");

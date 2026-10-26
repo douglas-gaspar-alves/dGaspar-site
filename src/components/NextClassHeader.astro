@@ -1,0 +1,17 @@
+---
+import NextClassSignup from "./NextClassSignup.astro";
+import type { NextClass } from "../lib/next-class";
+interface Props { lesson: NextClass }
+const { lesson } = Astro.props;
+---
+<header class="next-header">
+  <div class="wrap next-nav">
+    <a class="next-brand" href="/" aria-label="dGaspar, voltar ao início">
+      <img src="/images/logo-dgaspar-hero.svg" width="110" height="28" alt="dGaspar" />
+    </a>
+    <nav class="next-nav-actions" aria-label="Navegação da aula">
+      <a class="next-back" href="/"><span aria-hidden="true">←</span> Voltar ao site</a>
+      <NextClassSignup href={lesson.cadastroUrl} label={lesson.ctaTexto} compact />
+    </nav>
+  </div>
+</header>

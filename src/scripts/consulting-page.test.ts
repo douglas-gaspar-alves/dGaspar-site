@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 
-const page = readFileSync(new URL("../pages/consultorias.astro", import.meta.url), "utf8");
+const page = readFileSync(new URL("../pages/consultorias/index.astro", import.meta.url), "utf8");
 const home = readFileSync(new URL("../pages/index.astro", import.meta.url), "utf8");
 const homePaths = readFileSync(new URL("../components/HomePaths.astro", import.meta.url), "utf8");
 const homeServices = readFileSync(new URL("../components/HomeServices.astro", import.meta.url), "utf8");
@@ -13,6 +13,7 @@ const boundary = readFileSync(new URL("../components/ConsultingBoundary.astro", 
 const technicalCta = readFileSync(new URL("../components/ConsultingTechnicalCTA.astro", import.meta.url), "utf8");
 const consultingCta = readFileSync(new URL("../components/ConsultingCTA.astro", import.meta.url), "utf8");
 const contactLinks = readFileSync(new URL("../lib/contact-links.ts", import.meta.url), "utf8");
+const bookingLink = readFileSync(new URL("../lib/booking-link.ts", import.meta.url), "utf8");
 
 describe("página de consultorias", () => {
 	it("apresenta a primeira consultoria gratuita sem prometer duração ou resultado", () => {
@@ -25,10 +26,12 @@ describe("página de consultorias", () => {
 	});
 
 	it("direciona os CTAs de consultoria ao agendamento", () => {
-		expect(contactLinks).toContain("https://cal.com/douglasgaspar/consultorias-servicos");
-		expect(hero).toContain("primaryHref = firstConsultationHref");
-		expect(orientation).toContain("ctaHref = firstConsultationHref");
-		expect(consultingCta).toContain("ctaHref = firstConsultationHref");
+		expect(contactLinks).toContain("firstConsultationHref = bookingCalendarUrl");
+		expect(bookingLink).toContain("https://cal.com/douglasgaspar/consultorias-servicos?overlayCalendar=true");
+		expect(page).toContain('<BookingDialog variant="negocio" />');
+		expect(hero).toContain("data-booking-open");
+		expect(orientation).toContain("data-booking-open");
+		expect(consultingCta).toContain("data-booking-open");
 		expect(consultingCta).not.toContain("mailto:");
 	});
 

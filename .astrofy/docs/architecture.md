@@ -10,7 +10,7 @@ autofechadas.
 | Rota | Página | Layout | Componentes de conteúdo |
 | --- | --- | --- | --- |
 | `/` | `src/pages/index.astro` | `src/layouts/SiteLayout.astro` | `HomeHero`, `HomePaths`, `HomeAbout`, `HomeProjects`, `HomeToolkit`, `HomeConsulting`, `HomeServices`, `HomeFooter` |
-| `/consultorias/` | `src/pages/consultorias.astro` | `src/layouts/SiteLayout.astro` | `ConsultingHero`, `ConsultingTopics`, `ConsultingOrientation`, `ConsultingBoundary`, `ConsultingCTA`, `ConsultingTechnicalCTA`, `ConsultingFooter` |
+| `/consultorias/` | `src/pages/consultorias/index.astro` | `src/layouts/SiteLayout.astro` | `ConsultingHero`, `ConsultingTopics`, `ConsultingOrientation`, `ConsultingBoundary`, `ConsultingCTA`, `ConsultingTechnicalCTA`, `ConsultingFooter` |
 | `/servicos/criacao-de-sites/` | `src/pages/servicos/criacao-de-sites.astro` | `src/layouts/SiteLayout.astro` | `ServiceHeader`, `ServiceHero`, `ServiceIntro`, `ServiceSteps`, `ServiceAI`, `ServiceScope`, `ServiceFooter` |
 | `/consultorias/agente-de-ia-pessoal/` | `src/pages/consultorias/agente-de-ia-pessoal.astro` | `src/layouts/SiteLayout.astro` | `AgentHeader`, `AgentHero`, `AgentFreeOffer`, `AgentRegistration`, `AgentUseCases`, `AgentGuided`, `AgentScope`, `AgentExecution`, `AgentFaq`, `AgentClosingCTA`, `ConsultingFooter` |
 | `/lab/` | `src/pages/lab/index.astro` | `src/layouts/SiteLayout.astro` | `LabHeader`, `LabHero`, `LabJourney`, `LabPlans`, `LabQuestions`, `LabFooter` |
