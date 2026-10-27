@@ -34,11 +34,12 @@ describe("modelo da próxima aula", () => {
   });
 
   // SPECSFY: US-001 FR-001 NFR-001 AC-001
-  it("liga o botão da Home à página interna na mesma aba", () => {
+  it("liga o botão da Home à página do LAB em nova aba", () => {
     const home = new DOMParser().parseFromString(readFileSync(new NodeURL("../../../dist/index.html", import.meta.url), "utf8"), "text/html");
     const link = [...home.querySelectorAll("a")].find((a) => a.textContent?.trim() === "Próxima aula");
-    expect(link?.getAttribute("href")).toBe("/lab/proxima-aula/");
-    expect(link?.hasAttribute("target")).toBe(false);
+    expect(link?.getAttribute("href")).toBe("https://lab.douglasgaspar.com/proxima-aula");
+    expect(link?.getAttribute("target")).toBe("_blank");
+    expect(link?.getAttribute("rel")).toBe("noreferrer");
   });
 
   // SPECSFY: US-001 FR-001 NFR-001 AC-002
