@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import GoogleAnalytics from "../components/GoogleAnalytics.astro";
 
 interface Props {
   title: string;
@@ -21,6 +22,8 @@ interface Props {
   twitterImageAlt?: string;
   schemaKind?: string;
   noindex?: boolean;
+  /** Medição GA4 (padrão ligada). Páginas de pós-compra passam `false`. */
+  analytics?: boolean;
 }
 
 const {
@@ -43,6 +46,7 @@ const {
   twitterImageAlt,
   schemaKind,
   noindex = false,
+  analytics = true,
 } = Astro.props;
 
 const siteUrl = "https://douglasgaspar.com/";
@@ -109,6 +113,7 @@ const schemaJson = JSON.stringify(schemaData).replace(/</g, "\\u003c");
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
+    {analytics && <GoogleAnalytics />}
     <meta name="description" content={description} />
     <meta name="theme-color" content={themeColor} />
     {colorScheme && <meta name="color-scheme" content={colorScheme} />}

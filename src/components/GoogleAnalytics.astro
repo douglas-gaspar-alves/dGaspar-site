@@ -1,0 +1,25 @@
+---
+import { GA_MEASUREMENT_ID } from "../lib/analytics";
+
+interface Props {
+  /** ID de métricas do GA4. String vazia desliga a medição na página. */
+  measurementId?: string;
+}
+
+const { measurementId = GA_MEASUREMENT_ID } = Astro.props;
+
+// O ID vem de configuração, nunca de entrada do usuário: ainda assim é
+// reduzido ao formato do GA4 antes de entrar no snippet e nos atributos.
+const safeId = measurementId.trim().replace(/[^A-Za-z0-9-]/g, "");
+
+// Snippet gtag.js reduzido ao necessário: fila do dataLayer, timestamp e
+// config da propriedade. O carregador assíncrono cuida do resto.
+const gtagSnippet = `window.dataLayer=window.dataLayer||[];function gtag(){window.dataLayer.push(arguments);}gtag("js",new Date());gtag("config","${safeId}");`;
+---
+
+{safeId && (
+  <>
+    <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${safeId}`}></script>
+    <script is:inline set:html={gtagSnippet}></script>
+  </>
+)}
