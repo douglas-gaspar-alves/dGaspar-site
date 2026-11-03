@@ -2,14 +2,14 @@
 //
 // Crawlers não executam JavaScript, então nunca aparecem no GA4 do navegador.
 // Esta lib roda na borda (Cloudflare Pages Function) e traduz o User-Agent em
-// provedor + nome, que viram o nome do evento enviado ao Measurement Protocol
-// da propriedade "douglasgaspar.com — Bots".
+// provedor + nome; o resultado vira um ponto de dados no Workers Analytics
+// Engine, consultável por SQL.
 //
 // O User-Agent é auto-declarado: um cliente pode mentir. A contagem aqui é
 // "declarada", não "verificada" por faixa de IP. Endurecer exige validar contra
 // os intervalos publicados por cada provedor.
 
-/** Provedor responsável pelo crawler. Vira o sufixo do nome do evento. */
+/** Provedor responsável pelo crawler. Vira o índice do ponto de dados. */
 export type BotProvider =
 	| "openai"
 	| "google"
@@ -118,66 +118,68 @@ export function classifyBot(userAgent: string | null | undefined): BotMatch | nu
 	return null;
 }
 
-/** Nome do evento enviado ao GA4. Sempre `bot_<provedor>`. */
-export function botEventName(match: BotMatch): string {
+/** Índice do ponto de dados. Sempre `bot_<provedor>`. */
+export function botIndex(match: BotMatch): string {
 	return `bot_${match.provider}`;
 }
 
-/** Nomes de evento possíveis, na ordem da tabela, sem repetição. */
-export function botEventNames(): string[] {
+/** Índices possíveis, na ordem da tabela, sem repetição. */
+export function botIndexes(): string[] {
 	const providers = BOT_SIGNATURES.map((signature) => signature.provider);
 	return [...new Set(providers)].map((provider) => `bot_${provider}`);
-}
-
-/** SHA-256 em hexadecimal, para derivar identificadores sem guardar IP. */
-export async function digestHex(value: string): Promise<string> {
-	const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(value));
-	return [...new Uint8Array(digest)].map((byte) => byte.toString(16).padStart(2, "0")).join("");
-}
-
-/** Converte os primeiros bytes de um hash em um id numérico estável. */
-export function numericIdFromHex(hex: string, modulo = 1_000_000_000): string {
-	if (!/^[0-9a-f]+$/i.test(hex)) return "0";
-	return String(Number.parseInt(hex.slice(0, 12), 16) % modulo);
 }
 
 export interface BotHitInput {
 	match: BotMatch;
 	/** URL original da requisição; a query string é descartada. */
 	url: URL;
-	/** Identificador anônimo e diário do visitante. */
-	clientId: string;
-	/** Identificador anônimo e diário da sessão. */
-	sessionId: string;
 	referrer?: string | null;
 	country?: string | null;
+	userAgent?: string | null;
 }
 
-export interface BotPayload {
-	client_id: string;
-	events: Array<{ name: string; params: Record<string, string | number> }>;
+/**
+ * Formato aceito por `AnalyticsEngineDataset.writeDataPoint`.
+ *
+ * Declarado aqui para não depender de `@cloudflare/workers-types` no projeto,
+ * que compila as Functions pelo esbuild da Cloudflare e não faz checagem de tipo.
+ */
+export interface AnalyticsDataPoint {
+	indexes?: string[];
+	blobs?: string[];
+	doubles?: number[];
 }
 
-/** Monta o corpo do Measurement Protocol para um acesso de crawler. */
-export function buildBotPayload(input: BotHitInput): BotPayload {
+/**
+ * Layout do dataset `dgaspar_bots`:
+ *
+ * | coluna  | conteúdo                                  |
+ * |---------|-------------------------------------------|
+ * | index1  | `bot_<provedor>`                          |
+ * | blob1   | provedor                                  |
+ * | blob2   | nome do crawler declarado no User-Agent   |
+ * | blob3   | caminho da página (sem query string)      |
+ * | blob4   | país de origem (CF-IPCountry)             |
+ * | blob5   | referrer                                  |
+ * | blob6   | host                                      |
+ * | blob7   | User-Agent do crawler, truncado           |
+ * | double1 | 1 quando o crawler alimenta IA, 0 quando não |
+ *
+ * O IP nunca é lido e o visitante humano nunca chega aqui: só crawler.
+ */
+export function buildBotDataPoint(input: BotHitInput): AnalyticsDataPoint {
 	const { match, url } = input;
 	return {
-		client_id: input.clientId,
-		events: [
-			{
-				name: botEventName(match),
-				params: {
-					bot_name: match.name,
-					bot_provider: match.provider,
-					bot_is_ai: match.ai ? 1 : 0,
-					page_location: `${url.origin}${url.pathname}`,
-					page_path: url.pathname,
-					page_referrer: (input.referrer ?? "").slice(0, 420),
-					country: (input.country ?? "").slice(0, 8),
-					session_id: input.sessionId,
-					engagement_time_msec: 1,
-				},
-			},
+		indexes: [botIndex(match)],
+		blobs: [
+			match.provider,
+			match.name,
+			url.pathname,
+			(input.country ?? "").slice(0, 8),
+			(input.referrer ?? "").slice(0, 420),
+			url.host,
+			(input.userAgent ?? "").slice(0, 180),
 		],
+		doubles: [match.ai ? 1 : 0],
 	};
 }

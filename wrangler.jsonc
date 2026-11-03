@@ -1,0 +1,12 @@
+{
+	"$schema": "https://unpkg.com/wrangler@4/config-schema.json",
+	"name": "dgaspar-site",
+	"pages_build_output_dir": "./dist",
+	"compatibility_date": "2026-10-21",
+	"analytics_engine_datasets": [
+		{
+			"binding": "BOT_METRICS",
+			"dataset": "dgaspar_bots"
+		}
+	]
+}
