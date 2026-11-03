@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import GoogleAnalytics from "../components/GoogleAnalytics.astro";
+import MetaPixel from "../components/MetaPixel.astro";
 
 interface Props {
   title: string;
@@ -22,7 +23,7 @@ interface Props {
   twitterImageAlt?: string;
   schemaKind?: string;
   noindex?: boolean;
-  /** Medição GA4 (padrão ligada). Páginas de pós-compra passam `false`. */
+  /** Medição do navegador, GA4 e Pixel (padrão ligada). Páginas de pós-compra passam `false`. */
   analytics?: boolean;
 }
 
@@ -114,6 +115,7 @@ const schemaJson = JSON.stringify(schemaData).replace(/</g, "\\u003c");
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     {analytics && <GoogleAnalytics />}
+    {analytics && <MetaPixel />}
     <meta name="description" content={description} />
     <meta name="theme-color" content={themeColor} />
     {colorScheme && <meta name="color-scheme" content={colorScheme} />}

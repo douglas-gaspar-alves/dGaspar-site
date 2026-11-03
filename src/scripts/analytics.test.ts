@@ -1,7 +1,12 @@
 import { existsSync, readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
-import { DEFAULT_GA_MEASUREMENT_ID, GA_MEASUREMENT_ID } from "../lib/analytics";
+import {
+  DEFAULT_GA_MEASUREMENT_ID,
+  DEFAULT_META_PIXEL_ID,
+  GA_MEASUREMENT_ID,
+  META_PIXEL_ID,
+} from "../lib/analytics";
 
 // Suíte da medição GA4 — cobre o contrato entre a lib, o componente, o layout
 // e o HTML compilado. O snippet só pode existir com um ID válido e precisa
@@ -45,5 +50,37 @@ describe("medição GA4 do site", () => {
     expect(html).toContain(`gtag("config","G-739P03GM5K")`);
     // o carregador não pode bloquear a renderização
     expect(html).toMatch(/<script[^>]+async[^>]+googletagmanager\.com\/gtag\/js/);
+  });
+});
+
+describe("Pixel da Meta no site", () => {
+  it("expõe o ID do Pixel HubWeb", () => {
+    expect(DEFAULT_META_PIXEL_ID).toBe("1470769825003164");
+    expect(META_PIXEL_ID).toBe(DEFAULT_META_PIXEL_ID);
+  });
+
+  it("inicializa o Pixel e dispara PageView sem emitir snippet sem ID", () => {
+    const component = source("../components/MetaPixel.astro");
+    expect(component).toContain("https://connect.facebook.net/en_US/fbevents.js");
+    expect(component).toContain('fbq("init","${safeId}")');
+    expect(component).toContain('fbq("track","PageView")');
+    expect(component).toContain("www.facebook.com/tr?id=");
+    expect(component).toContain("ev=PageView");
+    expect(component).toContain("{safeId && (");
+  });
+
+  it("injeta o Pixel no mesmo opt-out do layout", () => {
+    const layout = source("../layouts/SiteLayout.astro");
+    expect(layout).toContain('import MetaPixel from "../components/MetaPixel.astro"');
+    expect(layout).toContain("analytics && <MetaPixel />");
+  });
+
+  it("publica o PageView no HTML compilado da Home", () => {
+    expect(exists(homeBuilt), buildReady).toBe(true);
+    const html = source(homeBuilt);
+    expect(html).toContain("https://connect.facebook.net/en_US/fbevents.js");
+    expect(html).toContain('fbq("init","1470769825003164")');
+    expect(html).toContain('fbq("track","PageView")');
+    expect(html).toContain("https://www.facebook.com/tr?id=1470769825003164&amp;ev=PageView&amp;noscript=1");
   });
 });
