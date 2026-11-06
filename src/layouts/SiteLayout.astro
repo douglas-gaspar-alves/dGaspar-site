@@ -116,12 +116,6 @@ const schemaJson = JSON.stringify(schemaData).replace(/</g, "\\u003c");
     <meta name="generator" content={Astro.generator} />
     {analytics && <GoogleAnalytics />}
     {analytics && <MetaPixel />}
-    <script
-      is:inline
-      defer
-      src="http://localhost:3001/recorder.js"
-      data-website-id="fb0c1f5f-7646-4398-be6e-f533d98af8b0"
-    ></script>
     <meta name="description" content={description} />
     <meta name="theme-color" content={themeColor} />
     {colorScheme && <meta name="color-scheme" content={colorScheme} />}
