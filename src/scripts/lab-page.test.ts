@@ -16,7 +16,7 @@ describe("página de vendas do LAB", () => {
   });
 
   // SPECSFY: US-001 FR-006 NFR-003 AC-013
-  it("mostra só Curioso gratuito e Empreendedor, com a anuidade preservada", () => {
+  it("mostra só Curioso gratuito e Criador, com a anuidade preservada", () => {
     const plans = component("LabPlans");
     for (const price of ["Grátis", "R$ 29,99 / mês", "R$ 299 / ano"]) {
       expect(plans).toContain(price);
@@ -27,7 +27,7 @@ describe("página de vendas do LAB", () => {
     expect(plans.match(/name: "/g)).toHaveLength(2);
   });
 
-  it("leva o cadastro à rota real e a contratação paga ao checkout Cakto do Empreendedor", () => {
+  it("leva o cadastro à rota real e a contratação paga ao checkout Cakto do Criador", () => {
     expect(component("LabHero")).toContain("https://lab.douglasgaspar.com/?fcom_action=auth&form=register");
     expect(component("LabPlans")).toContain("href: CHECKOUT_MONTHLY_URL");
     expect(component("LabPlans")).not.toContain("CHECKOUT_CODER");
@@ -45,10 +45,10 @@ describe("página de vendas do LAB", () => {
   });
 
   // SPECSFY: US-001 FR-006 NFR-003 AC-015
-  it("inclui chat ilimitado no Empreendedor e chat limitado no Curioso", () => {
+  it("inclui chat ilimitado no Criador e chat limitado no Curioso", () => {
     const plans = component("LabPlans");
-    const curioso = plans.slice(plans.indexOf('name: "Curioso"'), plans.indexOf('name: "Empreendedor"'));
-    const empreendedor = plans.slice(plans.indexOf('name: "Empreendedor"'));
+    const curioso = plans.slice(plans.indexOf('name: "Curioso"'), plans.indexOf('name: "Criador"'));
+    const empreendedor = plans.slice(plans.indexOf('name: "Criador"'));
     expect(curioso).toContain("Chat Limitado");
     expect(curioso).not.toMatch(/chat ilimitado/i);
     expect(empreendedor).toContain("Chat ilimitado");

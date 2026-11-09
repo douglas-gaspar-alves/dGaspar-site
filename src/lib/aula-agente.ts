@@ -4,12 +4,12 @@
 // publicação e a janela do encontro ao vivo. Função pura de contagem é
 // testada em src/scripts/aula-agente/.
 
-/** Plano Empreendedor do LAB, 30 dias — o mesmo checkout mensal já usado na
+/** Plano Criador do LAB, 30 dias — o mesmo checkout mensal já usado na
  * página do LAB (`site/src/lib/lab-checkout.ts`). Destino da opção de R$ 29,99
  * e do closing. */
 export const CHECKOUT_EMPREENDEDOR_URL = "https://pay.cakto.com.br/mtya7hj_1232361";
 
-/** Plano Empreendedor do LAB, 12 meses — o mesmo checkout anual já usado na
+/** Plano Criador do LAB, 12 meses — o mesmo checkout anual já usado na
  * página do LAB. Destino da opção de R$ 299,99. */
 export const CHECKOUT_EMPREENDEDOR_ANUAL_URL = "https://pay.cakto.com.br/e98y5m2_1232361";
 

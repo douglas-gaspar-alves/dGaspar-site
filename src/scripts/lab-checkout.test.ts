@@ -1,4 +1,4 @@
-// Contratos do pop-up de assinatura Cakto no plano Empreendedor (SPEC-0003,
+// Contratos do pop-up de assinatura Cakto no plano Criador (SPEC-0003,
 // specs/defined/0003-popup-checkout-cakto-empreendedor). Testes TDD derivados
 // do Gherkin da seção 6 da spec: cada caso carrega o marcador SPECSFY do AC de
 // origem. A lib é importada por demanda e os componentes são lidos como fonte,
@@ -105,7 +105,7 @@ describe("lib do pop-up de assinatura do LAB", () => {
 		expect(normalizePhoneForCheckout("(22) 99925-9141")).toBe("22999259141");
 		expect(normalizePhoneForCheckout("+55 22 99925-9141")).toBe("5522999259141");
 		expect(normalizePhoneForCheckout("22999259141")).toBe("22999259141");
-		// O envio mantém a normalização no Empreendedor.
+		// O envio mantém a normalização no Criador.
 		expect(buildCheckoutUrl(CHECKOUT_MONTHLY_URL, { ...happyInput, telefone: "(22) 99925-9141" })).toBe(
 			`${MONTHLY}?name=Douglas%20Gaspar%20Filho&email=Douglas%40Example.com&phone=22999259141`,
 		);
@@ -116,7 +116,7 @@ describe("lib do pop-up de assinatura do LAB", () => {
 
 describe("pop-up de assinatura nos componentes do LAB", () => {
 	// SPECSFY: US-001 US-002 FR-001 FR-005 NFR-003 AC-004
-	it("gatilho do Empreendedor abre o pop-up que fecha por ×, fundo ou Esc", () => {
+	it("gatilho do Criador abre o pop-up que fecha por ×, fundo ou Esc", () => {
 		const plans = component("LabPlans");
 		const modal = component("LabCheckoutModal");
 		const script = checkoutScript();
@@ -132,7 +132,7 @@ describe("pop-up de assinatura nos componentes do LAB", () => {
 	});
 
 	// SPECSFY: US-001 US-002 FR-001 FR-003 FR-005 NFR-003 AC-004 AC-010 AC-011
-	it("só o Empreendedor abre checkout e PRO Plus não tem gatilho", () => {
+	it("só o Criador abre checkout e PRO Plus não tem gatilho", () => {
 		const plans = component("LabPlans");
 		expect(plans).not.toContain('name: "IA Coder"');
 		expect(plans).not.toContain("CHECKOUT_CODER");
@@ -172,7 +172,7 @@ describe("pop-up de assinatura nos componentes do LAB", () => {
 		expect(modal).toContain("data-lab-checkout-modal={plan}");
 		expect(modal).toContain("href={links.mensal}");
 		expect(modal).toContain("href={links.anual}");
-		// A página monta o diálogo do Empreendedor e o cadastro gratuito.
+		// A página monta o diálogo do Criador e o cadastro gratuito.
 		expect(page).toContain('<LabCheckoutModal plan="empreendedor" />');
 		expect(page).not.toContain('plan="ia-coder"');
 		expect(page).not.toContain('plan="pro-plus"');
@@ -195,7 +195,7 @@ describe("pop-up de assinatura nos componentes do LAB", () => {
 		const hero = component("LabHero");
 		// literal exigida por lab-signup.test.ts depois desta fatia
 		expect(plans).toContain('data-lab-signup-open={plan.modal === "signup" ? "" : undefined}');
-		const curioso = planBlock(plans, 'name: "Curioso"', 'name: "Empreendedor"');
+		const curioso = planBlock(plans, 'name: "Curioso"', 'name: "Criador"');
 		expect(curioso).toContain('modal: "signup"');
 		expect(curioso).toContain("href: registerUrl");
 		// a hero mantém o destino real do cadastro gratuito
@@ -210,7 +210,7 @@ describe("pop-up de assinatura nos componentes do LAB", () => {
 	it("gatilhos pagos mantêm href mensal real como fallback por plano", () => {
 		const plans = component("LabPlans");
 		const page = checkoutPage();
-		expect(planBlock(plans, 'name: "Empreendedor"', "];")).toContain(
+		expect(planBlock(plans, 'name: "Criador"', "];")).toContain(
 			"href: CHECKOUT_MONTHLY_URL",
 		);
 		expect(plans).not.toContain("CHECKOUT_CODER");

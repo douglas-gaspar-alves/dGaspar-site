@@ -1,4 +1,4 @@
-// Fio do pop-up de assinatura paga do LAB (plano Empreendedor). Padrão idêntico ao modal de cadastro gratuito: gatilhos <a> com
+// Fio do pop-up de assinatura paga do LAB (plano Criador). Padrão idêntico ao modal de cadastro gratuito: gatilhos <a> com
 // data-lab-checkout-open (valor = plano) abrem o <dialog> nativo do próprio
 // plano; os dois botões de assinatura só navegam com nome e e-mail válidos,
 // compondo a URL de prefill pela lib src/lib/lab-checkout.ts (sem rede

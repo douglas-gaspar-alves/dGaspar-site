@@ -1,4 +1,4 @@
-// Assinatura paga do LAB via checkout Cakto do plano Empreendedor
+// Assinatura paga do LAB via checkout Cakto do plano Criador
 // (destinos por plano no registro CHECKOUT_LINKS, FR-003). Site 100%
 // estático: os dados do formulário existem apenas para compor a query de
 // prefill do checkout (R-001/R-002, research/cakto-prefill-checkout.md) e não
@@ -6,10 +6,10 @@
 // antes de codificar (FR-004, reabertura de 2026-10-23). Funções puras, sem
 // I/O e sem dependências.
 
-/** Checkout mensal do plano Empreendedor na Cakto. */
+/** Checkout mensal do plano Criador na Cakto. */
 export const CHECKOUT_MONTHLY_URL = "https://pay.cakto.com.br/mtya7hj_1232361";
 
-/** Checkout anual do plano Empreendedor na Cakto. */
+/** Checkout anual do plano Criador na Cakto. */
 export const CHECKOUT_ANNUAL_URL = "https://pay.cakto.com.br/e98y5m2_1232361";
 
 /**

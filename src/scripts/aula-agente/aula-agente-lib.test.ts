@@ -4,7 +4,7 @@ import { CHECKOUT_EMPREENDEDOR_ANUAL_URL, CHECKOUT_EMPREENDEDOR_URL, FIM_AO_VIVO
 const data = (iso: string) => new Date(iso);
 
 describe("dados da MasterClass do Agente", () => {
-  it("aponta as duas opções do Empreendedor para checkouts https reais", () => {
+  it("aponta as duas opções do Criador para checkouts https reais", () => {
     for (const url of [CHECKOUT_EMPREENDEDOR_URL, CHECKOUT_EMPREENDEDOR_ANUAL_URL]) {
       expect(() => new URL(url)).not.toThrow();
       expect(url.startsWith("https://")).toBe(true);

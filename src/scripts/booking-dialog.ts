@@ -137,6 +137,10 @@ for (const dialog of dialogs) {
 			telefone: fieldValue(form, "telefone"),
 		};
 		const bookingCase = readCase(form, variant);
+		if (variant === "negocio" && !isChecked(form, "proposta")) {
+			showStatus(status, "Para continuar, confirme que está ciente de que poderá ser apresentada uma proposta comercial de mentoria ou consultoria.");
+			return;
+		}
 		const error = validateIdentity(identity) ?? validateCase(bookingCase);
 		if (error) {
 			showStatus(status, error);

@@ -76,11 +76,11 @@ describe("página da MasterClass do Agente", () => {
     expect(document.querySelectorAll(".aula-faq details")).toHaveLength(8);
   });
 
-  it("apresenta as duas opções de acesso do plano Empreendedor", () => {
+  it("apresenta as duas opções de acesso do plano Criador", () => {
     const planos = [...document.querySelectorAll(".aula-plano")];
     expect(planos).toHaveLength(2);
     const texto = planos.map((plano) => plano.textContent ?? "").join(" ");
-    expect(texto).toContain("Empreendedor");
+    expect(texto).toContain("Criador");
     expect(texto).toContain("R$ 29,99");
     expect(texto).toContain("30 dias de acesso");
     expect(texto).toContain("R$ 299,99");
@@ -90,13 +90,13 @@ describe("página da MasterClass do Agente", () => {
     const destaque = document.querySelector(".aula-plano--destaque");
     expect(destaque?.textContent).toContain("Escolha da aula");
     expect(destaque?.textContent).toContain("30 dias de acesso");
-    expect(document.getElementById("preco-title")?.textContent).toContain("plano Empreendedor");
+    expect(document.getElementById("preco-title")?.textContent).toContain("plano Criador");
   });
 
-  it("apresenta somente Curioso e Empreendedor na FAQ", () => {
+  it("apresenta somente Curioso e Criador na FAQ", () => {
     const ultima = document.querySelector(".aula-faq details:last-of-type");
     expect(ultima?.textContent).toContain("Curioso");
-    expect(ultima?.textContent).toContain("Empreendedor");
+    expect(ultima?.textContent).toContain("Criador");
     expect(ultima?.textContent).not.toContain("47,99");
     expect(ultima?.textContent).not.toContain("IA Coder");
   });

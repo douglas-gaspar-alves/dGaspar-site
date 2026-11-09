@@ -30,17 +30,17 @@ const opcoes = [
   <div class="wrap">
     <div class="aula-preco-heading" data-reveal>
       <p class="aula-eyebrow">INVESTIMENTO</p>
-      <h2 id="preco-title">Uma manhã. O agente conferido. O kit. <em>O plano Empreendedor.</em></h2>
+      <h2 id="preco-title">Uma manhã. O agente conferido. O kit. <em>O plano Criador.</em></h2>
       <p class="aula-preco-assinatura">As duas opções são o mesmo plano. Muda só o tempo de acesso.</p>
     </div>
     <div class="aula-preco-grid">
       {opcoes.map((opcao) => (
         <article class:list={["aula-plano", { "aula-plano--destaque": opcao.destaque }]} data-reveal>
           <div class="aula-plano-top">
-            <span>Plano Empreendedor</span>
+            <span>Plano Criador</span>
             {opcao.destaque && <span class="aula-plano-badge">Escolha da aula</span>}
           </div>
-          <h3>Empreendedor</h3>
+          <h3>Criador</h3>
           <p class="aula-plano-preco">{opcao.preco}</p>
           <p class="aula-plano-prazo">{opcao.prazo}</p>
           <div class="aula-plano-lista">
