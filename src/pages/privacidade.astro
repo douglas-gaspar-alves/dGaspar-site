@@ -1,0 +1,46 @@
+---
+import SiteLayout from "../layouts/SiteLayout.astro";
+import { contactEmail } from "../lib/contact-links";
+
+const title = "Política de Privacidade | dGaspar";
+const description = "Saiba como dGaspar trata dados pessoais neste site, no cadastro do LAB e em integrações com serviços de terceiros.";
+const updatedAt = "11 de novembro de 2026";
+---
+
+<SiteLayout title={title} description={description} canonical="https://douglasgaspar.com/privacidade/" bodyClass="privacy-page">
+  <article class="privacy wrap">
+    <a class="privacy-back" href="/">← Voltar ao dGaspar</a>
+    <p class="eyebrow">dGaspar / transparência</p>
+    <h1>Política de Privacidade</h1>
+    <p class="privacy-intro">Esta política explica como Douglas Gaspar trata dados pessoais quando você navega neste site, entra em contato, cria uma conta no LAB ou usa uma integração oferecida por aqui, inclusive recursos ligados à Meta.</p>
+    <p class="privacy-updated">Última atualização: {updatedAt}</p>
+
+    <section><h2>Quem é responsável pelos dados</h2><p>O responsável pelo tratamento realizado por meio deste site é Douglas Gaspar, que atua sob a marca dGaspar. Para dúvidas ou solicitações sobre privacidade, escreva para <a href={`mailto:${contactEmail}`}>{contactEmail}</a>.</p></section>
+    <section><h2>Quais dados podem ser tratados</h2><ul>
+      <li><strong>Dados que você informa:</strong> nome, e-mail e WhatsApp quando preenche o cadastro gratuito do LAB ou entra em contato.</li>
+      <li><strong>Dados de navegação:</strong> informações técnicas e de uso, como páginas visitadas, interações, identificadores de navegador e endereço IP, que podem ser coletados por ferramentas de medição e gravação de sessão.</li>
+      <li><strong>Dados de autenticação e integrações:</strong> se você escolher entrar ou conectar uma conta por um serviço de terceiros, podemos receber os dados que esse serviço disponibilizar conforme as permissões exibidas no fluxo de autorização, como identificador da conta, nome e e-mail. O acesso não inclui sua senha da Meta.</li>
+    </ul></section>
+    <section><h2>Para que usamos os dados</h2><p>Usamos os dados para responder mensagens, processar o cadastro e o acesso ao LAB, prestar os serviços solicitados, manter a segurança e o funcionamento do site, entender o uso das páginas e medir ou melhorar a comunicação. Não usamos os dados recebidos por uma integração para finalidades incompatíveis com a função apresentada no momento da conexão.</p></section>
+    <section><h2>Cadastro do LAB</h2><p>Ao criar uma conta gratuita, o formulário envia nome, e-mail, WhatsApp, indicação de aceite dos termos, origem do cadastro e data e hora do envio ao nosso webhook de criação de conta. O formulário não solicita nem envia senha. Os dados são encaminhados ao sistema que administra o portal do LAB para criar e manter sua conta e viabilizar o acesso.</p></section>
+    <section><h2>Cookies, métricas e serviços externos</h2><p>Este site utiliza Google Analytics para métricas, Meta Pixel para mensuração de visitas e Pepy para análise de navegação e gravação de sessões. Esses serviços podem usar cookies ou tecnologias semelhantes e tratar dados técnicos conforme suas próprias políticas. O carregamento dessas ferramentas depende da configuração ativa do site. Você pode gerenciar cookies nas configurações do navegador; bloqueá-los pode limitar algumas funções.</p><p>Quando você segue links ou autoriza uma conexão com Meta, Google ou outro serviço, o uso de dados dentro desse serviço também segue os termos e avisos de privacidade do respectivo provedor. Consulte, por exemplo, a <a href="https://www.facebook.com/privacy/policy/" target="_blank" rel="noreferrer">Política de Privacidade da Meta</a>.</p></section>
+    <section><h2>Compartilhamento e armazenamento</h2><p>Os dados podem ser tratados por fornecedores que apoiam hospedagem, análise de acesso, comunicação, autenticação e operação do LAB, somente na medida necessária a essas atividades, além de situações em que o compartilhamento seja exigido por lei. Esses fornecedores podem operar em outros países e aplicar suas próprias medidas e regras de proteção.</p><p>Mantemos os dados pelo tempo necessário às finalidades descritas, à prestação do serviço e ao cumprimento de obrigações legais. O período pode variar de acordo com o tipo de dado e a relação mantida com você.</p></section>
+    <section><h2>Seus direitos e contato</h2><p>Você pode solicitar confirmação e acesso aos dados, correção, informação sobre compartilhamento e, quando aplicável, anonimização, bloqueio, eliminação, portabilidade ou revogação de consentimento. Para fazer uma solicitação, escreva para <a href={`mailto:${contactEmail}`}>{contactEmail}</a> e descreva o pedido. Podemos solicitar informações para confirmar sua identidade e proteger sua conta.</p></section>
+    <section><h2>Atualizações desta política</h2><p>Podemos atualizar esta página quando os serviços ou práticas de tratamento mudarem. A versão vigente estará disponível neste endereço, com a data da última atualização.</p></section>
+  </article>
+</SiteLayout>
+
+<style>
+  .privacy{max-width:900px;padding-block:56px 100px;color:var(--ink,#101a33)}
+  .privacy-back{display:inline-block;margin-bottom:48px;color:var(--blue,#3156d3);text-decoration:none}
+  .privacy .eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--blue,#3156d3)}
+  .privacy h1{max-width:760px;margin:14px 0;font-size:clamp(42px,8vw,76px);line-height:1.03;letter-spacing:-.045em}
+  .privacy-intro{max-width:720px;font-size:19px;line-height:1.65}
+  .privacy-updated{margin:24px 0 56px;color:#647087;font-size:14px}
+  .privacy section{max-width:740px;margin:0 0 34px}
+  .privacy h2{margin:0 0 12px;font-size:23px;letter-spacing:-.02em}
+  .privacy p,.privacy li{font-size:16px;line-height:1.75;color:#39465d}
+  .privacy ul{padding-left:22px}.privacy li+li{margin-top:9px}
+  .privacy a{overflow-wrap:anywhere}
+  @media(max-width:640px){.privacy{padding-block:30px 70px}.privacy-back{margin-bottom:34px}.privacy-intro{font-size:17px}}
+</style>

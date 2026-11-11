@@ -27,7 +27,7 @@ describe("descoberta das páginas públicas", () => {
     expect(source("pages/lab/obrigado.astro")).toMatch(/\snoindex\s/);
     expect(source("pages/lab/bem-vindo.astro")).toMatch(/\snoindex\s/);
     expect(source("pages/lab/bem-vindo.astro")).toContain('canonical="https://douglasgaspar.com/lab/bem-vindo/"');
-    expect(source("lib/lab-signup.ts")).toContain('"https://douglasgaspar.com/lab/bem-vindo/"');
+    expect(source("lib/lab-signup.ts")).toContain('"https://lab.douglasgaspar.com/space/geral-sk/page/primeiros-passos"');
   });
 
   it("gera um grafo legível por máquina com URLs canônicas e JSON seguro", () => {

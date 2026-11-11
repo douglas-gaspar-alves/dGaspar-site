@@ -1,17 +1,16 @@
 // Cadastro gratuito do LAB — constants e utilitários compartilhados entre o
-// site (_BROWSER) e o fluxo n8n "Novo usuario no lab" (R5GMLa8IBp4D1RxD), que
-// normaliza os dados e chama o incoming webhook do FluentCommunity.
+// site (_BROWSER) e o webhook de criação de conta do LAB.
 //
 // O formulário é SEM senha: o payload não leva user_pass, então o
 // FluentCommunity gera uma senha interna ao criar o usuário e o membro define
 // a própria senha no primeiro acesso (campo "Perdeu a senha?" da tela de
 // login do portal), recebendo o link por e-mail.
 
-/** Destino do formulário: gatilho webhook do fluxo "Novo usuario no lab". */
-export const SIGNUP_WEBHOOK_URL = "https://acre.apps.n8nitro.com/webhook/new-user";
+/** Destino do formulário de criação de conta do LAB. */
+export const SIGNUP_WEBHOOK_URL = "https://webhook.douglasgaspar.com/webhook/criar-conta";
 
-/** Página de boas-vindas — redireciono para ela após OK do webhook. */
-export const SIGNUP_SUCCESS_URL = "https://douglasgaspar.com/lab/bem-vindo/";
+/** Primeiros passos do LAB — destino após a confirmação do webhook. */
+export const SIGNUP_SUCCESS_URL = "https://lab.douglasgaspar.com/space/geral-sk/page/primeiros-passos";
 
 /** Portal do FluentCommunity, tela de login/acesso de quem já é membro. */
 export const SIGNUP_MEMBER_URL = "https://lab.douglasgaspar.com/?fcom_action=auth";
@@ -54,7 +53,7 @@ export function validateSignup(input: SignupInput): string | null {
 	return null;
 }
 
-/** Monta o payload exato esperado pelo webhook do fluxo n8n (sem senha). */
+/** Monta os dados enviados ao webhook (sem senha). */
 export function buildPayload(input: SignupInput, now: Date = new Date()): SignupPayload {
 	const { first_name, last_name } = splitName(input.nome);
 	const loginFromEmail = input.email.trim().toLowerCase().split("@")[0] ?? "";
@@ -72,7 +71,7 @@ export function buildPayload(input: SignupInput, now: Date = new Date()): Signup
 	};
 }
 
-/** POST JSON no webhook do n8n; keepalive protege o envio durante o redirect. */
+/** POST JSON no webhook; keepalive protege o envio durante o redirect. */
 export async function postSignup(
 	payload: SignupPayload,
 	webhookUrl: string,

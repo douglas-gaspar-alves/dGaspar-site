@@ -55,17 +55,17 @@ describe("lib do cadastro do LAB", () => {
 	});
 });
 
-describe("envio do formulário ao webhook do n8n", () => {
+describe("envio do formulário ao webhook de criação de conta", () => {
 	beforeEach(() => {
 		vi.unstubAllGlobals();
 	});
 
 	it("POST JSON com keepalive e reporta sucesso", async () => {
 		const fetchMock = vi.fn(async () => new Response(null, { status: 200 }));
-		const result = await postSignup(buildPayload(validInput), "https://acre.apps.n8nitro.com/webhook/new-user", fetchMock as unknown as typeof fetch);
+		const result = await postSignup(buildPayload(validInput), "https://webhook.douglasgaspar.com/webhook/criar-conta", fetchMock as unknown as typeof fetch);
 		expect(result.ok).toBe(true);
 		const [url, init] = fetchMock.mock.calls[0] as unknown as [string, RequestInit];
-		expect(url).toBe("https://acre.apps.n8nitro.com/webhook/new-user");
+		expect(url).toBe("https://webhook.douglasgaspar.com/webhook/criar-conta");
 		expect(init.method).toBe("POST");
 		expect(init.keepalive).toBe(true);
 		expect((init.headers as Record<string, string>)["Content-Type"]).toBe("application/json");
@@ -97,10 +97,10 @@ describe("modal de cadastro nos componentes do LAB", () => {
 		expect(modal).toContain('href={SIGNUP_MEMBER_URL}>Já sou membro.');
 	});
 
-	it("envia ao webhook do fluxo e redireciona para /lab/bem-vindo/", () => {
+	it("envia ao webhook de criação e redireciona para os primeiros passos do LAB", () => {
 		const modal = component("LabSignupModal");
-		expect(SIGNUP_WEBHOOK_URL).toBe("https://acre.apps.n8nitro.com/webhook/new-user");
-		expect(SIGNUP_SUCCESS_URL).toBe("https://douglasgaspar.com/lab/bem-vindo/");
+		expect(SIGNUP_WEBHOOK_URL).toBe("https://webhook.douglasgaspar.com/webhook/criar-conta");
+		expect(SIGNUP_SUCCESS_URL).toBe("https://lab.douglasgaspar.com/space/geral-sk/page/primeiros-passos");
 		expect(modal).toContain('data-webhook-url={SIGNUP_WEBHOOK_URL}');
 		expect(modal).toContain('data-success-url={SIGNUP_SUCCESS_URL}');
 		expect(script).toContain("window.location.assign(successUrl)");
