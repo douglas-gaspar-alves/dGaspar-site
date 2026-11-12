@@ -1,14 +1,11 @@
 ---
 import {
 	SIGNUP_MEMBER_URL,
-	SIGNUP_SUCCESS_URL,
-  SIGNUP_API_URL,
+	SIGNUP_WEBHOOK_URL,
 } from "../lib/lab-signup";
 
 // Modal de cadastro gratuito do LAB, aberto pelos CTAs com data-lab-signup-open.
-// A rota de login "Já sou membro." vai direto ao FluentCommunity; o envio do
-// formulário passa pela ponte privada e pelo n8n "Criar conta no LAB dGaspar".
-// Só redireciona após confirmação explícita de WordPress e Deskcomm.
+// O formulário envia o lead diretamente ao webhook de criação de conta.
 ---
 
 <dialog class="lab-signup-dialog" data-lab-signup-modal aria-labelledby="lab-signup-title" aria-describedby="lab-signup-lead">
@@ -21,8 +18,8 @@ import {
   <form
     class="lab-signup-form"
     data-lab-signup-form
-    data-webhook-url={SIGNUP_API_URL}
-    data-success-url={SIGNUP_SUCCESS_URL}
+    action={SIGNUP_WEBHOOK_URL}
+    method="POST"
     novalidate
   >
     <div class="lab-field">
@@ -31,7 +28,7 @@ import {
     </div>
     <div class="lab-field">
       <label for="lab-signup-whatsapp">WhatsApp</label>
-      <input id="lab-signup-whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="DDD + número" required maxlength="32" aria-describedby="lab-signup-status" />
+      <input id="lab-signup-whatsapp" name="telefone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(22) 99999-9999" required maxlength="32" aria-describedby="lab-signup-status" />
     </div>
     <div class="lab-field">
       <label for="lab-signup-email">Email</label>

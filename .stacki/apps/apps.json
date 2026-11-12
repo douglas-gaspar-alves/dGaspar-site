@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "apps": [
+    {
+      "id": "feedback-pins",
+      "version": "1.8.1",
+      "sha256": "ea0f6a19859229f16fd7c81fda00a50926c70a49b3edf72f66bdecba55e9109d",
+      "installedAt": "2026-11-12T20:05:54.879Z",
+      "source": {
+        "kind": "marketplace",
+        "id": "feedback-pins",
+        "version": "1.8.1"
+      },
+      "autoUpdate": false
+    }
+  ]
+}

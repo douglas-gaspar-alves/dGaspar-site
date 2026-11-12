@@ -20,6 +20,7 @@ describe("ponte autenticada de cadastro", () => {
 		expect(sent.internal_password).toMatch(/^[a-f0-9]{64}$/);
 		expect(sent.roles).toBeUndefined();
 		expect(init.headers).toMatchObject({ "X-Lab-Signup-Token": token });
+		expect(init.redirect).toBe("manual");
 		expect(response.headers.get("cache-control")).toBe("no-store");
 	});
 	it("fecha quando o segredo está ausente e recusa origem ou tipo indevido", async () => {

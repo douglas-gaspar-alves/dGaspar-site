@@ -96,18 +96,14 @@ describe("modal de cadastro nos componentes do LAB", () => {
 		expect(modal).toContain('href={SIGNUP_MEMBER_URL}>Já sou membro.');
 	});
 
-	it("envia ao webhook de criação e redireciona para os primeiros passos do LAB", () => {
+	it("envia o cadastro diretamente para o webhook de criação de conta por formulário", () => {
 		const modal = component("LabSignupModal");
 		expect(SIGNUP_WEBHOOK_URL).toBe("https://webhook.douglasgaspar.com/webhook/criar-conta");
-		expect(SIGNUP_SUCCESS_URL).toBe("https://lab.douglasgaspar.com/space/geral-sk/page/primeiros-passos");
-		expect(modal).toContain('data-webhook-url={SIGNUP_API_URL}');
-		expect(modal).toContain('data-success-url={SIGNUP_SUCCESS_URL}');
-		expect(script).toContain("window.location.assign(successUrl)");
-	});
-
-	it("monta o payload sem senha e não embute segredo no componente", () => {
-		expect(script).toContain("buildPayload(input)");
-		expect(component("LabSignupModal")).not.toContain("8blDlhhnEOrhSaBLgsGFvU61BqGZiOEuu9ClMsDp5+s=");
+		expect(modal).toContain('action={SIGNUP_WEBHOOK_URL}');
+		expect(modal).toContain('method="POST"');
+		expect(modal).not.toContain('data-success-url');
+		expect(script).toContain("HTMLFormElement.prototype.submit.call(form)");
+		expect(script).not.toContain("postSignup");
 	});
 
 	it("dispara de ambos os CTAs de cadastro gratuito mantendo o fallback do portal", () => {

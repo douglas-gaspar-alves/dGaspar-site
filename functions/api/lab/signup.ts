@@ -63,11 +63,13 @@ export const onRequest = async ({ request, env }: SignupContext): Promise<Respon
 		const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(payload.email));
 		const identity = Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, "0")).join("");
 		const password = Array.from(crypto.getRandomValues(new Uint8Array(32)), (byte) => byte.toString(16).padStart(2, "0")).join("");
+		// Workers não implementa redirect:"error": o fetch lança TypeError antes de
+		// enviar e a ponte responde 502 sem chamar o n8n. "manual" recusa o 3xx.
 		const response = await fetch(webhook.href, {
 			method: "POST",
 			headers: { "Content-Type": "application/json", "X-Lab-Signup-Token": env.LAB_SIGNUP_WEBHOOK_TOKEN },
 			body: JSON.stringify({ ...payload, user_login: `lab_${identity.slice(0, 40)}`, internal_password: password }),
-			redirect: "error",
+			redirect: "manual",
 			signal: controller.signal,
 		});
 		// Nunca repassa IDs, senha interna, erros de API ou existência da conta ao cliente.

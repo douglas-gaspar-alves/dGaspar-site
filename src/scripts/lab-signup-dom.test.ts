@@ -1,16 +1,16 @@
 // @vitest-environment jsdom
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-const valid = { nome: "Pessoa Teste", whatsapp: "22987654321", email: "test@example.com" };
+const valid = { nome: "Pessoa Teste", telefone: "22987654321", email: "test@example.com" };
 
 beforeEach(async () => {
 	vi.resetModules();
-	document.body.innerHTML = `<dialog data-lab-signup-modal><form data-lab-signup-form data-webhook-url="/api/lab/signup" data-success-url="https://lab.douglasgaspar.com/space/geral-sk/page/primeiros-passos"><input name="nome"><input name="email"><input name="whatsapp"><input type="checkbox" name="aceite_termos"><p data-lab-signup-status tabindex="-1" hidden></p><button data-lab-signup-submit>Cadastrar</button></form></dialog>`;
+	document.body.innerHTML = `<dialog data-lab-signup-modal><form data-lab-signup-form action="https://webhook.douglasgaspar.com/webhook/criar-conta" method="POST"><input name="nome"><input name="email"><input name="telefone"><input type="checkbox" name="aceite_termos"><p data-lab-signup-status tabindex="-1" hidden></p><button data-lab-signup-submit>Cadastrar</button></form></dialog>`;
 	window.umami = { track: vi.fn() };
 	document.querySelector("dialog")?.setAttribute("open", "");
 	await import("./lab-signup");
 });
-afterEach(() => { vi.unstubAllGlobals(); delete window.umami; document.body.innerHTML = ""; });
+afterEach(() => { vi.restoreAllMocks(); vi.unstubAllGlobals(); delete window.umami; document.body.innerHTML = ""; });
 const form = () => document.querySelector("form")!;
 const fill = () => {
 	for (const [name, value] of Object.entries(valid)) (form().querySelector(`[name="${name}"]`) as HTMLInputElement).value = value;
@@ -26,24 +26,24 @@ describe("comportamento do formulário gratuito", () => {
 		expect(document.querySelector('[name="nome"]')?.getAttribute("aria-invalid")).toBe("true");
 		expect(document.activeElement).toBe(document.querySelector("[data-lab-signup-status]"));
 	});
-	it("bloqueia dois submits simultâneos e preserva os campos após falha", async () => {
-		let release!: (r: Response) => void;
-		const mock = vi.fn(() => new Promise<Response>(resolve => { release = resolve; }));
-		vi.stubGlobal("fetch", mock); fill(); submit(); submit();
-		expect(mock).toHaveBeenCalledTimes(1);
-		expect(form().getAttribute("aria-busy")).toBe("true");
+	it("envia os campos ao webhook por POST nativo e bloqueia submissão duplicada", () => {
+		const nativeSubmit = vi.spyOn(HTMLFormElement.prototype, "submit").mockImplementation(() => {});
+		fill(); submit(); submit();
+		expect(nativeSubmit).toHaveBeenCalledTimes(1);
+		expect(form().method).toBe("post");
+		expect(form().action).toContain("webhook.douglasgaspar.com/webhook/criar-conta");
+		const data = new FormData(form());
+		expect(data.get("nome")).toBe(valid.nome);
+		expect(data.get("telefone")).toBe(valid.telefone);
+		expect(data.get("email")).toBe(valid.email);
 		expect(document.querySelector("button")?.disabled).toBe(true);
-		release(Response.json({ ok: false }, { status: 502 }));
-		await vi.waitFor(() => expect(document.querySelector("button")?.disabled).toBe(false));
-		expect((document.querySelector('[name="email"]') as HTMLInputElement).value).toBe(valid.email);
-		expect(form().hasAttribute("aria-busy")).toBe(false);
 		expect(window.umami?.track).not.toHaveBeenCalledWith("lab_signup_complete", expect.anything());
 	});
-	it("HTTP 200 recebido não redireciona nem mede conversão", async () => {
-		vi.stubGlobal("fetch", vi.fn(async () => Response.json({ message: "Workflow got started." })));
+	it("preserva os dados e permite tentar novamente se o envio não iniciar", () => {
+		vi.spyOn(HTMLFormElement.prototype, "submit").mockImplementation(() => { throw new Error("blocked"); });
 		fill(); submit();
-		await vi.waitFor(() => expect(document.querySelector("[data-lab-signup-status]")?.textContent).toContain("Não conseguimos"));
-		expect(window.umami?.track).toHaveBeenCalledWith("lab_signup_error", { form: "lab_free", plan: "curioso", category: "integration" });
-		expect(window.umami?.track).not.toHaveBeenCalledWith("lab_signup_complete", expect.anything());
+		expect(document.querySelector("[data-lab-signup-status]")?.textContent).toContain("Não conseguimos");
+		expect(document.querySelector("button")?.disabled).toBe(false);
+		expect((document.querySelector('[name="email"]') as HTMLInputElement).value).toBe(valid.email);
 	});
 });

@@ -1,11 +1,7 @@
-// Lógica do formulário de cadastro gratuito do LAB (modal acionado pelos CTAs
-// "Começar grátis" / "Criar conta gratuita"). Cadastro sem senha: o portal
-// gera a senha e o membro a define no primeiro acesso. A validação e o payload
-// ficam em src/lib/lab-signup.ts; aqui fica só o fio com o DOM.
+// Modal do LAB: valida os campos e envia o lead por POST nativo ao webhook de criação de conta.
+// A máscara do WhatsApp mantém a apresentação atual; o campo enviado é telefone.
 
 import {
-	buildPayload,
-	postSignup,
 	signupValidationError,
 } from "../lib/lab-signup";
 import { trackSignup } from "../lib/lab-signup-analytics";
@@ -16,6 +12,40 @@ const form = dialog?.querySelector<HTMLFormElement>("[data-lab-signup-form]");
 const statusNode = dialog?.querySelector<HTMLElement>("[data-lab-signup-status]");
 const submitButton = dialog?.querySelector<HTMLButtonElement>("[data-lab-signup-submit]");
 let sending = false;
+
+function maskSignupPhone(value: string): string {
+	const digits = value.replace(/\D/g, "");
+	const hasCountryCode = (value.trimStart().startsWith("+") && digits.startsWith("55")) || (digits.length > 11 && digits.startsWith("55"));
+	const countryCode = hasCountryCode ? "+55 " : "";
+	const phone = (hasCountryCode ? digits.slice(2) : digits).slice(0, 11);
+	if (!phone) return countryCode;
+
+	if (phone.length <= 2) return `${countryCode}(${phone}`;
+	const area = phone.slice(0, 2);
+	const subscriber = phone.slice(2);
+	const firstGroupSize = subscriber.startsWith("9") ? 5 : 4;
+	const number = subscriber.length > firstGroupSize
+		? `${subscriber.slice(0, firstGroupSize)}-${subscriber.slice(firstGroupSize)}`
+		: subscriber;
+	return `${countryCode}(${area}) ${number}`;
+}
+
+const phoneInput = form?.querySelector<HTMLInputElement>('[name="telefone"]');
+phoneInput?.addEventListener("input", () => {
+	const cursor = phoneInput.selectionStart ?? phoneInput.value.length;
+	const digitsBeforeCursor = phoneInput.value.slice(0, cursor).replace(/\D/g, "").length;
+	const masked = maskSignupPhone(phoneInput.value);
+	if (masked === phoneInput.value) return;
+
+	phoneInput.value = masked;
+	let nextCursor = 0;
+	let digitsAtCursor = 0;
+	while (nextCursor < masked.length && digitsAtCursor < digitsBeforeCursor) {
+		if (/\d/.test(masked[nextCursor])) digitsAtCursor += 1;
+		nextCursor += 1;
+	}
+	phoneInput.setSelectionRange(nextCursor, nextCursor);
+});
 
 function showStatus(message: string, kind: "error" | "success" = "error") {
 	if (!statusNode) return;
@@ -56,7 +86,7 @@ dialog?.addEventListener("click", (event) => {
 	if (event.target === dialog) dialog.close();
 });
 
-form?.addEventListener("submit", async (event) => {
+form?.addEventListener("submit", (event) => {
 	event.preventDefault();
 	if (!form || !(form instanceof HTMLFormElement)) return;
 	if (sending) return;
@@ -65,7 +95,7 @@ form?.addEventListener("submit", async (event) => {
 
 	const input = {
 		nome: getString("nome"),
-		whatsapp: getString("whatsapp"),
+		whatsapp: getString("telefone"),
 		email: getString("email"),
 		aceitouTermos: form.querySelector<HTMLInputElement>('[name="aceite_termos"]')?.checked ?? false,
 	};
@@ -74,40 +104,26 @@ form?.addEventListener("submit", async (event) => {
 	const validationError = signupValidationError(input);
 	if (validationError) {
 		void trackSignup("lab_signup_validation_error", "validation");
-		form.querySelector(`[name="${validationError.field}"]`)?.setAttribute("aria-invalid", "true");
+		form.querySelector(`[name="${validationError.field === "whatsapp" ? "telefone" : validationError.field}"]`)?.setAttribute("aria-invalid", "true");
 		showStatus(validationError.message);
 		return;
 	}
 
 	clearStatus();
 
-	const webhookUrl = form.dataset.webhookUrl ?? "";
-	const successUrl = form.dataset.successUrl ?? "";
-	if (!webhookUrl || !successUrl) {
-		showStatus("Formulário sem destino configurado. Tente o cadastro direto no portal.");
-		return;
-	}
-
 	sending = true;
 	form.setAttribute("aria-busy", "true");
-	showStatus("Criando sua conta. Aguarde…", "success");
+	showStatus("Enviando seu cadastro. Aguarde…", "success");
 	void trackSignup("lab_signup_submit");
 	if (submitButton) {
 		submitButton.disabled = true;
 		submitButton.dataset.sending = "true";
 	}
 	try {
-		const payload = buildPayload(input);
-		const result = await postSignup(payload, webhookUrl);
-		if (!result.ok) {
-			void trackSignup("lab_signup_error", result.status === 0 ? "network" : "integration");
-			throw new Error("signup_failed");
-		}
-		await trackSignup("lab_signup_complete");
-		window.location.assign(successUrl);
+		// POST nativo: segue o destino configurado no formulário sem depender de CORS.
+		HTMLFormElement.prototype.submit.call(form);
 	} catch {
 		showStatus("Não conseguimos registrar agora. Tente novamente em instantes.");
-	} finally {
 		sending = false;
 		form.removeAttribute("aria-busy");
 		if (submitButton) {
