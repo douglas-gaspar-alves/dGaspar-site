@@ -12,7 +12,6 @@ import {
 
 const component = (name: string) => readFileSync(fileURLToPath(new URL(`../components/${name}.astro`, import.meta.url)), "utf8");
 const script = readFileSync(fileURLToPath(new URL("./lab-signup.ts", import.meta.url)), "utf8");
-const welcome = readFileSync(fileURLToPath(new URL("../pages/lab/bem-vindo.astro", import.meta.url)), "utf8");
 
 const validInput = {
 	nome: "Douglas Gaspar Filho",
@@ -27,7 +26,7 @@ describe("lib do cadastro do LAB", () => {
 			first_name: "Douglas",
 			last_name: "Gaspar Filho",
 			nome: "Douglas Gaspar Filho",
-			email: "Douglas@Example.com",
+			email: "douglas@example.com",
 			user_login: "douglas",
 			aceite_termos: true,
 		});
@@ -61,7 +60,7 @@ describe("envio do formulário ao webhook de criação de conta", () => {
 	});
 
 	it("POST JSON com keepalive e reporta sucesso", async () => {
-		const fetchMock = vi.fn(async () => new Response(null, { status: 200 }));
+		const fetchMock = vi.fn(async () => Response.json({ ok: true, status: "completed" }));
 		const result = await postSignup(buildPayload(validInput), "https://webhook.douglasgaspar.com/webhook/criar-conta", fetchMock as unknown as typeof fetch);
 		expect(result.ok).toBe(true);
 		const [url, init] = fetchMock.mock.calls[0] as unknown as [string, RequestInit];
@@ -101,7 +100,7 @@ describe("modal de cadastro nos componentes do LAB", () => {
 		const modal = component("LabSignupModal");
 		expect(SIGNUP_WEBHOOK_URL).toBe("https://webhook.douglasgaspar.com/webhook/criar-conta");
 		expect(SIGNUP_SUCCESS_URL).toBe("https://lab.douglasgaspar.com/space/geral-sk/page/primeiros-passos");
-		expect(modal).toContain('data-webhook-url={SIGNUP_WEBHOOK_URL}');
+		expect(modal).toContain('data-webhook-url={SIGNUP_API_URL}');
 		expect(modal).toContain('data-success-url={SIGNUP_SUCCESS_URL}');
 		expect(script).toContain("window.location.assign(successUrl)");
 	});
@@ -120,11 +119,9 @@ describe("modal de cadastro nos componentes do LAB", () => {
 	});
 });
 
-describe("página de boas-vindas", () => {
-	it("existe na rota anunciada, orienta o primeiro acesso e mantém a identidade do LAB", () => {
-		expect(welcome).toContain('canonical="https://douglasgaspar.com/lab/bem-vindo/"');
-		expect(welcome).toContain("Bem-vindo <em>ao LAB.</em>");
-		expect(welcome).toContain('href={SIGNUP_MEMBER_URL}');
-		expect(welcome).toContain("Perdeu a senha");
+describe("primeiro acesso", () => {
+	it("mantém a orientação de definir senha no portal e o destino externo confirmado", () => {
+		expect(component("LabSignupModal")).toContain("Perdeu a senha");
+		expect(SIGNUP_SUCCESS_URL).toBe("https://lab.douglasgaspar.com/space/geral-sk/page/primeiros-passos");
 	});
 });

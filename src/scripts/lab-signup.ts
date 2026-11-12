@@ -6,14 +6,16 @@
 import {
 	buildPayload,
 	postSignup,
-	validateSignup,
+	signupValidationError,
 } from "../lib/lab-signup";
+import { trackSignup } from "../lib/lab-signup-analytics";
 
 const triggers = Array.from(document.querySelectorAll<HTMLElement>("[data-lab-signup-open]"));
 const dialog = document.querySelector<HTMLDialogElement>("[data-lab-signup-modal]");
 const form = dialog?.querySelector<HTMLFormElement>("[data-lab-signup-form]");
 const statusNode = dialog?.querySelector<HTMLElement>("[data-lab-signup-status]");
 const submitButton = dialog?.querySelector<HTMLButtonElement>("[data-lab-signup-submit]");
+let sending = false;
 
 function showStatus(message: string, kind: "error" | "success" = "error") {
 	if (!statusNode) return;
@@ -35,6 +37,7 @@ function openDialog(event: Event, target: HTMLElement, element: HTMLDialogElemen
 	if (!(target instanceof HTMLAnchorElement) || target.dataset.labSignupOpen === undefined) return;
 	event.preventDefault();
 	element.showModal();
+	void trackSignup("lab_signup_open");
 }
 
 triggers.forEach((trigger) => {
@@ -56,6 +59,7 @@ dialog?.addEventListener("click", (event) => {
 form?.addEventListener("submit", async (event) => {
 	event.preventDefault();
 	if (!form || !(form instanceof HTMLFormElement)) return;
+	if (sending) return;
 	const getString = (name: string) =>
 		form.querySelector<HTMLInputElement>(`[name="${name}"]`)?.value ?? "";
 
@@ -66,9 +70,12 @@ form?.addEventListener("submit", async (event) => {
 		aceitouTermos: form.querySelector<HTMLInputElement>('[name="aceite_termos"]')?.checked ?? false,
 	};
 
-	const validationError = validateSignup(input);
+	for (const field of form.querySelectorAll("input")) field.removeAttribute("aria-invalid");
+	const validationError = signupValidationError(input);
 	if (validationError) {
-		showStatus(validationError);
+		void trackSignup("lab_signup_validation_error", "validation");
+		form.querySelector(`[name="${validationError.field}"]`)?.setAttribute("aria-invalid", "true");
+		showStatus(validationError.message);
 		return;
 	}
 
@@ -81,6 +88,10 @@ form?.addEventListener("submit", async (event) => {
 		return;
 	}
 
+	sending = true;
+	form.setAttribute("aria-busy", "true");
+	showStatus("Criando sua conta. Aguarde…", "success");
+	void trackSignup("lab_signup_submit");
 	if (submitButton) {
 		submitButton.disabled = true;
 		submitButton.dataset.sending = "true";
@@ -88,11 +99,17 @@ form?.addEventListener("submit", async (event) => {
 	try {
 		const payload = buildPayload(input);
 		const result = await postSignup(payload, webhookUrl);
-		if (!result.ok) throw new Error(`webhook respondeu ${result.status}`);
+		if (!result.ok) {
+			void trackSignup("lab_signup_error", result.status === 0 ? "network" : "integration");
+			throw new Error("signup_failed");
+		}
+		await trackSignup("lab_signup_complete");
 		window.location.assign(successUrl);
 	} catch {
 		showStatus("Não conseguimos registrar agora. Tente novamente em instantes.");
 	} finally {
+		sending = false;
+		form.removeAttribute("aria-busy");
 		if (submitButton) {
 			submitButton.disabled = false;
 			submitButton.dataset.sending = "false";

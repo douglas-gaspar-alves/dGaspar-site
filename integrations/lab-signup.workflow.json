@@ -1,0 +1,96 @@
+{
+  "workflowId": "YhJ4HRoa44FhgsKk",
+  "nodes": [
+    {
+      "name": "Webhook", "type": "n8n-nodes-base.webhook", "typeVersion": 2.2, "position": [-1600, 0],
+      "parameters": { "httpMethod": "POST", "path": "criar-conta", "authentication": "headerAuth", "responseMode": "responseNode", "options": {} }
+    },
+    {
+      "name": "normaliza", "type": "n8n-nodes-base.set", "typeVersion": 3.5, "position": [-1380, 0],
+      "parameters": { "mode": "manual", "assignments": { "assignments": [
+        { "id": "nome", "name": "nome", "type": "string", "value": "={{ String($json.body?.nome ?? '').trim().replace(/\\s+/g, ' ') }}" },
+        { "id": "email", "name": "email", "type": "string", "value": "={{ String($json.body?.email ?? '').trim().toLowerCase() }}" },
+        { "id": "whatsapp", "name": "whatsapp", "type": "string", "value": "={{ String($json.body?.whatsapp ?? '').replace(/\\D/g, '') }}" },
+        { "id": "first_name", "name": "first_name", "type": "string", "value": "={{ String($json.body?.nome ?? '').trim().split(/\\s+/)[0] }}" },
+        { "id": "last_name", "name": "last_name", "type": "string", "value": "={{ String($json.body?.nome ?? '').trim().split(/\\s+/).slice(1).join(' ') }}" },
+        { "id": "user_login", "name": "user_login", "type": "string", "value": "={{ String($json.body?.user_login ?? '') }}" },
+        { "id": "aceite", "name": "aceite_termos", "type": "boolean", "value": "={{ $json.body?.aceite_termos === true }}" },
+        { "id": "origem", "name": "origem", "type": "string", "value": "douglasgaspar.com/lab/" },
+        { "id": "recebido", "name": "recebido_em", "type": "string", "value": "={{ $now.toISO() }}" }
+      ] }, "options": {} }
+    },
+    {
+      "name": "Dados validos", "type": "n8n-nodes-base.if", "typeVersion": 2.4, "position": [-1160, 0],
+      "parameters": { "conditions": { "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict", "version": 2 }, "conditions": [
+        { "id": "valido", "leftValue": "={{ $json.nome.length >= 3 && $json.nome.length <= 200 && $json.email.length <= 254 && /^[^\\s@]+@[^\\s@]+\\.[^\\s@]{2,}$/.test($json.email) && /^55[1-9]\\d[2-9]\\d{7,8}$/.test($json.whatsapp) && !/^(\\d)\\1+$/.test($json.whatsapp.slice(4)) && $json.aceite_termos === true && /^lab_[a-f0-9]{40}$/.test($json.user_login) && /^[a-f0-9]{64}$/.test($('Webhook').first().json.body?.internal_password ?? '') }}", "rightValue": true, "operator": { "type": "boolean", "operation": "equals" } }
+      ], "combinator": "and" }, "options": {} }
+    },
+    {
+      "name": "Recusar dados invalidos", "type": "n8n-nodes-base.respondToWebhook", "typeVersion": 1.5, "position": [-940, 320],
+      "parameters": { "respondWith": "json", "responseBody": "{\"ok\":false,\"status\":\"error\"}", "options": { "responseCode": 422, "responseHeaders": { "entries": [{ "name": "Cache-Control", "value": "no-store" }] } } }
+    },
+    {
+      "name": "Localizar usuario WordPress", "type": "n8n-nodes-base.httpRequest", "typeVersion": 4.5, "position": [-940, -80],
+      "credentials": { "wordpressApi": { "id": "iE2DUzBMe9KvJPTt", "name": "Wordpress LAB" } },
+      "parameters": { "url": "https://lab.douglasgaspar.com/wp-json/wp/v2/users", "authentication": "predefinedCredentialType", "nodeCredentialType": "wordpressApi", "sendQuery": true, "queryParameters": { "parameters": [
+        { "name": "search", "value": "={{ $('normaliza').first().json.email }}" }, { "name": "context", "value": "edit" }, { "name": "per_page", "value": "100" }, { "name": "_fields", "value": "id,email" }
+      ] }, "options": { "timeout": 7000, "redirect": { "redirect": { "followRedirects": false } }, "response": { "response": { "fullResponse": true, "responseFormat": "json" } } } }
+    },
+    {
+      "name": "Resolver usuario existente", "type": "n8n-nodes-base.code", "typeVersion": 2, "position": [-720, -80],
+      "parameters": { "mode": "runOnceForAllItems", "language": "javaScript", "jsCode": "const response = $input.first().json;\nconst email = $('normaliza').first().json.email;\nif (response.statusCode !== 200 || !Array.isArray(response.body)) throw new Error('wordpress_lookup_failed');\nconst user = response.body.find(user => typeof user.email === 'string' && user.email.trim().toLowerCase() === email);\nreturn [{json: {wp_id: Number.isInteger(user?.id) && user.id > 0 ? user.id : 0}}];" }
+    },
+    {
+      "name": "Usuario ja existe", "type": "n8n-nodes-base.if", "typeVersion": 2.4, "position": [-500, -80],
+      "parameters": { "conditions": { "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict", "version": 2 }, "conditions": [
+        { "id": "exists", "leftValue": "={{ $json.wp_id }}", "rightValue": 0, "operator": { "type": "number", "operation": "gt" } }
+      ], "combinator": "and" }, "options": {} }
+    },
+    {
+      "name": "Criar usuario subscriber", "type": "n8n-nodes-base.httpRequest", "typeVersion": 4.5, "position": [-280, 120],
+      "credentials": { "wordpressApi": { "id": "iE2DUzBMe9KvJPTt", "name": "Wordpress LAB" } },
+      "parameters": { "method": "POST", "url": "https://lab.douglasgaspar.com/wp-json/wp/v2/users", "authentication": "predefinedCredentialType", "nodeCredentialType": "wordpressApi", "sendBody": true, "specifyBody": "json", "jsonBody": "={{ { username: $('normaliza').first().json.user_login, email: $('normaliza').first().json.email, name: $('normaliza').first().json.nome, first_name: $('normaliza').first().json.first_name, last_name: $('normaliza').first().json.last_name, password: $('Webhook').first().json.body.internal_password, roles: ['subscriber'] } }}", "options": { "timeout": 7000, "redirect": { "redirect": { "followRedirects": false } }, "response": { "response": { "fullResponse": true, "neverError": true, "responseFormat": "json" } } } }
+    },
+    {
+      "name": "Confirmar usuario WordPress", "type": "n8n-nodes-base.httpRequest", "typeVersion": 4.5, "position": [-60, 120],
+      "credentials": { "wordpressApi": { "id": "iE2DUzBMe9KvJPTt", "name": "Wordpress LAB" } },
+      "parameters": { "url": "https://lab.douglasgaspar.com/wp-json/wp/v2/users", "authentication": "predefinedCredentialType", "nodeCredentialType": "wordpressApi", "sendQuery": true, "queryParameters": { "parameters": [
+        { "name": "search", "value": "={{ $('normaliza').first().json.email }}" }, { "name": "context", "value": "edit" }, { "name": "per_page", "value": "100" }, { "name": "_fields", "value": "id,email" }
+      ] }, "options": { "timeout": 7000, "redirect": { "redirect": { "followRedirects": false } }, "response": { "response": { "fullResponse": true, "responseFormat": "json" } } } }
+    },
+    {
+      "name": "Resolver usuario criado", "type": "n8n-nodes-base.code", "typeVersion": 2, "position": [160, 120],
+      "parameters": { "mode": "runOnceForAllItems", "language": "javaScript", "jsCode": "const response = $input.first().json;\nconst email = $('normaliza').first().json.email;\nif (response.statusCode !== 200 || !Array.isArray(response.body)) throw new Error('wordpress_confirmation_failed');\nconst user = response.body.find(user => typeof user.email === 'string' && user.email.trim().toLowerCase() === email);\nif (!Number.isInteger(user?.id) || user.id <= 0) throw new Error('wordpress_user_missing');\nreturn [{json: {wp_id: user.id}}];" }
+    },
+    {
+      "name": "Identidade WordPress confirmada", "type": "n8n-nodes-base.code", "typeVersion": 2, "position": [380, -80],
+      "parameters": { "mode": "runOnceForAllItems", "language": "javaScript", "jsCode": "const id = $input.first().json.wp_id;\nif (!Number.isInteger(id) || id <= 0) throw new Error('wordpress_identity_missing');\nreturn [{json: {wp_id: id}}];" }
+    },
+    {
+      "name": "Cadastrar no Deskcomm", "type": "n8n-nodes-base.httpRequest", "typeVersion": 4.5, "position": [600, -80],
+      "parameters": { "method": "POST", "url": "={{ $vars.LAB_DESKCOMM_CAPTURE_URL }}", "sendBody": true, "specifyBody": "json", "jsonBody": "={{ { nome: $('normaliza').first().json.nome, email: $('normaliza').first().json.email, whatsapp: $('normaliza').first().json.whatsapp, external_id: 'lab-free:wp:' + $json.wp_id, plano: 'curioso', origem: $('normaliza').first().json.origem, aceite_termos: true, recebido_em: $('normaliza').first().json.recebido_em } }}", "options": { "timeout": 7000, "redirect": { "redirect": { "followRedirects": false } }, "response": { "response": { "fullResponse": true, "neverError": true, "responseFormat": "json" } } } }
+    },
+    {
+      "name": "Confirmar conclusao", "type": "n8n-nodes-base.code", "typeVersion": 2, "position": [820, -80],
+      "parameters": { "mode": "runOnceForAllItems", "language": "javaScript", "jsCode": "const response = $input.first().json;\nconst complete = response.statusCode >= 200 && response.statusCode < 300 && typeof response.body?.data?.lead_id === 'string' && /^[0-9a-f-]{36}$/i.test(response.body.data.lead_id);\nreturn [{json: {ok: complete, status: complete ? 'completed' : 'error', response_code: complete ? 200 : 502}}];" }
+    },
+    {
+      "name": "Responder cadastro", "type": "n8n-nodes-base.respondToWebhook", "typeVersion": 1.5, "position": [1040, -80],
+      "parameters": { "respondWith": "json", "responseBody": "={{ { ok: $json.ok, status: $json.status } }}", "options": { "responseCode": "={{ $json.response_code }}", "responseHeaders": { "entries": [{ "name": "Cache-Control", "value": "no-store" }] } } }
+    }
+  ],
+  "connections": [
+    ["Webhook", "normaliza", 0], ["normaliza", "Dados validos", 0],
+    ["Dados validos", "Localizar usuario WordPress", 0], ["Dados validos", "Recusar dados invalidos", 1],
+    ["Localizar usuario WordPress", "Resolver usuario existente", 0], ["Resolver usuario existente", "Usuario ja existe", 0],
+    ["Usuario ja existe", "Identidade WordPress confirmada", 0], ["Usuario ja existe", "Criar usuario subscriber", 1],
+    ["Criar usuario subscriber", "Confirmar usuario WordPress", 0], ["Confirmar usuario WordPress", "Resolver usuario criado", 0],
+    ["Resolver usuario criado", "Identidade WordPress confirmada", 0], ["Identidade WordPress confirmada", "Cadastrar no Deskcomm", 0], ["Cadastrar no Deskcomm", "Confirmar conclusao", 0], ["Confirmar conclusao", "Responder cadastro", 0]
+  ],
+  "groups": [
+    { "name": "Normalizacao", "nodeNames": ["normaliza", "Dados validos"], "description": "Campos permitidos e origem fixa, sem copiar senha interna." },
+    { "name": "Conta WordPress", "nodeNames": ["Localizar usuario WordPress", "Resolver usuario existente", "Usuario ja existe", "Criar usuario subscriber", "Confirmar usuario WordPress", "Resolver usuario criado", "Identidade WordPress confirmada"], "description": "Localiza ou cria subscriber, confirma gravação e preserva conta existente." },
+    { "name": "Captacao CRM", "nodeNames": ["Cadastrar no Deskcomm", "Confirmar conclusao"], "description": "Entrada Membro Free; chave estável por usuário impede repetição de lead." }
+  ],
+  "settings": { "executionOrder": "v1", "executionTimeout": 35, "saveExecutionProgress": false, "saveManualExecutions": false, "saveDataSuccessExecution": "none", "saveDataErrorExecution": "none" }
+}

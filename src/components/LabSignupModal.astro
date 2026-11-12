@@ -2,13 +2,13 @@
 import {
 	SIGNUP_MEMBER_URL,
 	SIGNUP_SUCCESS_URL,
-	SIGNUP_WEBHOOK_URL,
+  SIGNUP_API_URL,
 } from "../lib/lab-signup";
 
 // Modal de cadastro gratuito do LAB, aberto pelos CTAs com data-lab-signup-open.
 // A rota de login "Já sou membro." vai direto ao FluentCommunity; o envio do
-// formulário passa pelo webhook do fluxo n8n "Novo usuario no lab" e conclui
-// redirecionando para a página de boas-vindas.
+// formulário passa pela ponte privada e pelo n8n "Criar conta no LAB dGaspar".
+// Só redireciona após confirmação explícita de WordPress e Deskcomm.
 ---
 
 <dialog class="lab-signup-dialog" data-lab-signup-modal aria-labelledby="lab-signup-title" aria-describedby="lab-signup-lead">
@@ -21,24 +21,24 @@ import {
   <form
     class="lab-signup-form"
     data-lab-signup-form
-    data-webhook-url={SIGNUP_WEBHOOK_URL}
+    data-webhook-url={SIGNUP_API_URL}
     data-success-url={SIGNUP_SUCCESS_URL}
     novalidate
   >
     <div class="lab-field">
       <label for="lab-signup-nome">Nome</label>
-      <input id="lab-signup-nome" name="nome" type="text" autocomplete="name" placeholder="Seu nome completo" />
+      <input id="lab-signup-nome" name="nome" type="text" autocomplete="name" placeholder="Seu nome completo" required minlength="3" maxlength="200" aria-describedby="lab-signup-status" />
     </div>
     <div class="lab-field">
       <label for="lab-signup-whatsapp">WhatsApp</label>
-      <input id="lab-signup-whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="DDD + número" />
+      <input id="lab-signup-whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="DDD + número" required maxlength="32" aria-describedby="lab-signup-status" />
     </div>
     <div class="lab-field">
       <label for="lab-signup-email">Email</label>
-      <input id="lab-signup-email" name="email" type="email" autocomplete="email" placeholder="voce@email.com" />
+      <input id="lab-signup-email" name="email" type="email" autocomplete="email" placeholder="voce@email.com" required maxlength="254" aria-describedby="lab-signup-status" />
     </div>
     <label class="lab-signup-terms">
-      <input type="checkbox" name="aceite_termos" required />
+      <input type="checkbox" name="aceite_termos" required aria-describedby="lab-signup-status" />
       <span>Aceito os termos de uso do LAB.</span>
     </label>
     <p class="lab-signup-status" id="lab-signup-status" data-lab-signup-status role="alert" tabindex="-1" hidden></p>

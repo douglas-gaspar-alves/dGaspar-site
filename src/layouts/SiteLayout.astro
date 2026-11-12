@@ -25,6 +25,9 @@ interface Props {
   noindex?: boolean;
   /** Medição do navegador, GA4 e Pixel (padrão ligada). Páginas de pós-compra passam `false`. */
   analytics?: boolean;
+  umamiWebsiteId?: string;
+  umamiScriptUrl?: string;
+  recordSessions?: boolean;
 }
 
 const {
@@ -48,6 +51,9 @@ const {
   schemaKind,
   noindex = false,
   analytics = true,
+  umamiWebsiteId = "36cf8fb9-2e6f-4ecc-b785-09df016ab2de",
+  umamiScriptUrl = "https://pepy.link/script.js",
+  recordSessions = true,
 } = Astro.props;
 
 const siteUrl = "https://douglasgaspar.com/";
@@ -116,8 +122,8 @@ const schemaJson = JSON.stringify(schemaData).replace(/</g, "\\u003c");
     <meta name="generator" content={Astro.generator} />
     {analytics && <GoogleAnalytics />}
     {analytics && <MetaPixel />}
-    <script defer src="https://pepy.link/script.js" data-website-id="36cf8fb9-2e6f-4ecc-b785-09df016ab2de"></script>
-    <script defer src="https://pepy.link/recorder.js" data-website-id="36cf8fb9-2e6f-4ecc-b785-09df016ab2de"></script>
+    <script is:inline defer src={umamiScriptUrl} data-website-id={umamiWebsiteId} data-domains={new URL(canonical).hostname} data-exclude-search="true" data-exclude-hash="true"></script>
+    {recordSessions && <script is:inline defer src="https://pepy.link/recorder.js" data-website-id={umamiWebsiteId}></script>}
     <meta name="description" content={description} />
     <meta name="theme-color" content={themeColor} />
     {colorScheme && <meta name="color-scheme" content={colorScheme} />}

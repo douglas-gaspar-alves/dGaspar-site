@@ -1,13 +1,15 @@
 // Cadastro gratuito do LAB — constants e utilitários compartilhados entre o
 // site (_BROWSER) e o webhook de criação de conta do LAB.
 //
-// O formulário é SEM senha: o payload não leva user_pass, então o
-// FluentCommunity gera uma senha interna ao criar o usuário e o membro define
-// a própria senha no primeiro acesso (campo "Perdeu a senha?" da tela de
-// login do portal), recebendo o link por e-mail.
+// O formulário é SEM senha: só a ponte no servidor gera a senha interna.
+// O membro define a própria senha pelo "Perdeu a senha?" do portal,
+// recebendo o link por e-mail. Cadastro não autentica automaticamente.
 
 /** Destino do formulário de criação de conta do LAB. */
 export const SIGNUP_WEBHOOK_URL = "https://webhook.douglasgaspar.com/webhook/criar-conta";
+
+/** Ponte same-origin: nenhuma credencial ou senha interna chega ao navegador. */
+export const SIGNUP_API_URL = "/api/lab/signup";
 
 /** Primeiros passos do LAB — destino após a confirmação do webhook. */
 export const SIGNUP_SUCCESS_URL = "https://lab.douglasgaspar.com/space/geral-sk/page/primeiros-passos";
@@ -45,12 +47,25 @@ export function splitName(nome: string): { first_name: string; last_name: string
  * apto a enviar.
  */
 export function validateSignup(input: SignupInput): string | null {
-	if (input.nome.trim().length < 3) return "Informe o seu nome completo.";
-	const digits = input.whatsapp.replace(/\D/g, "");
-	if (digits.length < 10 || digits.length > 13) return "Informe um WhatsApp válido com DDD (10 a 13 dígitos).";
-	if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(input.email.trim())) return "Informe um e-mail válido.";
-	if (!input.aceitouTermos) return "É preciso aceitar os termos de uso para criar a conta.";
+	return signupValidationError(input)?.message ?? null;
+}
+
+export function signupValidationError(input: SignupInput): { field: "nome" | "whatsapp" | "email" | "aceite_termos"; message: string } | null {
+	if (input.nome.trim().length < 3 || input.nome.length > 200) return { field: "nome", message: "Informe o seu nome completo (3 a 200 caracteres)." };
+	if (!normalizeSignupPhone(input.whatsapp)) return { field: "whatsapp", message: "Informe um WhatsApp válido com DDD." };
+	if (input.email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(input.email.trim())) return { field: "email", message: "Informe um e-mail válido." };
+	if (!input.aceitouTermos) return { field: "aceite_termos", message: "É preciso aceitar os termos de uso para criar a conta." };
 	return null;
+}
+
+/** Formato simples BR; não consulta operadora nem comprova titularidade. */
+export function normalizeSignupPhone(value: string): string | null {
+	if (value.length > 32 || !/^[+\d\s().-]+$/.test(value)) return null;
+	let digits = value.replace(/\D/g, "");
+	if (digits.length === 10 || digits.length === 11) digits = `55${digits}`;
+	if (!/^55[1-9]\d[2-9]\d{7,8}$/.test(digits)) return null;
+	if (/^(\d)\1+$/.test(digits.slice(4))) return null;
+	return digits;
 }
 
 /** Monta os dados enviados ao webhook (sem senha). */
@@ -63,8 +78,8 @@ export function buildPayload(input: SignupInput, now: Date = new Date()): Signup
 		first_name,
 		last_name,
 		user_login: userLogin,
-		whatsapp: input.whatsapp.trim(),
-		email: input.email.trim(),
+		whatsapp: normalizeSignupPhone(input.whatsapp) ?? "",
+		email: input.email.trim().toLowerCase(),
 		aceite_termos: input.aceitouTermos,
 		origem: "douglasgaspar.com/lab/",
 		enviado_em: now.toISOString(),
@@ -78,19 +93,26 @@ export async function postSignup(
 	fetchImpl: typeof fetch = fetch,
 ): Promise<{ ok: boolean; status: number }> {
 	const controller = new AbortController();
-	const timeout = setTimeout(() => controller.abort(), 8_000);
+	const timeout = setTimeout(() => controller.abort(), 45_000);
 	try {
 		const response = await fetchImpl(webhookUrl, {
 			method: "POST",
-			headers: { "Content-Type": "application/json" },
+			headers: { "Content-Type": "application/json", "X-Lab-Signup": "1" },
 			body: JSON.stringify(payload),
 			keepalive: true,
 			signal: controller.signal,
 		});
-		return { ok: response.ok, status: response.status };
+		const data: unknown = await response.json().catch(() => null);
+		return { ok: response.status === 200 && isSignupComplete(data), status: response.status };
 	} catch {
 		return { ok: false, status: 0 };
 	} finally {
 		clearTimeout(timeout);
 	}
+}
+
+export function isSignupComplete(data: unknown): boolean {
+	return typeof data === "object" && data !== null &&
+		"ok" in data && data.ok === true &&
+		"status" in data && data.status === "completed";
 }
