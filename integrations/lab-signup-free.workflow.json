@@ -1,0 +1,110 @@
+{
+  "workflowId": "new",
+  "name": "Criar conta no lab free",
+  "nodes": [
+    {
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "criar-conta-lab-free",
+        "responseMode": "responseNode",
+        "options": {}
+      }
+    },
+    {
+      "name": "Filtrar campos",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        240,
+        0
+      ],
+      "parameters": {
+        "mode": "manual",
+        "assignments": {
+          "assignments": [
+            {
+              "id": "nome",
+              "name": "nome",
+              "type": "string",
+              "value": "={{ String($json.body?.nome ?? '').trim().replace(/\\s+/g, ' ') }}"
+            },
+            {
+              "id": "telefone",
+              "name": "telefone",
+              "type": "string",
+              "value": "={{ String($json.body?.telefone ?? '').replace(/\\D/g, '') }}"
+            },
+            {
+              "id": "email",
+              "name": "email",
+              "type": "string",
+              "value": "={{ String($json.body?.email ?? '').trim().toLowerCase() }}"
+            },
+            {
+              "id": "aceite_termos",
+              "name": "aceite_termos",
+              "type": "boolean",
+              "value": "={{ $json.body?.aceite_termos === 'on' || $json.body?.aceite_termos === 'true' }}"
+            }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "name": "Responder webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        480,
+        0
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { ok: true, status: 'received' } }}",
+        "options": {
+          "responseCode": 200,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Cache-Control",
+                "value": "no-store"
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Filtrar campos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filtrar campos": {
+      "main": [
+        [
+          {
+            "node": "Responder webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

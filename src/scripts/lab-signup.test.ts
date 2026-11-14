@@ -61,10 +61,10 @@ describe("envio do formulário ao webhook de criação de conta", () => {
 
 	it("POST JSON com keepalive e reporta sucesso", async () => {
 		const fetchMock = vi.fn(async () => Response.json({ ok: true, status: "completed" }));
-		const result = await postSignup(buildPayload(validInput), "https://webhook.douglasgaspar.com/webhook/criar-conta", fetchMock as unknown as typeof fetch);
+		const result = await postSignup(buildPayload(validInput), "https://webhook.douglasgaspar.com/webhook/criar-conta-lab-free", fetchMock as unknown as typeof fetch);
 		expect(result.ok).toBe(true);
 		const [url, init] = fetchMock.mock.calls[0] as unknown as [string, RequestInit];
-		expect(url).toBe("https://webhook.douglasgaspar.com/webhook/criar-conta");
+		expect(url).toBe("https://webhook.douglasgaspar.com/webhook/criar-conta-lab-free");
 		expect(init.method).toBe("POST");
 		expect(init.keepalive).toBe(true);
 		expect((init.headers as Record<string, string>)["Content-Type"]).toBe("application/json");
@@ -98,7 +98,7 @@ describe("modal de cadastro nos componentes do LAB", () => {
 
 	it("envia o cadastro diretamente para o webhook de criação de conta por formulário", () => {
 		const modal = component("LabSignupModal");
-		expect(SIGNUP_WEBHOOK_URL).toBe("https://webhook.douglasgaspar.com/webhook/criar-conta");
+		expect(SIGNUP_WEBHOOK_URL).toBe("https://webhook.douglasgaspar.com/webhook/criar-conta-lab-free");
 		expect(modal).toContain('action={SIGNUP_WEBHOOK_URL}');
 		expect(modal).toContain('method="POST"');
 		expect(modal).not.toContain('data-success-url');

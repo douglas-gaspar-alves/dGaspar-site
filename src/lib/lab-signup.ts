@@ -5,8 +5,8 @@
 // O membro define a própria senha pelo "Perdeu a senha?" do portal,
 // recebendo o link por e-mail. Cadastro não autentica automaticamente.
 
-/** Destino do formulário de criação de conta do LAB. */
-export const SIGNUP_WEBHOOK_URL = "https://webhook.douglasgaspar.com/webhook/criar-conta";
+/** Webhook de entrada do cadastro gratuito no LAB. */
+export const SIGNUP_WEBHOOK_URL = "https://webhook.douglasgaspar.com/webhook/criar-conta-free";
 
 /** Ponte same-origin: nenhuma credencial ou senha interna chega ao navegador. */
 export const SIGNUP_API_URL = "/api/lab/signup";

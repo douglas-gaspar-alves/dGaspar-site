@@ -1,0 +1,51 @@
+/* Custom CSS for the n8n Form Trigger. This file is mirrored into options.customCss. */
+:root {
+  --font-family: Inter, system-ui, sans-serif;
+  --font-size-label: 13px;
+  --font-size-input: 14px;
+  --color-background: #0b0f26;
+  --color-card-bg: transparent;
+  --color-card-border: transparent;
+  --color-card-shadow: transparent;
+  --color-header: #f7faff;
+  --color-label: #cfe0f6;
+  --color-input-bg: #0b1027;
+  --color-input-border: #3a4869;
+  --color-input-text: #f7faff;
+  --color-link: #bac8df;
+  --color-focus-border: #00c2ff;
+  --color-submit-btn-bg: #00c2ff;
+  --color-submit-btn-text: #071221;
+  --color-required: #00c2ff;
+  --color-error: #ffb3bd;
+  --border-radius-card: 4px;
+  --border-radius-input: 4px;
+  --padding-container-top: 0px;
+  --padding-card: 0px;
+  --container-width: 100%;
+  --submit-btn-height: 52px;
+}
+body { background: transparent; color: #f7faff; }
+.container { width: 100%; padding: 0; }
+.card { padding: 0; border: 0; box-shadow: none; background: transparent; }
+#n8n-form > .form-header { display: none; }
+.inputs-wrapper { padding: 0 0 15px; }
+.form-group { margin-bottom: 7px; }
+form .form-input { min-height: 47px; }
+form .form-input::placeholder { color: #bac8df; opacity: .7; }
+form :is(input, textarea, button):focus-visible, .multiselect-option input:focus-visible {
+  outline: 2px solid #00c2ff;
+  outline-offset: 2px;
+}
+.multiselect { padding-inline: 0; }
+.multiselect-option label { color: #bac8df; font-size: 13px; }
+#submit-btn { margin-top: 4px; }
+#submit-btn:hover { background: #79ddff; opacity: 1; }
+#submitted-form { padding: 15px 0; }
+#submitted-form .form-header :is(h1, p) { color: #f7faff; line-height: 1.5; }
+#submitted-form a { color: #00c2ff; }
+.n8n-link, hr { display: none; }
+@media (max-width: 500px) {
+  .container { width: 100%; min-height: 0; padding: 0; }
+  .card { padding: 0; margin: 0; border: 0; }
+}

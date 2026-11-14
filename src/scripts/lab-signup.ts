@@ -2,6 +2,8 @@
 // A máscara do WhatsApp mantém a apresentação atual; o campo enviado é telefone.
 
 import {
+	SIGNUP_MEMBER_URL,
+	SIGNUP_SUCCESS_URL,
 	signupValidationError,
 } from "../lib/lab-signup";
 import { trackSignup } from "../lib/lab-signup-analytics";
@@ -30,6 +32,15 @@ function maskSignupPhone(value: string): string {
 	return `${countryCode}(${area}) ${number}`;
 }
 
+function signupOrigin(): string {
+	const pageUrl = new URL(window.location.href);
+	const utms = new URLSearchParams();
+	pageUrl.searchParams.forEach((value, key) => {
+		if (key.toLowerCase().startsWith("utm_")) utms.append(key, value);
+	});
+	return utms.toString() || pageUrl.href;
+}
+
 const phoneInput = form?.querySelector<HTMLInputElement>('[name="telefone"]');
 phoneInput?.addEventListener("input", () => {
 	const cursor = phoneInput.selectionStart ?? phoneInput.value.length;
@@ -47,19 +58,21 @@ phoneInput?.addEventListener("input", () => {
 	phoneInput.setSelectionRange(nextCursor, nextCursor);
 });
 
-function showStatus(message: string, kind: "error" | "success" = "error") {
+function showStatus(message: string, kind: "error" | "success" = "error", link?: { href: string; label: string }) {
 	if (!statusNode) return;
 	statusNode.hidden = false;
 	statusNode.dataset.kind = kind;
-	statusNode.textContent = message;
+	statusNode.replaceChildren(document.createTextNode(message));
+	if (link) {
+		statusNode.append(" ");
+		const anchor = document.createElement("a");
+		anchor.href = link.href;
+		anchor.textContent = link.label;
+		statusNode.append(anchor);
+	}
 	if (kind === "error") statusNode.focus();
 }
 
-function clearStatus() {
-	if (!statusNode) return;
-	statusNode.hidden = true;
-	statusNode.textContent = "";
-}
 
 function openDialog(event: Event, target: HTMLElement, element: HTMLDialogElement) {
 	// Sem JavaScript o link original (portal do FluentCommunity) continua
@@ -88,18 +101,14 @@ dialog?.addEventListener("click", (event) => {
 
 form?.addEventListener("submit", (event) => {
 	event.preventDefault();
-	if (!form || !(form instanceof HTMLFormElement)) return;
-	if (sending) return;
-	const getString = (name: string) =>
-		form.querySelector<HTMLInputElement>(`[name="${name}"]`)?.value ?? "";
-
+	if (!form || !(form instanceof HTMLFormElement) || sending) return;
+	const getString = (name: string) => form.querySelector<HTMLInputElement>(`[name="${name}"]`)?.value ?? "";
 	const input = {
 		nome: getString("nome"),
 		whatsapp: getString("telefone"),
 		email: getString("email"),
 		aceitouTermos: form.querySelector<HTMLInputElement>('[name="aceite_termos"]')?.checked ?? false,
 	};
-
 	for (const field of form.querySelectorAll("input")) field.removeAttribute("aria-invalid");
 	const validationError = signupValidationError(input);
 	if (validationError) {
@@ -109,26 +118,52 @@ form?.addEventListener("submit", (event) => {
 		return;
 	}
 
-	clearStatus();
-
 	sending = true;
 	form.setAttribute("aria-busy", "true");
 	showStatus("Enviando seu cadastro. Aguarde…", "success");
 	void trackSignup("lab_signup_submit");
-	if (submitButton) {
-		submitButton.disabled = true;
-		submitButton.dataset.sending = "true";
-	}
-	try {
-		// POST nativo: segue o destino configurado no formulário sem depender de CORS.
-		HTMLFormElement.prototype.submit.call(form);
-	} catch {
-		showStatus("Não conseguimos registrar agora. Tente novamente em instantes.");
+	if (submitButton) submitButton.disabled = true;
+
+	const body = new URLSearchParams();
+	body.set("nome", input.nome.trim());
+	body.set("telefone", input.whatsapp);
+	body.set("email", input.email.trim().toLowerCase());
+	body.set("aceite_termos", String(input.aceitouTermos));
+	body.set("origem", signupOrigin());
+
+	void fetch(form.action, {
+		method: "POST",
+		headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8", "Accept": "application/json" },
+		body,
+	}).then(async (response) => {
+		const result: unknown = await response.json().catch(() => null);
+		if (response.ok && isSignupComplete(result)) {
+			void trackSignup("lab_signup_complete");
+			window.location.assign(SIGNUP_SUCCESS_URL);
+			return;
+		}
+		if (isSignupEmailRegistered(result)) {
+			showStatus("Este e-mail já está registrado. Faça login no LAB:", "error", { href: SIGNUP_MEMBER_URL, label: "Acessar o login" });
+			return;
+		}
+		showStatus("Não foi possível concluir o cadastro. Recarregue a página e tente novamente.");
+	}).catch(() => {
+		showStatus("Não foi possível concluir o cadastro. Recarregue a página e tente novamente.");
+	}).finally(() => {
 		sending = false;
 		form.removeAttribute("aria-busy");
-		if (submitButton) {
-			submitButton.disabled = false;
-			submitButton.dataset.sending = "false";
-		}
-	}
+		if (submitButton) submitButton.disabled = false;
+	});
 });
+
+function isSignupComplete(data: unknown): boolean {
+	return typeof data === "object" && data !== null &&
+		(("resposta" in data && data.resposta === "ok") ||
+			("ok" in data && data.ok === true && "status" in data && data.status === "completed"));
+}
+
+function isSignupEmailRegistered(data: unknown): boolean {
+	return typeof data === "object" && data !== null &&
+		(("resposta" in data && data.resposta === "esse email, já está cadastrado") ||
+			("status" in data && (data.status === "email_registered" || data.status === "already_registered")));
+}

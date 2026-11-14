@@ -1,0 +1,61 @@
+{
+  "mcpServers": {
+    "GitHub": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/",
+      "headers": {
+        "Authorization": "Bearer ${GITHUB_PERSONAL_ACCESS_TOKEN}"
+      }
+    },
+    "Cloudflare": {
+      "type": "http",
+      "url": "https://docs.mcp.cloudflare.com/mcp"
+    },
+    "Context7": {
+      "type": "http",
+      "url": "https://mcp.context7.com/mcp",
+      "headers": {
+        "CONTEXT7_API_KEY": "${CONTEXT7_API_KEY}"
+      }
+    },
+    "cloudflare-api": {
+      "type": "http",
+      "url": "https://mcp.cloudflare.com/mcp"
+    },
+    "cloudflare-docs": {
+      "type": "http",
+      "url": "https://docs.mcp.cloudflare.com/mcp"
+    },
+    "n8n": {
+      "type": "http",
+      "url": "https://flows.douglasgaspar.com/mcp-server/http"
+    },
+    "ai-memory": {
+      "type": "http",
+      "url": "http://100.66.128.80:49374/mcp",
+      "headers": {
+        "Authorization": "Bearer ${AI_MEMORY_AUTHORIZATION}"
+      }
+    },
+    "cloudflare-browser": {
+      "type": "http",
+      "url": "https://browser.mcp.cloudflare.com/mcp"
+    },
+    "cloudflare-agents-docs": {
+      "type": "http",
+      "url": "https://agents.cloudflare.com/mcp"
+    },
+    "cloudflare-containers": {
+      "type": "http",
+      "url": "https://containers.mcp.cloudflare.com/mcp"
+    },
+    "cloudflare-dex": {
+      "type": "http",
+      "url": "https://dex.mcp.cloudflare.com/mcp"
+    },
+    "cloudflare-casb": {
+      "type": "http",
+      "url": "https://casb.mcp.cloudflare.com/mcp"
+    }
+  }
+}

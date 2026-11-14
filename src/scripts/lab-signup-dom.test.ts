@@ -5,7 +5,7 @@ const valid = { nome: "Pessoa Teste", telefone: "22987654321", email: "test@exam
 
 beforeEach(async () => {
 	vi.resetModules();
-	document.body.innerHTML = `<dialog data-lab-signup-modal><form data-lab-signup-form action="https://webhook.douglasgaspar.com/webhook/criar-conta" method="POST"><input name="nome"><input name="email"><input name="telefone"><input type="checkbox" name="aceite_termos"><p data-lab-signup-status tabindex="-1" hidden></p><button data-lab-signup-submit>Cadastrar</button></form></dialog>`;
+	document.body.innerHTML = `<dialog data-lab-signup-modal><form data-lab-signup-form action="https://webhook.douglasgaspar.com/webhook/criar-conta-lab-free" method="POST"><input name="nome"><input name="email"><input name="telefone"><input type="checkbox" name="aceite_termos"><p data-lab-signup-status tabindex="-1" hidden></p><button data-lab-signup-submit>Cadastrar</button></form></dialog>`;
 	window.umami = { track: vi.fn() };
 	document.querySelector("dialog")?.setAttribute("open", "");
 	await import("./lab-signup");
