@@ -1,5 +1,7 @@
 import {
 	buildBookingUrl,
+	buildConsultingFormBody,
+	CONSULTING_FORM_WEBHOOK_URL,
 	formatTelefone,
 	validateCase,
 	validateIdentity,
@@ -146,6 +148,17 @@ for (const dialog of dialogs) {
 			showStatus(status, error);
 			return;
 		}
-		window.location.assign(buildBookingUrl(identity, bookingCase));
+		const destination = buildBookingUrl(identity, bookingCase);
+		if (variant === "negocio" && bookingCase.variant === "negocio") {
+			const submit = form.querySelector<HTMLButtonElement>("[type='submit']");
+			if (submit) submit.disabled = true;
+			void fetch(CONSULTING_FORM_WEBHOOK_URL, {
+				method: "POST",
+				body: buildConsultingFormBody(identity, bookingCase, window.location.href),
+				keepalive: true,
+				mode: "no-cors",
+			});
+		}
+		window.location.assign(destination);
 	});
 }

@@ -1,8 +1,12 @@
 // Agenda compartilhada das consultorias e da criação de sites.
-// O site não guarda os dados: eles só entram na URL do Cal.com.
+// A página de consultorias também envia os campos ao webhook de serviços
+// e, em seguida, abre a mesma agenda. As outras páginas só preenchem a URL.
 
 export const bookingCalendarUrl =
 	"https://cal.com/douglasgaspar/consultorias-servicos?overlayCalendar=true";
+
+/** Webhook do formulário de /consultorias/. Recebe os campos e depois abre a agenda. */
+export const CONSULTING_FORM_WEBHOOK_URL = "https://webhook.douglasgaspar.com/webhook/servicos-geral";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const NOME_MIN_LEN = 3;
@@ -95,6 +99,25 @@ export function caseNotes(input: BookingCase): string {
 		`O que precisa: ${input.precisa.trim()}`,
 		`O que o site precisa resolver: ${input.resolver.trim()}`,
 	].join("\n");
+}
+
+/** Campos da consultoria empresarial, no formato que o webhook de serviços recebe. */
+export function buildConsultingFormBody(
+	identity: BookingIdentity,
+	bookingCase: Extract<BookingCase, { variant: "negocio" }>,
+	origem: string,
+): URLSearchParams {
+	return new URLSearchParams({
+		nome: identity.nome.trim(),
+		email: identity.email.trim(),
+		telefone: identity.telefone.trim(),
+		negocio: bookingCase.negocio.trim(),
+		avaliar: bookingCase.avaliar.trim(),
+		hoje: bookingCase.hoje.trim(),
+		proposta: "sim",
+		pagina: "/consultorias/",
+		origem: origem.trim(),
+	});
 }
 
 export function buildBookingUrl(identity: BookingIdentity, bookingCase: BookingCase): string {

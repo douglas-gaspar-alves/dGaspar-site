@@ -1,7 +1,10 @@
 import { describe, expect, it } from "vitest";
+import { readFileSync } from "node:fs";
 import {
+	CONSULTING_FORM_WEBHOOK_URL,
 	bookingCalendarUrl,
 	buildBookingUrl,
+	buildConsultingFormBody,
 	formatTelefone,
 	phoneForCal,
 	validateCase,
@@ -67,5 +70,31 @@ describe("agenda Cal.com", () => {
 		expect(new URL(sites).searchParams.get("title")).toBe("Criação de sites");
 		expect(new URL(sites).searchParams.get("notes")).toContain("/servicos/criacao-de-sites/");
 		expect(validateCase({ variant: "agente", tarefa: "Nota", onde: "Notas e estudo", confirma: false })).toContain("não configura");
+	});
+
+	it("envia os campos da consultoria ao webhook e só então abre a agenda atual", () => {
+		const body = buildConsultingFormBody(identity, {
+			variant: "negocio",
+			negocio: "Padaria Centro",
+			avaliar: "Atendimento e respostas repetidas",
+			hoje: "As perguntas chegam no WhatsApp.",
+		}, "https://douglasgaspar.com/consultorias/?utm_source=ig");
+
+		expect(CONSULTING_FORM_WEBHOOK_URL).toBe("https://webhook.douglasgaspar.com/webhook/servicos-geral");
+		expect(body.get("nome")).toBe("Ana Souza");
+		expect(body.get("email")).toBe("ana@exemplo.com");
+		expect(body.get("telefone")).toBe("(22) 99999-9999");
+		expect(body.get("negocio")).toBe("Padaria Centro");
+		expect(body.get("avaliar")).toBe("Atendimento e respostas repetidas");
+		expect(body.get("hoje")).toBe("As perguntas chegam no WhatsApp.");
+		expect(body.get("proposta")).toBe("sim");
+		expect(body.get("pagina")).toBe("/consultorias/");
+		expect(body.get("origem")).toContain("/consultorias/");
+
+		const dialog = readFileSync(new URL("./booking-dialog.ts", import.meta.url), "utf8");
+		expect(dialog).toContain("CONSULTING_FORM_WEBHOOK_URL");
+		expect(dialog).toContain('variant === "negocio"');
+		expect(dialog).toContain("keepalive: true");
+		expect(dialog).toContain("window.location.assign(destination)");
 	});
 });
