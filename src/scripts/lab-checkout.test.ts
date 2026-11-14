@@ -206,6 +206,27 @@ describe("pop-up de assinatura nos componentes do LAB", () => {
 	});
 
 	// SPECSFY: US-001 US-002 FR-005 NFR-003 AC-009 AC-010 AC-011
+	it("envia os campos, o botão clicado e a origem ao webhook do formulário Criador", async () => {
+		const { CREATOR_FORM_WEBHOOK_URL, buildCreatorFormBody, creatorLeadOrigin } = await checkoutLib();
+		const script = checkoutScript();
+		expect(CREATOR_FORM_WEBHOOK_URL).toBe("https://webhook.douglasgaspar.com/webhook/formulario-criador");
+		// origem: só a query utm_ quando presente...
+		expect(creatorLeadOrigin("https://douglasgaspar.com/lab/?utm_source=ig&utm_medium=cpc#x")).toBe(
+			"utm_source=ig&utm_medium=cpc",
+		);
+		// ...senão a URL completa da página
+		expect(creatorLeadOrigin("https://douglasgaspar.com/lab/")).toBe("https://douglasgaspar.com/lab/");
+		expect(buildCreatorFormBody(happyInput, "Assinatura anual", "utm_source=ig").toString()).toBe(
+			"nome=Douglas+Gaspar+Filho&email=Douglas%40Example.com&telefone=&botao=Assinatura+anual&origem=utm_source%3Dig",
+		);
+		expect(script).toContain("CREATOR_FORM_WEBHOOK_URL");
+		expect(script).toContain("buildCreatorFormBody");
+		expect(script).toContain("creatorLeadOrigin(window.location.href)");
+		expect(script).toContain('"Assinatura mensal"');
+		expect(script).toContain('"Assinatura anual"');
+		expect(script).toContain("window.location.assign(buildCheckoutUrl(link.href, input))");
+	});
+
 	it("gatilhos pagos mantêm href mensal real como fallback por plano", () => {
 		const plans = component("LabPlans");
 		const page = checkoutPage();

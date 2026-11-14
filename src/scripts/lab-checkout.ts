@@ -1,13 +1,17 @@
 // Fio do pop-up de assinatura paga do LAB (plano Criador). Padrão idêntico ao modal de cadastro gratuito: gatilhos <a> com
 // data-lab-checkout-open (valor = plano) abrem o <dialog> nativo do próprio
 // plano; os dois botões de assinatura só navegam com nome e e-mail válidos,
-// compondo a URL de prefill pela lib src/lib/lab-checkout.ts (sem rede
-// — NFR-001). O telefone ganha máscara digitável dígito a dígito e segue
+// compondo a URL de prefill pela lib src/lib/lab-checkout.ts. No clique válido,
+// os campos e o botão escolhido também seguem ao webhook do formulário Criador.
+// O telefone ganha máscara digitável dígito a dígito e segue
 // opcional (FR-004). Sem JavaScript os <a> mantêm o href real do checkout
 // mensal do próprio plano.
 
 import {
 	buildCheckoutUrl,
+	buildCreatorFormBody,
+	creatorLeadOrigin,
+	CREATOR_FORM_WEBHOOK_URL,
 	isCheckoutReady,
 	type CheckoutInput,
 } from "../lib/lab-checkout";
@@ -91,7 +95,7 @@ for (const dialog of dialogs) {
 		});
 	}
 
-	// Bloqueado → o clique não navega; livre → navega na mesma aba com prefill.
+	// Bloqueado → o clique não navega; livre → registra o botão e segue ao checkout.
 	for (const link of actionLinks) {
 		link.addEventListener("click", (event) => {
 			const input = currentInput(form);
@@ -100,6 +104,13 @@ for (const dialog of dialogs) {
 				return;
 			}
 			event.preventDefault();
+			const botao = link.hasAttribute("data-lab-checkout-annual") ? "Assinatura anual" : "Assinatura mensal";
+			void fetch(CREATOR_FORM_WEBHOOK_URL, {
+				method: "POST",
+				body: buildCreatorFormBody(input, botao, creatorLeadOrigin(window.location.href)),
+				keepalive: true,
+				mode: "no-cors",
+			});
 			window.location.assign(buildCheckoutUrl(link.href, input));
 		});
 	}

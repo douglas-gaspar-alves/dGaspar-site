@@ -78,6 +78,13 @@ describe("página de vendas do LAB", () => {
     expect(component("LabQuestions")).toContain("nem promete resultados financeiros");
   });
 
+  it("leva o botão final para a seção de planos", () => {
+    const footer = component("LabFooter");
+    expect(footer).toContain("O primeiro passo");
+    expect(footer).toContain('href="#planos"');
+    expect(footer).not.toContain("fcom_action=auth");
+  });
+
   it("usa o logo do LAB no cabeçalho fixo, sem o logo do hub", () => {
     const header = component("LabHeader");
     expect(header).toContain("/images/logo-lab-escuro.svg");

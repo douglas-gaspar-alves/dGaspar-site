@@ -12,6 +12,9 @@ export const CHECKOUT_MONTHLY_URL = "https://pay.cakto.com.br/mtya7hj_1232361";
 /** Checkout anual do plano Criador na Cakto. */
 export const CHECKOUT_ANNUAL_URL = "https://pay.cakto.com.br/e98y5m2_1232361";
 
+/** Webhook do formulário do plano Criador. Recebe os campos e o botão clicado. */
+export const CREATOR_FORM_WEBHOOK_URL = "https://webhook.douglasgaspar.com/webhook/formulario-criador";
+
 /**
  * Destinos de assinatura por plano consumido no pop-up (seção 7, FR-003):
  * o modal instancia os hrefs do plano que o abriu; chaves casam com
@@ -67,6 +70,31 @@ export function normalizePhoneForCheckout(valor: string): string {
  * individualmente (`encodeURIComponent`, NFR-002) e o telefone chega
  * normalizado para dígitos — o formato reconhecido pela plataforma (R-003).
  */
+/** Campos do pop-up mais o rótulo do botão clicado, no formato que o webhook recebe. */
+export function buildCreatorFormBody(
+	input: CheckoutInput,
+	botao: string,
+	origem: string,
+): URLSearchParams {
+	return new URLSearchParams({
+		nome: input.nome.trim(),
+		email: input.email.trim(),
+		telefone: input.telefone.trim(),
+		botao: botao.trim(),
+		origem: origem.trim(),
+	});
+}
+
+/** Origem do lead: a query utm_ da página quando existe; senão, a URL completa. */
+export function creatorLeadOrigin(href: string): string {
+	const pageUrl = new URL(href);
+	const utms = new URLSearchParams();
+	pageUrl.searchParams.forEach((value, key) => {
+		if (key.toLowerCase().startsWith("utm_")) utms.append(key, value);
+	});
+	return utms.toString() || pageUrl.href;
+}
+
 export function buildCheckoutUrl(checkoutUrl: string, input: CheckoutInput): string {
 	const phone = normalizePhoneForCheckout(input.telefone.trim());
 	const params = [
