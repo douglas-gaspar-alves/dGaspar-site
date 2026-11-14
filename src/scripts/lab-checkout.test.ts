@@ -190,20 +190,19 @@ describe("pop-up de assinatura nos componentes do LAB", () => {
 	});
 
 	// SPECSFY: US-002 FR-005 NFR-003 AC-008
-	it("gatilhos gratuitos do card e da hero abrem o modal de cadastro", () => {
+	it("o card grátis abre o cadastro e o CTA da hero desce até os planos", () => {
 		const plans = component("LabPlans");
 		const hero = component("LabHero");
-		// literal exigida por lab-signup.test.ts depois desta fatia
 		expect(plans).toContain('data-lab-signup-open={plan.modal === "signup" ? "" : undefined}');
 		const curioso = planBlock(plans, 'name: "Curioso"', 'name: "Criador"');
 		expect(curioso).toContain('modal: "signup"');
 		expect(curioso).toContain("href: registerUrl");
-		// a hero mantém o destino real do cadastro gratuito
 		const heroCta = hero
 			.split("\n")
-			.find((line) => line.includes("Criar conta gratuita")) ?? "";
-		expect(heroCta).toContain("data-lab-signup-open");
-		expect(heroCta).toContain("href={registerUrl}");
+			.find((line) => line.includes("Criar minha conta agora")) ?? "";
+		expect(heroCta).toContain('href="#planos"');
+		expect(heroCta).not.toContain("data-lab-signup-open");
+		expect(hero).not.toContain("Conhecer os planos");
 	});
 
 	// SPECSFY: US-001 US-002 FR-005 NFR-003 AC-009 AC-010 AC-011

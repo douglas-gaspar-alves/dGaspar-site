@@ -106,11 +106,12 @@ describe("modal de cadastro nos componentes do LAB", () => {
 		expect(script).not.toContain("postSignup");
 	});
 
-	it("dispara de ambos os CTAs de cadastro gratuito mantendo o fallback do portal", () => {
+	it("mantém cadastro no plano grátis e leva o CTA da hero aos planos", () => {
 		expect(component("LabPlans")).toContain("action: \"Começar grátis\"");
 		expect(component("LabPlans")).toContain('data-lab-signup-open={plan.modal === "signup" ? "" : undefined}');
-		expect(component("LabHero")).toContain("data-lab-signup-open");
-		expect(component("LabHero")).toContain("https://lab.douglasgaspar.com/?fcom_action=auth&form=register");
+		expect(component("LabHero")).toContain('href="#planos">Criar minha conta agora');
+		expect(component("LabHero")).not.toContain("data-lab-signup-open");
+		expect(component("LabHero")).not.toContain("Conhecer os planos");
 		expect(readFileSync(fileURLToPath(new URL("../pages/lab/index.astro", import.meta.url)), "utf8")).toContain("<LabSignupModal");
 	});
 });
