@@ -55,6 +55,23 @@ describe("página de vendas do LAB", () => {
     expect(css).toContain("grid-template-columns: repeat(2, minmax(0, 1fr))");
   });
 
+  it("no mobile, troca os planos por abas e deixa o Criador ativo", () => {
+    const plans = component("LabPlans");
+    expect(plans).toContain('class="lab-plan-tabs"');
+    expect(plans).toContain('id={`lab-plan-tab-${plan.key}`}');
+    expect(plans).toContain("checked={plan.featured}");
+    expect(plans).toContain('data-plan={plan.key}');
+    expect(plans.indexOf('name: "Curioso"')).toBeLessThan(plans.indexOf('name: "Criador"'));
+    expect(plans).toContain('tabPrice: "Grátis"');
+    expect(plans).toContain('tabPrice: "R$ 29,99/mês"');
+    expect(css).toContain(".lab-plan-tabs { display: none;");
+    const mobile = css.slice(css.lastIndexOf("@media (max-width: 800px)"));
+    expect(mobile).toContain(".lab-plan-tabs { display: grid; grid-template-columns: 1fr 1fr;");
+    expect(mobile).toContain("#lab-plan-tab-empreendedor:checked");
+    expect(mobile).toContain("#lab-plan-tab-curioso:checked");
+    expect(mobile.indexOf("@media (min-width")).toBe(-1);
+  });
+
   it("explicita o que o plano gratuito não inclui e separa comunidade de consultoria", () => {
     expect(component("LabHero")).toContain("acesso limitado à trilha");
     expect(component("LabQuestions")).toContain("Consultorias e serviços de implementação");

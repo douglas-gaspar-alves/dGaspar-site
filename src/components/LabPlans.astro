@@ -22,6 +22,7 @@ const plans = [
     href: registerUrl,
     modal: "signup",
     featured: false,
+    tabPrice: "Grátis",
   },
   {
     name: "Criador",
@@ -41,6 +42,7 @@ const plans = [
     href: CHECKOUT_MONTHLY_URL,
     modal: "checkout",
     featured: true,
+    tabPrice: "R$ 29,99/mês",
   },
 ];
 ---
@@ -52,9 +54,21 @@ const plans = [
       <h2 id="lab-plans-title">Escolha como quer<br /><em>participar.</em></h2>
       <p>A versão gratuita é uma porta de entrada. O plano Criador acrescenta acessos a espaços exclusivos, os desafios, os encontros e o chat ilimitado.</p>
     </div>
+    <fieldset class="lab-plan-tabs">
+      <legend class="sr-only">Escolha o plano</legend>
+      {plans.map((plan) => (
+        <div class="lab-plan-tab">
+          <input type="radio" name="lab-plan-mobile" id={`lab-plan-tab-${plan.key}`} checked={plan.featured} />
+          <label for={`lab-plan-tab-${plan.key}`}>
+            <span class="lab-plan-tab-name">{plan.name}</span>
+            <span class="lab-plan-tab-price">{plan.tabPrice}</span>
+          </label>
+        </div>
+      ))}
+    </fieldset>
     <div class="lab-plan-grid">
       {plans.map((plan) => (
-        <article class:list={["lab-plan", { "lab-plan-featured": plan.featured }]}>
+        <article class:list={["lab-plan", { "lab-plan-featured": plan.featured }]} data-plan={plan.key}>
           <div class="lab-plan-top"><span>{plan.tag}</span>{plan.featured && <span class="lab-plan-badge">Para começar a aplicar</span>}</div>
           <h3>{plan.name}</h3>
           <p class="lab-plan-audience">{plan.audience}</p>
